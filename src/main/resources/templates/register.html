@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html lang="en">
 
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>LBMS Register</title>
+	<link rel="stylesheet" href="./css/register.css" />
+</head>
+
+<body>
+	<div class="container">
+		<div class="form" id="login">
+			<h2 class="form__title">Register</h2>
+			<div class="form__input-group">
+				<input type="text" class="form__input" autofocus placeholder="Enter username" id="usernameInput" />
+				<div class="padding"></div>
+			</div>
+
+			<div class="form__input-group">
+				<input type="email" class="form__input" autofocus placeholder="Enter email" id="emailInput" />
+				<div class="padding"></div>
+			</div>
+
+			<div class="form__input-group">
+				<input type="password" class="form__input" autofocus placeholder="Enter password" id="passwordInput" />
+				<div class="padding"></div>
+			</div>
+
+			<div class="form__input-group">
+				<input type="number" class="form__input" autofocus placeholder="Enter phone no" id="phoneInput" />
+				<div class="padding"></div>
+				<a href="#"><button class="form__button a" id="loginButton">
+						Register
+					</button></a>
+				<div class="padding"></div>
+				<a href="#"><button class="form__button" id="loginButton">Go Home</button></a>
+			</div>
+		</div>
+	</div>
 </body>
+
 </html>

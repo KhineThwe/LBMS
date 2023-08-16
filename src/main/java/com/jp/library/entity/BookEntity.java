@@ -12,6 +12,7 @@ public class BookEntity {
 	private String bookType;
 	private String fileUpload;
 	private String imageUpload;
+	private byte[] content;
 
 	public String getBookId() {
 		return bookId;

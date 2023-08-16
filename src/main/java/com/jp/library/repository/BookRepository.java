@@ -1,6 +1,7 @@
 package com.jp.library.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,7 +17,11 @@ public interface BookRepository {
 	
 	List<BookEntity> findByCategory(BookEntity e);
 	
+	public Optional<BookEntity> findById(int id);
+	
 	List<BookEntity> filter(BookEntity e);
 	
 	public void bookAdd(BookEntity book);
+	
+	public void update(BookEntity exp);
 }

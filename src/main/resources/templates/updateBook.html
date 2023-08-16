@@ -1,113 +1,114 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Update Book</title>
-    <link th:href="@{css/bootstrap.min.css}" rel="stylesheet" />
-    <link rel="stylesheet" th:href="@{css/book.css}" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
-    />
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-2"></div>
-        <div class="d-flex col-md-4 justify-content-center">
-          <img src="./img/library.png" alt="library" class="img-custom mt-5" />
-        </div>
-        <div class="col-md-4">
-          <p class="px-5 ml-md-5 m-3 fw-bold">Update Book</p>
-          <form action="">
-            <table>
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="form-control-custom m-3 text-center">
-                      Registration ID
-                    </div>
-                  </td>
-                  <td>
-                    <div><input type="text" class="input-custom px-4" /></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-control-custom m-3 text-center">
-                      Book Name
-                    </div>
-                  </td>
-                  <td>
-                    <div><input type="text" class="input-custom px-4" /></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-control-custom m-3 text-center">
-                      Book Category
-                    </div>
-                  </td>
-                  <td>
-                    <div><input type="text" class="input-custom px-4" /></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-control-custom m-3 text-center">
-                      Author
-                    </div>
-                  </td>
-                  <td>
-                    <div><input type="text" class="input-custom px-4" /></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-control-custom m-3 text-center">
-                      Produce Year
-                    </div>
-                  </td>
-                  <td>
-                    <div><input type="text" class="input-custom px-4" /></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-control-custom m-3 text-center">
-                      Book Type
-                    </div>
-                  </td>
-                  <td>
-                    <div>
-                      <select
-                        class="input-custom px-4"
-                        aria-label="Default select example"
-                      >
-                        <option selected></option>
-                        <option value="ebook">EBook</option>
-                        <option value="book">Book</option>
-                      </select>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="d-md-flex justify-content-md-around mt-5 mx-1">
-              <input
-                class="add-button mb-md-0 mb-3 mx-3"
-                type="submit"
-                value="Update Book"
-              />
-              <input class="cancel-button" type="submit" value="Cancel" />
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <script th:src="@{js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{js/popper.min.js}"></script>
-    <script th:src="@{js/bootstrap.min.js}"></script>
-  </body>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Update Book</title>
+	<link th:href="@{css/bootstrap.min.css}" rel="stylesheet" />
+	<link rel="stylesheet" th:href="@{css/book.css}" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="d-flex col-md-4 justify-content-center mt-5">
+				<img src="./img/library.png" alt="library" class="img-custom mt-5" />
+			</div>
+			<div class="col-md-4">
+				<p class="px-5 ml-md-5 m-3 fw-bold title-custom mt-4">Update Book</p>
+				<form th:action="@{/update}" th:object="${bookInfo}">
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<div class="form-control-custom m-3 text-center">
+										Registration ID
+									</div>
+								</td>
+								<td>
+									<div><input type="text" class="input-custom px-4" th:field="*{bookId}" /></div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-control-custom m-3 text-center">
+										Book Name
+									</div>
+								</td>
+								<td>
+									<div><input type="text" class="input-custom px-4" th:field="*{bookName}" /></div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-control-custom m-3 text-center">
+										Book Category
+									</div>
+								</td>
+								<td>
+									<div><select class="input-custom px-4" aria-label="Default select example"
+											th:field="*{bookCategory}">
+											<option th:value="default" selected></option>
+											<option th:value="programming">Programming</option>
+											<option th:value="database">DataBase</option>
+											<option th:value="networking">Networking</option>
+											<option th:value="git">Git</option>
+											<option th:value="excel">Excel</option>
+										</select></div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-control-custom m-3 text-center">
+										Author
+									</div>
+								</td>
+								<td>
+									<div><input type="text" class="input-custom px-4" th:field="*{bookAuthor}"/></div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-control-custom m-3 text-center">
+										Produce Year
+									</div>
+								</td>
+								<td>
+									<div><input type="text" class="input-custom px-4" th:field="*{produceYear}"/></div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-control-custom m-3 text-center">
+										Book Type
+									</div>
+								</td>
+								<td>
+									<div>
+										<select class="input-custom px-4" aria-label="Default select example" th:field="*{bookType}">
+											<option th:value="default" selected></option>
+											<option value="ebook">EBook</option>
+											<option value="book">Book</option>
+										</select>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="d-md-flex justify-content-md-around mt-5 mx-1">
+						<input class="add-button mb-md-0 mb-3 mx-3" type="submit" value="Update Book" />
+						<input class="cancel-button" type="submit" value="Cancel" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script th:src="@{js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{js/popper.min.js}"></script>
+	<script th:src="@{js/bootstrap.min.js}"></script>
+</body>
+
 </html>

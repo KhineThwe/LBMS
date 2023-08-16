@@ -1,6 +1,7 @@
 package com.jp.library.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,30 @@ public class BookService {
 		entity.setProduceYear(dto.getProduceYear());
 		entity.setBookType(dto.getBookType());
 		bookRepository.bookAdd(entity);
+	}
+	
+	public BookDto getBookInfo(int id) {
+		Optional<BookEntity> p = bookRepository.findById(id);
+		BookEntity e = p.get();
+		BookDto dto = new BookDto();
+		dto.setBookId(e.getBookId());
+		dto.setBookName(e.getBookName());
+		dto.setBookAuthor(e.getBookAuthor());
+		dto.setBookCategory(e.getBookCategory());
+		dto.setBookType(e.getBookType());
+		dto.setProduceYear(e.getProduceYear());
+		return dto;
+	}
+	
+	public void updateBook(BookDto dto) {
+		BookEntity entity = new BookEntity();
+		entity.setBookId(dto.getBookId());
+		entity.setBookAuthor(dto.getBookAuthor());
+		entity.setBookCategory(dto.getBookCategory());
+		entity.setBookName(dto.getBookName());
+		entity.setProduceYear(dto.getProduceYear());
+		entity.setBookType(dto.getBookType());
+		bookRepository.update(entity);
 	}
 
 }
