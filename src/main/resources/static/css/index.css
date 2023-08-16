@@ -71,7 +71,52 @@ body {
 .categories:first-child {
   border-bottom: 1px solid;
 }
+.categories a{
+	text-decoration: none;
+	color : #fff;
+}
 .book-description p {
   font-size: 14px;
   height: 2px;
+}
+.search-input-custom {
+  background-color: #fff;
+  border: 0;
+  outline: none;
+  width: 120px;
+  height: 30px;
+}
+.search-button {
+  background-color: #517059;
+  border: 0;
+  outline: none;
+  width: 120px;
+  height: 30px;
+  text-align: center;
+}
+.search-button a {
+  text-decoration: none;
+  color: #fff;
+}
+.card-custom {
+  background-color: #90ee90;
+}
+.card-custom:hover {
+  background-color: #afe1af;
+}
+.card-status {
+  background-color: #80cc23;
+}
+.card-status a {
+  text-decoration: none;
+  color: #fff;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #80cc23;
+  color: white;
+  text-align: center;
 }

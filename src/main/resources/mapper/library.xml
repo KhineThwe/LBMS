@@ -12,4 +12,31 @@
 		<result column="file_url" property="fileUpload" />
 		<result column="image_url" property="ImageUpload" />
 	</resultMap>
+	
+	<select id="findAll" resultType="com.jp.library.entity.BookEntity" resultMap="library">
+	    SELECT * FROM book
+	</select>
+	
+	<select id="findBooks" resultType="com.jp.library.entity.BookEntity" resultMap="library">
+	    SELECT * FROM book WHERE book_type = 'book'
+	</select>
+	
+	<select id="findEBooks" resultType="com.jp.library.entity.BookEntity" resultMap="library">
+	    SELECT * FROM book WHERE book_type = 'ebook'
+	</select>
+	
+	<select id="findByCategory" parameterType="com.jp.library.entity.BookEntity" resultType="com.jp.library.entity.BookEntity" resultMap="library">
+	    SELECT * FROM book WHERE category = #{bookCategory}
+	</select>
+	
+	<select id="filter" parameterType="com.jp.library.entity.BookEntity" resultType="com.jp.library.entity.BookEntity" resultMap="library">
+	    SELECT * FROM book WHERE category = #{bookCategory} OR book_author = #{bookAuthor} OR book_id = #{bookId} OR book_name = #{bookName}
+	</select>
+	
+	
+	<insert id="bookAdd"
+		parameterType="com.jp.library.entity.BookEntity">
+		INSERT INTO book(book_id,book_name,category,book_author,produce_year,book_type)
+		VALUES(#{bookId},#{bookName},#{bookCategory},#{bookAuthor},#{produceYear},#{bookType})
+	</insert>
 </mapper>

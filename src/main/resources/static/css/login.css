@@ -1,8 +1,8 @@
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,700");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap");
 
 body {
   --bg-color: #e9ffe3;
-  --color-primary: #80cc23;
+  --color-primary: #92d050;
   --color-secondary: #a8f0cb;
   --border-radius: 4px;
   margin: 0;
@@ -10,7 +10,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 24px;
   background-color: var(--bg-color);
   background-size: cover;
 }
@@ -42,9 +42,39 @@ body {
 }
 
 .form__title {
+  color: #035114;
   margin-bottom: 2rem;
   text-align: center;
   letter-spacing: -1.5px;
+}
+
+::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #1e1e1e;
+}
+:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #1e1e1e;
+  opacity: 1;
+}
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #1e1e1e;
+  opacity: 1;
+}
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #1e1e1e;
+}
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #1e1e1e;
+}
+
+::placeholder {
+  /* Most modern browsers support this now. */
+  color: #1e1e1e;
+  font-size: 16px;
 }
 
 .form__input-group {
@@ -59,7 +89,7 @@ body {
   border-radius: var(--border-radius);
   border: 1px solid #dddddd;
   outline: none;
-  background: #eeeeee;
+  background: #f2fff6;
   transition: background 0.2s, border-color 0.2s;
 }
 
