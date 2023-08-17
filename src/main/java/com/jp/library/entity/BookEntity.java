@@ -1,5 +1,6 @@
 package com.jp.library.entity;
 
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Data
@@ -77,4 +78,21 @@ public class BookEntity {
 	public void setImageUpload(String imageUpload) {
 		this.imageUpload = imageUpload;
 	}
+
+	public byte[] getContent() {
+		return content;
+	}
+
+	public void setContent(byte[] content) {
+		this.content = content;
+	}
+	
+
+	@Transient
+	public String getLogoImagePath() {
+		if(bookName == null || bookId == null) return null;
+		return "/book-storage/" + bookId + "/" + bookName;
+		
+	}
+	
 }

@@ -1,6 +1,8 @@
 package com.jp.library.dto;
 
+
 import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -15,6 +17,9 @@ public class BookDto {
 	private String produceYear;
 	private String bookType;
 	private String fileUpload;
+	private String imageUpload;
+	private byte[] content;
+	
 	public String getBookId() {
 		return bookId;
 	}

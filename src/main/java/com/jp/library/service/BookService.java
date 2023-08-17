@@ -31,11 +31,15 @@ public class BookService {
 		return bookRepository.findByCategory(e);
 	}
 	
+	public Optional<BookEntity> findById(int id){
+		return bookRepository.findById(id);
+	}
+	
 	public List<BookEntity> filter(BookEntity e){
 		return bookRepository.filter(e);
 	}
 	
-	public void save(BookDto dto) {
+	public BookEntity save(BookDto dto) {
 		BookEntity entity = new BookEntity();
 		entity.setBookId(dto.getBookId());
 		entity.setBookName(dto.getBookName());
@@ -43,7 +47,9 @@ public class BookService {
 		entity.setBookCategory(dto.getBookCategory());
 		entity.setProduceYear(dto.getProduceYear());
 		entity.setBookType(dto.getBookType());
+		entity.setContent(dto.getContent());
 		bookRepository.bookAdd(entity);
+		return entity;
 	}
 	
 	public BookDto getBookInfo(int id) {

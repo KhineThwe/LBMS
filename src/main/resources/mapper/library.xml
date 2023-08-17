@@ -41,8 +41,8 @@
 	
 	<insert id="bookAdd"
 		parameterType="com.jp.library.entity.BookEntity" >
-		INSERT INTO book(book_id,book_name,category,book_author,produce_year,book_type)
-		VALUES(#{bookId},#{bookName},#{bookCategory},#{bookAuthor},#{produceYear},#{bookType})
+		INSERT INTO book(book_id,book_name,category,book_author,produce_year,book_type,content)
+		VALUES(#{bookId},#{bookName},#{bookCategory},#{bookAuthor},#{produceYear},#{bookType},#{content})
 	</insert>
 	
 	<update id="update"

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jp.library.repository.RoleRepository">
+
+    <resultMap id="roleResultMap" type="com.jp.library.entity.Role">
+        <id property="roleId" column="id"/>
+        <result property="name" column="role_name"/>
+    </resultMap>
+
+    <select id="getRoleById" resultMap="roleResultMap" parameterType="java.lang.Long">
+        SELECT * FROM roles WHERE id = #{roleId}
+    </select>
+
+    <select id="getRoleByName" resultMap="roleResultMap" parameterType="java.lang.String">
+        SELECT * FROM roles WHERE role_name = #{name}
+    </select>
+
+    <select id="getAllRoles" resultMap="roleResultMap">
+        SELECT * FROM roles
+    </select>
+
+    <insert id="insertRole" parameterType="com.jp.security.SpringSecurityDB.model.Role">
+        INSERT INTO roles (role_name) VALUES (#{name})
+    </insert>
+
+    <update id="updateRole" parameterType="com.jp.security.SpringSecurityDB.model.Role">
+        UPDATE roles SET role_name = #{name} WHERE id = #{roleId}
+    </update>
+
+    <delete id="deleteRole" parameterType="java.lang.Long">
+        DELETE FROM roles WHERE id = #{roleId}
+    </delete>
+
+</mapper>

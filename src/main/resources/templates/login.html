@@ -5,12 +5,19 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>LBMS Login</title>
-	<link rel="stylesheet" href="./css/login.css" />
+	<link rel="stylesheet" th:href="@{css/login.css}"/>
 </head>
 
 <body>
 	<div class="container">
 		<div class="form" id="login">
+			<!--Error Message!-->
+			<div th:if="${param.error}">
+					<div class="alert alert-danger">Invalid Username or Password</div>
+				</div>
+				<div th:if="${param.logout}">
+					<div class="alert alert-success">You have been logged out.</div>
+				</div>
 			<h2 class="form__title">Login</h2>
 			<div class="form__input-group">
 				<input type="text" class="form__input" autofocus placeholder="Enter username" id="usernameInput" />
