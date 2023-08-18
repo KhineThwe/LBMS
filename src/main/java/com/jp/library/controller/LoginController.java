@@ -34,7 +34,7 @@ public class LoginController {
 	public String registration(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model) {
 		User existingUser = userService.findUserByEmail(userDto.getEmail());
 
-		if (existingUser != null)
+		if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty())
 			result.rejectValue("email", null, "User already registered !!!");
 
 		if (result.hasErrors()) {
@@ -45,5 +45,12 @@ public class LoginController {
 		userService.saveUser(userDto);
 		return "redirect:/register?success";
 		//tochuuu
+		//1.only register works but in db,user_roles table datas are not saved.
+		//2.need to implment login page with spring security
+		//3.need to image upload and pdf upload,download 
+		//4.left available,login first and already lent option
+		//5.category create and need to update book table and add category table to db.	
+		//6.retrieve categories data from db and set on view
+		//7/search by two,three and both by query sample
 	}
 }

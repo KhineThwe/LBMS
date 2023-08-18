@@ -19,7 +19,7 @@
 			</div>
 			<div class="col-md-4">
 				<p class="px-5 ml-md-5 m-3 fw-bold title-custom mt-4">Update Book</p>
-				<form th:action="@{/update}" th:object="${bookInfo}">
+				<form th:action="@{/update}" th:object="${bookInfo}" method="post">
 					<table>
 						<tbody>
 							<tr>
@@ -29,7 +29,7 @@
 									</div>
 								</td>
 								<td>
-									<div><input type="text" class="input-custom px-4" th:field="*{bookId}" /></div>
+									<div><input type="text" class="input-custom px-4" th:field="*{bookId}" readonly/></div>
 								</td>
 							</tr>
 							<tr>
@@ -90,8 +90,8 @@
 									<div>
 										<select class="input-custom px-4" aria-label="Default select example" th:field="*{bookType}">
 											<option th:value="default" selected></option>
-											<option value="ebook">EBook</option>
-											<option value="book">Book</option>
+											<option th:value="ebook">EBook</option>
+											<option th:value="book">Book</option>
 										</select>
 									</div>
 								</td>
@@ -99,7 +99,7 @@
 						</tbody>
 					</table>
 					<div class="d-md-flex justify-content-md-around mt-5 mx-1">
-						<input class="add-button mb-md-0 mb-3 mx-3" type="submit" value="Update Book" />
+						<input class="update-button mb-md-0 mb-3 mx-3" type="submit" value="Update Book" />
 						<input class="cancel-button" type="submit" value="Cancel" />
 					</div>
 				</form>

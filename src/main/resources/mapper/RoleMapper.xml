@@ -22,11 +22,11 @@
         SELECT * FROM roles
     </select>
 
-    <insert id="insertRole" parameterType="com.jp.security.SpringSecurityDB.model.Role">
+    <insert id="insertRole" parameterType="com.jp.library.entity.Role" >
         INSERT INTO roles (role_name) VALUES (#{name})
     </insert>
 
-    <update id="updateRole" parameterType="com.jp.security.SpringSecurityDB.model.Role">
+    <update id="updateRole" parameterType="com.jp.library.entity.Role">
         UPDATE roles SET role_name = #{name} WHERE id = #{roleId}
     </update>
 

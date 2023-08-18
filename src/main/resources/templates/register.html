@@ -1,41 +1,53 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>LBMS Register</title>
-	<link rel="stylesheet" href="./css/register.css" />
+	<link rel="stylesheet" th:href="@{css/register.css}" />
 </head>
 
 <body>
 	<div class="container">
 		<div class="form" id="login">
 			<h2 class="form__title">Register</h2>
-			<div class="form__input-group">
-				<input type="text" class="form__input" autofocus placeholder="Enter username" id="usernameInput" />
+			<div th:if="${param.success}">
+						<div class="alert alert-info">
+							Registration successful !!!
+						</div>
+					</div>
+			<form th:action="@{/register}" method="post" th:object="${user}">
+				<input type="hidden" th:field="*{id}"/>
+				<div class="form__input-group">
+				<input type="text" class="form__input" autofocus placeholder="Enter username" id="usernameInput" name="username" th:field="*{name}"/>
+				<p class="text-danger" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></p>
 				<div class="padding"></div>
 			</div>
 
 			<div class="form__input-group">
-				<input type="email" class="form__input" autofocus placeholder="Enter email" id="emailInput" />
+				<input type="email" class="form__input" autofocus placeholder="Enter email" id="emailInput" name="email" th:field="*{email}"/>
+				<p class="text-danger" th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
 				<div class="padding"></div>
 			</div>
 
 			<div class="form__input-group">
-				<input type="password" class="form__input" autofocus placeholder="Enter password" id="passwordInput" />
+				<input type="password" class="form__input" autofocus placeholder="Enter password" id="passwordInput" name="password" th:field="*{password}"/>
+				<p class="text-danger" th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
 				<div class="padding"></div>
 			</div>
 
 			<div class="form__input-group">
-				<input type="number" class="form__input" autofocus placeholder="Enter phone no" id="phoneInput" />
+				<input type="tel" class="form__input" autofocus placeholder="Enter phone no" id="phoneInput" name="phone" th:field="*{phoneNo}"/>
+				<p class="text-danger" th:errors="*{phoneNo}" th:if="${#fields.hasErrors('phoneNo')}"></p>
 				<div class="padding"></div>
-				<a href="#"><button class="form__button a" id="loginButton">
-						Register
-					</button></a>
+				<input class="form__button a mt-5" type="submit" value="Register" id="registerButton"/>
+				
 				<div class="padding"></div>
-				<a href="#"><button class="form__button" id="loginButton">Go Home</button></a>
+				<a th:href="@{/}"><button class="form__button" id="loginButton">Go Home</button></a>
 			</div>
+			</form>
 		</div>
 	</div>
 </body>

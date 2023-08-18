@@ -7,7 +7,7 @@ import lombok.Data;
 public class BookEntity {
 	private String bookId;
 	private String bookName;
-	private String bookCategory;
+	private Category bookCategoryId;
 	private String bookAuthor;
 	private String produceYear;
 	private String bookType;
@@ -31,12 +31,12 @@ public class BookEntity {
 		this.bookName = bookName;
 	}
 
-	public String getBookCategory() {
-		return bookCategory;
+	public Category getBookCategoryId() {
+		return bookCategoryId;
 	}
 
-	public void setBookCategory(String bookCategory) {
-		this.bookCategory = bookCategory;
+	public void setBookCategoryId(Category bookCategoryId) {
+		this.bookCategoryId = bookCategoryId;
 	}
 
 	public String getBookAuthor() {

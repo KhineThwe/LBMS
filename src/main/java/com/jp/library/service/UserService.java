@@ -26,12 +26,18 @@ public class UserService {
 
 	public void saveUser(UserDto userDto) {
 		Role role = roleRepository.getRoleByName(TbConstants.Roles.USER);
+		System.out.println(role.getName());
 		if (role == null)
 			role = roleRepository.insertRole(new Role(TbConstants.Roles.USER));
 
 		User user = new User(userDto.getName(), userDto.getEmail(), userDto.getPhoneNo(),
 				passwordEncoder.encode(userDto.getPassword()), Arrays.asList(role));
+		System.out.println(user);
 		userRepository.insertUser(user);
+	}
+	
+	public User findUserByEmail(String email) {
+		return userRepository.getUserByEmail(email);
 	}
 
 }

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.jp.library.dto.BookDto;
 import com.jp.library.entity.BookEntity;
 import com.jp.library.service.BookService;
@@ -33,7 +34,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class BookController {
 	@Value("${spring.servlet.multipart.max-file-size}")
 	private String maxFileSize;
-	
+
 	@Autowired
 	BookService bookService;
 
@@ -43,7 +44,7 @@ public class BookController {
 		model.addAttribute("filter", new BookEntity());
 		return "index";
 	}
-	
+
 	@GetMapping("/books")
 	public String books(Model model) {
 		System.out.println(bookService.findBooks());
@@ -62,7 +63,7 @@ public class BookController {
 	@GetMapping("/category")
 	public String category(Model model, @RequestParam("name") String name) {
 		BookEntity e = new BookEntity();
-		e.setBookCategory(name);
+//		e.setBookCategoryId(name);
 		model.addAttribute("bookList", bookService.findByCategory(e));
 		model.addAttribute("filter", new BookEntity());
 		return "index";
@@ -85,33 +86,33 @@ public class BookController {
 	}
 
 	@PostMapping("/addBook")
-	public String addBookToDb(@ModelAttribute("book") BookDto dto,@RequestParam("document") MultipartFile mulitpartFile, RedirectAttributes ra) throws IOException {
+	public String addBookToDb(@ModelAttribute("book") BookDto dto,
+			@RequestParam("document") MultipartFile mulitpartFile, RedirectAttributes ra) throws IOException {
 		String fileName = StringUtils.cleanPath(mulitpartFile.getOriginalFilename());
-		System.out.println(fileName);
-		
-       //configuration for file upload
+
+		// configuration for file upload
 		dto.setContent(mulitpartFile.getBytes());
 		BookEntity b = bookService.save(dto);
 		String uploadDir = "./book-storage/" + b.getBookId();
 		Path uploadPath = Paths.get(uploadDir);
-		
-		if(!Files.exists(uploadPath)) {
+
+		if (!Files.exists(uploadPath)) {
 			Files.createDirectories(uploadPath);
 		}
-		
-		try (InputStream inputStream = mulitpartFile.getInputStream()){
+
+		try (InputStream inputStream = mulitpartFile.getInputStream()) {
 			Path filePath = uploadPath.resolve(fileName);
 			System.out.println(filePath.toFile().getAbsolutePath());
-			Files.copy(inputStream, filePath,StandardCopyOption.REPLACE_EXISTING);
-		}catch(IOException e) {
-			throw new IOException("Could not save uploaded File: "+fileName);
+			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			throw new IOException("Could not save uploaded File: " + fileName);
 		}
 		ra.addFlashAttribute("message", "The file has been uploaded successfully");
 		return "redirect:/";
 	}
-	
+
 	@GetMapping("/download")
-	public void downloadFile(@RequestParam("id") int id, HttpServletResponse response) throws Exception {
+	public void downloadFile(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
 		Optional<BookEntity> result = bookService.findById(id);
 		
 		if (!result.isPresent()) {
@@ -128,15 +129,15 @@ public class BookController {
 		outputStream.write(b.getContent());
 		outputStream.close();
 	}
-	
+
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
 	public String handleFileUploadError(RedirectAttributes ra) {
-		ra.addFlashAttribute("error","You could not upload file bigger than " + maxFileSize );
+		ra.addFlashAttribute("error", "You could not upload file bigger than " + maxFileSize);
 		return "redirect:/";
 	}
 
 	@GetMapping("/update/{id}")
-	public String updateBook(Model model, @PathVariable("id") int id) {
+	public String updateBook(Model model, @PathVariable("id") String id) {
 		model.addAttribute("bookInfo", bookService.getBookInfo(id));
 		return "updateBook";
 	}

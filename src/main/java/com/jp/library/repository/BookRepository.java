@@ -17,7 +17,7 @@ public interface BookRepository {
 	
 	List<BookEntity> findByCategory(BookEntity e);
 	
-	public Optional<BookEntity> findById(int id);
+	public Optional<BookEntity> findById(String id);
 	
 	List<BookEntity> filter(BookEntity e);
 	

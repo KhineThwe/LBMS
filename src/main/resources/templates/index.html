@@ -31,6 +31,7 @@
 			</div>
 			<div class="col-md-4 d-flex text-center text-md-right align-items-center">
 				<div class="justify-content-md-end">
+					<a th:href="@{/addCategory}" class="btn btn-width btn-width-category mx-2 mb-2 mb-md-0">Add Category</a>
 					<a th:href="@{/register}" class="btn btn-width mr-2 mb-2 mb-md-0">Register</a>
 					<a th:href="@{/login}" class="btn btn-width mx-2 mb-2 mb-md-0">Login</a>
 				</div>
@@ -114,7 +115,7 @@
 									<a href="#">Available</a>
 								</div>
 								<div class="text-center card-status p-2">
-									<a th:href="@{/register}" class="btn mr-2 mb-2 mb-md-0">Update</a>
+									<a th:href="@{/update/{id}(id=${book.bookId})}" class="btn mr-2 mb-2 mb-md-0">Update</a>
 								</div>
 							</div>
 						</div>

@@ -97,6 +97,9 @@ input:focus {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  position: relative;
+  left: 35px;
+  top: 10px;
 }
 .img-custom {
   width: 350px;
@@ -105,9 +108,9 @@ input:focus {
 }
 
 .cancel-button {
-  width: 800px;
+  width: 200px;
   background-color: #035114;
-  height: 40px;
+  height: 45px;
   font-family: Inter;
   font-size: 15px;
   font-style: normal;
@@ -116,6 +119,9 @@ input:focus {
   border: 0;
   outline: none;
   color: #fff;
+  position: relative;
+  left: 80px;
+  top: 10px;
 }
 
 .fa {
@@ -124,4 +130,47 @@ input:focus {
   background-image: url("/img/chevron-down.svg");
   padding: 1rem 2rem;
   color: #3a9c7d;
+}
+
+/*To add*/
+
+.table-custom {
+  margin-top: 10px;
+  position: relative;
+  top: 20px;
+}
+.update-button {
+  flex-shrink: 0;
+  width: 200px;
+  background: #035114;
+  height: 45px;
+  border: 0;
+  outline: none;
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  position: relative;
+  top: 10px;
+}
+.add-category-button {
+  flex-shrink: 0;
+  width: 220px;
+  background: #035114;
+  height: 40px;
+  border: 0;
+  outline: none;
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  position: relative;
+  top: 60px;
+  left: 25px;
 }

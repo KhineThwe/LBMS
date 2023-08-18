@@ -31,7 +31,7 @@ public class BookService {
 		return bookRepository.findByCategory(e);
 	}
 	
-	public Optional<BookEntity> findById(int id){
+	public Optional<BookEntity> findById(String id){
 		return bookRepository.findById(id);
 	}
 	
@@ -44,7 +44,7 @@ public class BookService {
 		entity.setBookId(dto.getBookId());
 		entity.setBookName(dto.getBookName());
 		entity.setBookAuthor(dto.getBookAuthor());
-		entity.setBookCategory(dto.getBookCategory());
+		entity.setBookCategoryId(null);
 		entity.setProduceYear(dto.getProduceYear());
 		entity.setBookType(dto.getBookType());
 		entity.setContent(dto.getContent());
@@ -52,14 +52,14 @@ public class BookService {
 		return entity;
 	}
 	
-	public BookDto getBookInfo(int id) {
+	public BookDto getBookInfo(String id) {
 		Optional<BookEntity> p = bookRepository.findById(id);
 		BookEntity e = p.get();
 		BookDto dto = new BookDto();
 		dto.setBookId(e.getBookId());
 		dto.setBookName(e.getBookName());
 		dto.setBookAuthor(e.getBookAuthor());
-		dto.setBookCategory(e.getBookCategory());
+		dto.setBookCategoryId(null);
 		dto.setBookType(e.getBookType());
 		dto.setProduceYear(e.getProduceYear());
 		return dto;
@@ -69,7 +69,7 @@ public class BookService {
 		BookEntity entity = new BookEntity();
 		entity.setBookId(dto.getBookId());
 		entity.setBookAuthor(dto.getBookAuthor());
-		entity.setBookCategory(dto.getBookCategory());
+		entity.setBookCategoryId(null);
 		entity.setBookName(dto.getBookName());
 		entity.setProduceYear(dto.getProduceYear());
 		entity.setBookType(dto.getBookType());
