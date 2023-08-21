@@ -67,12 +67,16 @@ public class BookService {
 		dto.setBookName(e.getBookName());
 		dto.setBookAuthor(e.getBookAuthor());
 		dto.setBookCategoryId(e.getBookCategoryId());
-		dto.setBookType(e.getBookType());
 		dto.setProduceYear(e.getProduceYear());
+		dto.setBookType(e.getBookType());
+		dto.setContent(e.getContent());
+		dto.setFileUpload(e.getFileUpload());
+		dto.setImageUpload(e.getImageUpload());
+		dto.setIs_available(e.getIs_available());
 		return dto;
 	}
 	
-	public void updateBook(BookDto dto) {
+	public BookEntity updateBook(BookDto dto) {
 		BookEntity entity = new BookEntity();
 		entity.setBookId(dto.getBookId());
 		entity.setBookAuthor(dto.getBookAuthor());
@@ -80,7 +84,15 @@ public class BookService {
 		entity.setBookName(dto.getBookName());
 		entity.setProduceYear(dto.getProduceYear());
 		entity.setBookType(dto.getBookType());
+		entity.setContent(dto.getContent());
+		entity.setFileUpload(dto.getFileUpload());
+		entity.setImageUpload(dto.getImageUpload());
+		entity.setIs_available(true);
 		bookRepository.update(entity);
+		return entity;
 	}
-
+	
+	public void updateAvailable(BookEntity b) {
+		bookRepository.updateAvailable(b);	
+	}
 }

@@ -38,22 +38,20 @@ public class BookController {
 
 	@Autowired
 	BookService bookService;
-	
+
 	@Autowired
 	CategoryService categoryService;
-	
 
 	@GetMapping("/")
 	public String index(Model model) {
 		model.addAttribute("bookList", bookService.findAll());
 		model.addAttribute("filter", new BookEntity());
-		model.addAttribute("categories",categoryService.findAll());
+		model.addAttribute("categories", categoryService.findAll());
 		return "index";
 	}
 
 	@GetMapping("/books")
 	public String books(Model model) {
-		System.out.println(bookService.findBooks());
 		model.addAttribute("bookList", bookService.findBooks());
 		model.addAttribute("filter", new BookEntity());
 		return "index";
@@ -72,14 +70,14 @@ public class BookController {
 		e.setBookCategoryId(name);
 		model.addAttribute("bookList", bookService.findByCategory(e));
 		model.addAttribute("filter", new BookEntity());
-		model.addAttribute("categories",categoryService.findAll());
+		model.addAttribute("categories", categoryService.findAll());
 		return "index";
 	}
 
 	@PostMapping("/filter")
 	public String filter(@ModelAttribute("filter") BookEntity e, Model model) {
 		model.addAttribute("bookList", bookService.filter(e));
-		model.addAttribute("categories",categoryService.findAll());
+		model.addAttribute("categories", categoryService.findAll());
 		model.addAttribute("filter", new BookEntity());
 		return "index";
 	}
@@ -91,16 +89,17 @@ public class BookController {
 		BookDto dto = new BookDto();
 		dto.setBookId(bookId);
 		model.addAttribute("book", dto);
-		model.addAttribute("categories",categoryService.findAll());
+		model.addAttribute("categories", categoryService.findAll());
 		return "addBook";
 	}
 
 	@PostMapping("/addBook")
 	public String addBookToDb(@ModelAttribute("book") BookDto dto,
-			@RequestParam("document") MultipartFile mulitpartFile,@RequestParam("pdf") MultipartFile pdf, RedirectAttributes ra) throws IOException {
+			@RequestParam("document") MultipartFile mulitpartFile, @RequestParam("pdf") MultipartFile pdf,
+			RedirectAttributes ra) throws IOException {
 		String fileName = StringUtils.cleanPath(mulitpartFile.getOriginalFilename());
-		String pdfName=StringUtils.cleanPath(pdf.getOriginalFilename());
-		
+		String pdfName = StringUtils.cleanPath(pdf.getOriginalFilename());
+
 		// configuration for file upload
 		dto.setContent(mulitpartFile.getBytes());
 		dto.setImageUpload(fileName);
@@ -120,11 +119,11 @@ public class BookController {
 
 		try (InputStream inputStream = mulitpartFile.getInputStream()) {
 			Path filePath = uploadPath.resolve(fileName);
-			Path pdfPath= updfPath.resolve(pdfName);
+			Path pdfPath = updfPath.resolve(pdfName);
 			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
 			Files.copy(inputStream, pdfPath, StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
-			throw new IOException("Could not save uploaded File: " + fileName +""+pdfName);
+			throw new IOException("Could not save uploaded File: " + fileName + "" + pdfName);
 		}
 //		ra.addFlashAttribute("message", "The file has been uploaded successfully");
 		return "redirect:/";
@@ -133,9 +132,7 @@ public class BookController {
 	@GetMapping("/download")
 	public void downloadFile(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
 		Optional<BookEntity> result = bookService.findById(id);
-		
-		
-		
+
 		if (!result.isPresent()) {
 			throw new Exception("Could not find document with ID: " + id);
 		}
@@ -145,7 +142,6 @@ public class BookController {
 		String headerValue = "attachment; filename = " + b.getPDFPath();
 
 		response.setHeader(headerKey, headerValue);
-		
 
 		ServletOutputStream outputStream = response.getOutputStream();
 		outputStream.write(b.getContent());
@@ -160,13 +156,71 @@ public class BookController {
 
 	@GetMapping("/update/{id}")
 	public String updateBook(Model model, @PathVariable("id") String id) {
+		model.addAttribute("categories", categoryService.findAll());
 		model.addAttribute("bookInfo", bookService.getBookInfo(id));
 		return "updateBook";
 	}
 
 	@PostMapping("/update")
-	public String updateConfirm(Model model, @ModelAttribute("bookInfo") BookDto h) {
-		bookService.updateBook(h);
-		return "updateBook";
+	public String updateConfirm(Model model, @ModelAttribute("bookInfo") BookDto h,
+			@RequestParam("document") MultipartFile mulitpartFile, @RequestParam("pdf") MultipartFile pdf)
+			throws IOException {
+		if (mulitpartFile != null && !mulitpartFile.isEmpty()) {
+			String fileName = StringUtils.cleanPath(mulitpartFile.getOriginalFilename());
+			h.setContent(mulitpartFile.getBytes());
+			h.setImageUpload(fileName);
+		}
+
+		if (pdf != null && !pdf.isEmpty()) {
+			String pdfName = StringUtils.cleanPath(pdf.getOriginalFilename());
+			h.setFileUpload(pdfName);
+		}
+
+		model.addAttribute("categories", categoryService.findAll());
+		BookEntity updateBook = bookService.updateBook(h);
+
+		if (mulitpartFile != null && !mulitpartFile.isEmpty() && pdf != null && !pdf.isEmpty()) {
+			String uploadDir = "./book-storage/" + updateBook.getBookId();
+			String pdfDir = "./book-pdf/" + updateBook.getBookId();
+			Path uploadPath = Paths.get(uploadDir);
+			Path pdfPath = Paths.get(pdfDir);
+
+			if (!Files.exists(uploadPath)) {
+				Files.createDirectories(uploadPath);
+			}
+			if (!Files.exists(pdfPath)) {
+				Files.createDirectories(pdfPath);
+			}
+
+			try (InputStream imageInputStream = mulitpartFile.getInputStream();
+					InputStream pdfInputStream = pdf.getInputStream()) {
+				Path imageFilePath = uploadPath.resolve(updateBook.getImageUpload());
+				Path pdfFilePath = pdfPath.resolve(updateBook.getFileUpload());
+				Files.copy(imageInputStream, imageFilePath, StandardCopyOption.REPLACE_EXISTING);
+				Files.copy(pdfInputStream, pdfFilePath, StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				throw new IOException("Could not save uploaded files for book ID: " + updateBook.getBookId());
+			}
+		}
+
+		return "redirect:/";
+	}
+	
+	@GetMapping("/available/{id}")
+	public String available(@PathVariable("id") String id) {
+		Optional<BookEntity> result = bookService.findById(id);
+		BookEntity b = result.get();
+		b.setIs_available(false);
+		bookService.updateAvailable(b);
+		return "redirect:/";	
+	}
+	
+	@GetMapping("/lent/{id}")
+	public String lent(@PathVariable("id") String id) {
+		Optional<BookEntity> result = bookService.findById(id);
+		BookEntity b = result.get();
+		b.setIs_available(true);
+		bookService.updateAvailable(b);
+		return "redirect:/";	
 	}
 }

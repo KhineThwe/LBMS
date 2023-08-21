@@ -5,8 +5,8 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Update Book</title>
-	<link th:href="@{css/bootstrap.min.css}" rel="stylesheet" />
-	<link rel="stylesheet" th:href="@{css/book.css}" />
+	<link rel="stylesheet" th:href="@{css/bootstrap.min.css}"  />
+	<link rel="stylesheet" th:href="@{css/update.css}">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
 </head>
 
@@ -15,11 +15,11 @@
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="d-flex col-md-4 justify-content-center mt-5">
-				<img src="./img/library.png" alt="library" class="img-custom mt-5" />
+				<img th:src="@{/img/library.png}" alt="library" class="img-custom mt-5" />
 			</div>
 			<div class="col-md-4">
 				<p class="px-5 ml-md-5 m-3 fw-bold title-custom mt-4">Update Book</p>
-				<form th:action="@{/update}" th:object="${bookInfo}" method="post">
+				<form th:action="@{/update}" th:object="${bookInfo}" method="post" enctype="multipart/form-data">
 					<table>
 						<tbody>
 							<tr>
@@ -29,7 +29,8 @@
 									</div>
 								</td>
 								<td>
-									<div><input type="text" class="input-custom px-4" th:field="*{bookId}" readonly/></div>
+									<div><input type="text" class="input-custom px-4" th:field="*{bookId}" readonly />
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -49,14 +50,12 @@
 									</div>
 								</td>
 								<td>
-									<div><select class="input-custom px-4" aria-label="Default select example"
-											th:field="*{bookCategory}">
+									<div>
+										<select class="input-custom px-4" aria-label="Default select example"
+											th:field="*{bookCategoryId}">
 											<option th:value="default" selected></option>
-											<option th:value="programming">Programming</option>
-											<option th:value="database">DataBase</option>
-											<option th:value="networking">Networking</option>
-											<option th:value="git">Git</option>
-											<option th:value="excel">Excel</option>
+											<option th:each="category : ${categories}" th:value="${category.id}"
+												th:text="${category.categoryName}">Text</option>
 										</select></div>
 								</td>
 							</tr>
@@ -67,7 +66,7 @@
 									</div>
 								</td>
 								<td>
-									<div><input type="text" class="input-custom px-4" th:field="*{bookAuthor}"/></div>
+									<div><input type="text" class="input-custom px-4" th:field="*{bookAuthor}" /></div>
 								</td>
 							</tr>
 							<tr>
@@ -77,7 +76,7 @@
 									</div>
 								</td>
 								<td>
-									<div><input type="text" class="input-custom px-4" th:field="*{produceYear}"/></div>
+									<div><input type="text" class="input-custom px-4" th:field="*{produceYear}" /></div>
 								</td>
 							</tr>
 							<tr>
@@ -88,13 +87,43 @@
 								</td>
 								<td>
 									<div>
-										<select class="input-custom px-4" aria-label="Default select example" th:field="*{bookType}">
+										<select id="type" class="input-custom px-4" aria-label="Default select example"
+											th:field="*{bookType}">
 											<option th:value="default" selected></option>
 											<option th:value="ebook">EBook</option>
 											<option th:value="book">Book</option>
 										</select>
 									</div>
 								</td>
+							</tr>
+							
+							<tr>
+								<td>
+									<div class="form-control-custom m-3 text-center">
+										Image
+									</div>
+								</td>
+								<td>
+									<div class="upload-btn-wrapper mt-2">
+										<button class="btn">Upload File...</button>
+										<input type="file" name="document" id="fileUpload" accept="image/*" />
+									</div>
+								</td>
+								<!--Here-->
+							</tr>
+							<tr>
+								<td>
+									<div  id="pdflable" style="display: none;" class="form-control-custom m-3 text-center">
+										Pdf
+									</div>
+								</td>
+								<td>
+									<div id="pdfinput" style="display: none;" class="upload-btn-wrapper mt-2">
+										<button class="btn">Upload File...</button>
+										<input type="file" name="pdf" id="fileUpload" accept="application/pdf" />
+									</div>
+								</td>
+								<!--Here-->
 							</tr>
 						</tbody>
 					</table>
@@ -109,6 +138,21 @@
 	<script th:src="@{js/bootstrap.bundle.min.js}"></script>
 	<script th:src="@{js/popper.min.js}"></script>
 	<script th:src="@{js/bootstrap.min.js}"></script>
+	<script>
+		var type = document.getElementById("type");
+		type.addEventListener("change", function () {
+			
+			var selectedValue = type.value;
+			if(selectedValue=="ebook"){
+				document.getElementById("pdflable").style.display = "block";
+				document.getElementById("pdfinput").style.display = "block";
+			}else{
+				document.getElementById("pdflable").style.display = "none";
+				document.getElementById("pdfinput").style.display = "none";
+			}
+			
+		});
+	</script>
 </body>
 
 </html>

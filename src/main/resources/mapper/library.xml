@@ -77,4 +77,11 @@
 		is_available = #{is_available}
 		where book_id = #{bookId}
 	</update>
+	
+	<update id="updateAvailable">
+	UPDATE book 
+	SET 
+	is_available = #{is_available}
+	where book_id = #{bookId}
+	</update>
 </mapper>

@@ -1,5 +1,10 @@
 CREATE DATABASE library;
 
+CREATE TABLE category (
+    id VARCHAR(16) PRIMARY KEY  NOT NULL,
+    category_name VARCHAR(255) NOT NULL UNIQUE
+);
+
 CREATE TABLE book(
    book_id VARCHAR(16) PRIMARY KEY  NOT NULL,
    book_name  VARCHAR(255)  NOT NULL,
@@ -12,8 +17,6 @@ CREATE TABLE book(
 	content bytea,
 	is_available BOOLEAN
 );
-
-
 
 CREATE TABLE users (
     id BIGSERIAL PRIMARY KEY,
@@ -32,7 +35,6 @@ CREATE TABLE role (
 
 INSERT INTO users_roles VALUES (1,1);
 
--- Create the users_roles table for the Many-to-Many relationship between users and roles
 CREATE TABLE users_roles (
     user_id BIGINT,
     role_id BIGINT,
@@ -41,11 +43,11 @@ CREATE TABLE users_roles (
     FOREIGN KEY (role_id) REFERENCES role(id)
 );
 
-
-
-
-
-CREATE TABLE category (
-    id VARCHAR(16) PRIMARY KEY  NOT NULL,
-    category_name VARCHAR(255) NOT NULL UNIQUE
+CREATE TABLE mybookList (
+    bookId VARCHAR(16),
+    userId BIGINT,
+    FOREIGN KEY (bookId) REFERENCES book(book_id),
+    FOREIGN KEY (userId) REFERENCES users(id)
 );
+
+

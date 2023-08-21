@@ -25,4 +25,8 @@ public interface BookRepository {
 	public void bookAdd(BookEntity book);
 	
 	public void update(BookEntity exp);
+	
+	public void updateAvailable(BookEntity exp);
+	
+	public void updateLent(BookEntity exp);
 }

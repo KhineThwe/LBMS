@@ -130,9 +130,9 @@
 										th:href="@{/login}">Login First</a>
 
 									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
-										th:if="${book.bookType=='book' and book.is_available==true}" href="#">Available</a>
+										th:if="${book.bookType=='book' and book.is_available==true}" th:href="@{/available/{id}(id=${book.bookId})}">Available</a>
 									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
-										th:if="${book.bookType=='book' and book.is_available==false}" href="#">Already Lent</a>
+										th:if="${book.bookType=='book' and book.is_available==false}" th:href="@{/lent/{id}(id=${book.bookId})}">Already Lent</a>
 									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
 										th:unless="${book.bookType=='book'}"
 										th:href="@{/download(id=${book.bookId})}">Download</a>

@@ -91,6 +91,7 @@ public class BookDto {
 	public void setContent(byte[] content) {
 		this.content = content;
 	}
+
 	public Boolean getIs_available() {
 		return is_available;
 	}
