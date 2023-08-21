@@ -31,10 +31,18 @@ public class CategoryController {
 		
 		if (result.hasErrors()) {
 			model.addAttribute("category", dto);
-			return "/addCategory";
+			model.addAttribute("error","validate!");
+			return "addBookCategory";
 		}
-		categoryService.categoryAdd(dto);
-		return "addBookCategory";
+		try {
+			categoryService.categoryAdd(dto);
+			
+		} catch (Exception e) {
+			model.addAttribute("category", dto);
+			model.addAttribute("error","Name is already Exited!");
+			return "addBookCategory";
+		}
+		return "redirect:/addCategory";
 	}
 
 }

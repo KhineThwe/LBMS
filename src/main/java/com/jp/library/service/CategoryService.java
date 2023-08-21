@@ -12,8 +12,11 @@ import com.jp.library.repository.CategoryRepository;
 
 @Service
 public class CategoryService {
+	
 	@Autowired
 	CategoryRepository categoryRepository;
+	
+	
 	
 	public Category categoryAdd(CategoryDto dto) {
 		Category c = new Category();
@@ -23,6 +26,8 @@ public class CategoryService {
 		return c;
 	}
 	
+	
+
 	public List<Category> findAll(){
 		return categoryRepository.findAll();
 	}

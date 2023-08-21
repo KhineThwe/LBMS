@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
 	<meta charset="UTF-8" />
@@ -29,11 +30,24 @@
 					<a th:href="@{/addBook}" class="btn btn-width mb-2 mb-md-0">Add Book</a>
 				</div>
 			</div>
-			<div class="col-md-4 d-flex text-center text-md-right align-items-center">
-				<div class="justify-content-md-end">
-					<a th:href="@{/addCategory}" class="btn btn-width btn-width-category mx-2 mb-2 mb-md-0">Add Category</a>
-					<a th:href="@{/register}" class="btn btn-width mr-2 mb-2 mb-md-0">Register</a>
-					<a th:href="@{/login}" class="btn btn-width mx-2 mb-2 mb-md-0">Login</a>
+			<div class="col-md-4">
+				<div class="row bg-danger">
+					<div class="col-1"></div>
+					<div class="col-4 bg-black"> <a th:href="@{/addCategory}"
+							class="col-4 btn btn-width btn-width-category mx-2 mb-2 mb-md-0">Add
+							Category</a>
+					</div>
+					<div class="col-3">
+						<a th:href="@{/register}"  class="btn btn-width ">Register</a>
+					</div>
+					<div class="col-3 bg-black">
+						<a sec:authorize="!isAuthenticated()" th:href="@{/login}"
+							class="col-4 btn btn-width mx-2 mb-2 mb-md-0">Login</a>
+						<form style="display: inline;" class="col-4 mx-2 mb-2 mb-md-0" sec:authorize="isAuthenticated()"
+							th:action="@{/logout}" method="post">
+							<input th:href="@{/login}" type="submit" value="Logout" class="btn btn-width" />
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -59,35 +73,32 @@
 					<form th:action="@{/filter}" method="post" th:object="${filter}">
 						<div class="row p-2 input-search d-flex justify-content-around">
 
-							<div class="col-12 col-md-6 col-lg-3 mb-2">
+							<div class="col-12 col-md-6 col-lg-2 mb-2">
 								<label for="category" class="text-center w-100">Category</label>
 								<select class="search-input-custom w-100" aria-label="Default select example"
-									th:field="*{bookCategory}">
+									th:field="*{bookCategoryId}">
 									<option th:value="default" selected></option>
-									<option th:value="programming">Programming</option>
-									<option th:value="database">DataBase</option>
-									<option th:value="networking">Networking</option>
-									<option th:value="git">Git</option>
-									<option th:value="excel">Excel</option>
+									<option th:each="category : ${categories}" th:value="${category.id}"
+										th:text="${category.categoryName}">Text</option>
 								</select>
 							</div>
-							<div class="col-12 col-md-6 col-lg-3 mb-2">
+							<div class="col-12 col-md-6 col-lg-2 mb-2">
 								<label for="author" class="text-center w-100">Author</label>
 								<input type="text" name="author" class="search-input-custom w-100"
 									th:field="*{bookAuthor}" />
 							</div>
-							<div class="col-12 col-md-6 col-lg-3 mb-2">
+							<div class="col-12 col-md-6 col-lg-2 mb-2">
 								<label for="registrationNo" class="text-center w-100">RegistrationNo</label>
 								<input type="text" class="search-input-custom w-100" name="registrationNo"
 									th:field="*{bookId}" />
 							</div>
-							<div class="col-12 col-md-6 col-lg-3 mb-2">
+							<div class="col-12 col-md-6 col-lg-2 mb-2">
 								<label for="bookName" class="text-center w-100">Book Name</label>
 								<input type="text" class="search-input-custom w-100" name="bookName"
 									th:field="*{bookName}" />
 							</div>
 
-							<div class="col-12 d-flex justify-content-end align-items-end mb-2">
+							<div class="col-12 col-md-6 col-lg-2 d-flex justify-content-end align-items-end mb-2">
 								<button class="search-button p-1 align-items-center">
 									Search
 								</button>
@@ -99,10 +110,13 @@
 						<div class="col-12 col-sm-6 col-md-4 col-lg-4 p-3" th:each="book : ${bookList}">
 							<div class="card-custom" th:onmousemove="show(this)" th:onmouseout="hide(this)">
 								<div class="d-flex justify-content-center pt-5">
-									<img th:if="${book.bookType=='book'}" th:src="@{/img/book-stack.png}" alt="book"
+									<img th:if="${book.imageUpload!=''}" th:src="@{${book.getImagePath}}" alt="book"
 										width="100px" />
-									<img th:unless="${book.bookType=='book'}" th:src="@{/img/Pdf.png}" alt="pdf"
-										width="100px" />
+									<img th:unless="${book.imageUpload!=''}" th:if="${book.bookType=='book'}"
+										th:src="@{/img/book-stack.png}" alt="book" width="100px" />
+									<img th:unless="${book.imageUpload!=''}" th:if="${book.bookType=='ebook'}"
+										th:src="@{/img/Pdf.png}" alt="pdf" width="100px" />
+
 								</div>
 								<div th:id="${book.bookId}" class="book-description p-3" style="display: none">
 									<p>Book Name: <span th:text="${book.bookName}"></span></p>
@@ -112,10 +126,21 @@
 									<p>Produce Year: <span th:text="${book.produceYear}"></span></p>
 								</div>
 								<div class="text-center p-2">
-									<a href="#">Available</a>
+									<a class="text-danger text-decoration-none" sec:authorize="!isAuthenticated()"
+										th:href="@{/login}">Login First</a>
+
+									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
+										th:if="${book.bookType=='book' and book.is_available==true}" href="#">Available</a>
+									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
+										th:if="${book.bookType=='book' and book.is_available==false}" href="#">Already Lent</a>
+									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
+										th:unless="${book.bookType=='book'}"
+										th:href="@{/download(id=${book.bookId})}">Download</a>
 								</div>
 								<div class="text-center card-status p-2">
-									<a th:href="@{/update/{id}(id=${book.bookId})}" class="btn mr-2 mb-2 mb-md-0">Update</a>
+									<a sec:authorize="isAuthenticated()" th:href="@{/update/{id}(id=${book.bookId})}"
+										class="btn mr-2 mb-2 mb-md-0">Update</a>
+									<span sec:authorize="!isAuthenticated()" th:text="${book.bookName}"></span>
 								</div>
 							</div>
 						</div>
@@ -123,13 +148,9 @@
 				</div>
 				<div class="col-lg-3 mt-3 mt-lg-0">
 					<div class="categories text-center">Book Categories</div>
-					<div class="categories shadow">
-						<a th:href="@{/category?name=programming}">Programming</a>
+					<div th:each="category : ${categories}" class="categories shadow">
+						<a th:href="@{/category(name=${category.id})}" th:text="${category.categoryName}">Text</a>
 					</div>
-					<div class="categories"><a th:href="@{/category?name=database}">DataBase</a></div>
-					<div class="categories"><a th:href="@{/category?name=git}">Git</a></div>
-					<div class="categories"><a th:href="@{/category?name=networking}">Networking</a></div>
-					<div class="categories"><a th:href="@{/category?name=excel}">Excel</a></div>
 					<div class="categories"></div>
 				</div>
 			</div>

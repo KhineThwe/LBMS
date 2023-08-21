@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jp.library.repository.UserRepository">
+
+    <resultMap id="userResultMap" type="com.jp.library.entity.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="email" column="email"/>
+        <result property="password" column="password"/>
+        <result property="phoneNumber" column="phone_no"/>
+    </resultMap>
+
+    <select id="getUserById" resultMap="userResultMap" parameterType="java.lang.Long">
+        SELECT * FROM users WHERE id = #{id}
+    </select>
+
+    <select id="getUserByEmail" resultMap="userResultMap" parameterType="java.lang.String">
+        SELECT * FROM users WHERE email = #{email}
+    </select>
+
+    <select id="getAllUsers" resultMap="userResultMap">
+        SELECT * FROM users
+    </select>
+
+    <insert id="insertUser" parameterType="com.jp.library.entity.User">
+        INSERT INTO users (username, email, password, phone_no)
+        VALUES (#{username}, #{email}, #{password}, #{phoneNumber})
+    </insert>
+
+    <update id="updateUser" parameterType="com.jp.library.entity.User">
+        UPDATE users SET
+        username = #{username},
+        email = #{email},
+        password = #{password},
+        phone_no = #{phoneNumber}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="java.lang.Long">
+        DELETE FROM users WHERE id = #{id}
+    </delete>
+
+</mapper>

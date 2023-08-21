@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.jp.library.dto.BookDto;
 import com.jp.library.entity.BookEntity;
 import com.jp.library.service.BookService;
+import com.jp.library.service.CategoryService;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,11 +38,16 @@ public class BookController {
 
 	@Autowired
 	BookService bookService;
+	
+	@Autowired
+	CategoryService categoryService;
+	
 
 	@GetMapping("/")
 	public String index(Model model) {
 		model.addAttribute("bookList", bookService.findAll());
 		model.addAttribute("filter", new BookEntity());
+		model.addAttribute("categories",categoryService.findAll());
 		return "index";
 	}
 
@@ -63,15 +69,18 @@ public class BookController {
 	@GetMapping("/category")
 	public String category(Model model, @RequestParam("name") String name) {
 		BookEntity e = new BookEntity();
-//		e.setBookCategoryId(name);
+		e.setBookCategoryId(name);
 		model.addAttribute("bookList", bookService.findByCategory(e));
 		model.addAttribute("filter", new BookEntity());
+		model.addAttribute("categories",categoryService.findAll());
 		return "index";
 	}
 
 	@PostMapping("/filter")
 	public String filter(@ModelAttribute("filter") BookEntity e, Model model) {
 		model.addAttribute("bookList", bookService.filter(e));
+		model.addAttribute("categories",categoryService.findAll());
+		model.addAttribute("filter", new BookEntity());
 		return "index";
 	}
 
@@ -82,32 +91,42 @@ public class BookController {
 		BookDto dto = new BookDto();
 		dto.setBookId(bookId);
 		model.addAttribute("book", dto);
+		model.addAttribute("categories",categoryService.findAll());
 		return "addBook";
 	}
 
 	@PostMapping("/addBook")
 	public String addBookToDb(@ModelAttribute("book") BookDto dto,
-			@RequestParam("document") MultipartFile mulitpartFile, RedirectAttributes ra) throws IOException {
+			@RequestParam("document") MultipartFile mulitpartFile,@RequestParam("pdf") MultipartFile pdf, RedirectAttributes ra) throws IOException {
 		String fileName = StringUtils.cleanPath(mulitpartFile.getOriginalFilename());
-
+		String pdfName=StringUtils.cleanPath(pdf.getOriginalFilename());
+		
 		// configuration for file upload
 		dto.setContent(mulitpartFile.getBytes());
+		dto.setImageUpload(fileName);
+		dto.setFileUpload(pdfName);
 		BookEntity b = bookService.save(dto);
 		String uploadDir = "./book-storage/" + b.getBookId();
+		String pdfDir = "./book-pdf/" + b.getBookId();
 		Path uploadPath = Paths.get(uploadDir);
+		Path updfPath = Paths.get(pdfDir);
 
 		if (!Files.exists(uploadPath)) {
 			Files.createDirectories(uploadPath);
 		}
+		if (!Files.exists(updfPath)) {
+			Files.createDirectories(updfPath);
+		}
 
 		try (InputStream inputStream = mulitpartFile.getInputStream()) {
 			Path filePath = uploadPath.resolve(fileName);
-			System.out.println(filePath.toFile().getAbsolutePath());
+			Path pdfPath= updfPath.resolve(pdfName);
 			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(inputStream, pdfPath, StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
-			throw new IOException("Could not save uploaded File: " + fileName);
+			throw new IOException("Could not save uploaded File: " + fileName +""+pdfName);
 		}
-		ra.addFlashAttribute("message", "The file has been uploaded successfully");
+//		ra.addFlashAttribute("message", "The file has been uploaded successfully");
 		return "redirect:/";
 	}
 
@@ -115,15 +134,18 @@ public class BookController {
 	public void downloadFile(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
 		Optional<BookEntity> result = bookService.findById(id);
 		
+		
+		
 		if (!result.isPresent()) {
 			throw new Exception("Could not find document with ID: " + id);
 		}
 		BookEntity b = result.get();
 		response.setContentType("application/octet-stream");
 		String headerKey = "Content-Disposition";
-		String headerValue = "attachment; filename = " + b.getBookName();
+		String headerValue = "attachment; filename = " + b.getPDFPath();
 
 		response.setHeader(headerKey, headerValue);
+		
 
 		ServletOutputStream outputStream = response.getOutputStream();
 		outputStream.write(b.getContent());

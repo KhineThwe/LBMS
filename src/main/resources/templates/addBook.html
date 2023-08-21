@@ -52,13 +52,10 @@
 								<td>
 									<div>
 										<select class="input-custom px-4" aria-label="Default select example"
-											th:field="*{bookCategory}">
+											th:field="*{bookCategoryId}">
 											<option th:value="default" selected></option>
-											<option th:value="programming">Programming</option>
-											<option th:value="database">DataBase</option>
-											<option th:value="networking">Networking</option>
-											<option th:value="git">Git</option>
-											<option th:value="excel">Excel</option>
+											<option th:each="category : ${categories}" th:value="${category.id}"
+												th:text="${category.categoryName}">Text</option>
 										</select>
 									</div>
 								</td>
@@ -91,7 +88,7 @@
 								</td>
 								<td>
 									<div>
-										<select class="input-custom px-4" aria-label="Default select example"
+										<select id="type" class="input-custom px-4" aria-label="Default select example"
 											th:field="*{bookType}">
 											<option th:value="default" selected></option>
 											<option th:value="ebook">EBook</option>
@@ -103,13 +100,27 @@
 							<tr>
 								<td>
 									<div class="form-control-custom m-3 text-center">
-										Book Type
+										Image
 									</div>
 								</td>
 								<td>
 									<div class="upload-btn-wrapper mt-2">
 										<button class="btn">Upload File...</button>
-										<input type="file" name="document" id="fileUpload" accept="image/png,image/jpeg,application/pdf"/>
+										<input type="file" name="document" id="fileUpload" accept="image/*" />
+									</div>
+								</td>
+								<!--Here-->
+							</tr>
+							<tr>
+								<td>
+									<div  id="pdflable" style="display: none;" class="form-control-custom m-3 text-center">
+										Pdf
+									</div>
+								</td>
+								<td>
+									<div id="pdfinput" style="display: none;" class="upload-btn-wrapper mt-2">
+										<button class="btn">Upload File...</button>
+										<input type="file" name="pdf" id="fileUpload" accept="application/pdf" />
 									</div>
 								</td>
 								<!--Here-->
@@ -126,6 +137,21 @@
 	<script th:src="@{js/bootstrap.bundle.min.js}"></script>
 	<script th:src="@{js/popper.min.js}"></script>
 	<script th:src="@{js/bootstrap.min.js}"></script>
+	<script>
+		var type = document.getElementById("type");
+		type.addEventListener("change", function () {
+			
+			var selectedValue = type.value;
+			if(selectedValue=="ebook"){
+				document.getElementById("pdflable").style.display = "block";
+				document.getElementById("pdfinput").style.display = "block";
+			}else{
+				document.getElementById("pdflable").style.display = "none";
+				document.getElementById("pdfinput").style.display = "none";
+			}
+			
+		});
+	</script>
 </body>
 
 </html>

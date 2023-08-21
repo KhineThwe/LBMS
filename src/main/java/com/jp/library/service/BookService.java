@@ -12,8 +12,12 @@ import com.jp.library.repository.BookRepository;
 
 @Service
 public class BookService {
+	
 	@Autowired
 	BookRepository bookRepository;
+	
+	
+	
 	
 	public List<BookEntity> findAll(){
 		return bookRepository.findAll();
@@ -44,10 +48,13 @@ public class BookService {
 		entity.setBookId(dto.getBookId());
 		entity.setBookName(dto.getBookName());
 		entity.setBookAuthor(dto.getBookAuthor());
-		entity.setBookCategoryId(null);
+		entity.setBookCategoryId(dto.getBookCategoryId());
 		entity.setProduceYear(dto.getProduceYear());
 		entity.setBookType(dto.getBookType());
 		entity.setContent(dto.getContent());
+		entity.setFileUpload(dto.getFileUpload());
+		entity.setImageUpload(dto.getImageUpload());
+		entity.setIs_available(true);
 		bookRepository.bookAdd(entity);
 		return entity;
 	}
@@ -59,7 +66,7 @@ public class BookService {
 		dto.setBookId(e.getBookId());
 		dto.setBookName(e.getBookName());
 		dto.setBookAuthor(e.getBookAuthor());
-		dto.setBookCategoryId(null);
+		dto.setBookCategoryId(e.getBookCategoryId());
 		dto.setBookType(e.getBookType());
 		dto.setProduceYear(e.getProduceYear());
 		return dto;
@@ -69,7 +76,7 @@ public class BookService {
 		BookEntity entity = new BookEntity();
 		entity.setBookId(dto.getBookId());
 		entity.setBookAuthor(dto.getBookAuthor());
-		entity.setBookCategoryId(null);
+		entity.setBookCategoryId(dto.getBookCategoryId());
 		entity.setBookName(dto.getBookName());
 		entity.setProduceYear(dto.getProduceYear());
 		entity.setBookType(dto.getBookType());

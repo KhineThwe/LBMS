@@ -5,12 +5,13 @@
 		id="library">
 		<id column="book_id" property="bookId"></id>
 		<result column="book_name" property="bookName" />
-		<result column="category" property="bookCategory" />
+		<result column="category_id" property="bookCategoryId" />
 		<result column="book_author" property="bookAuthor" />
 		<result column="produce_year" property="produceYear" />
 		<result column="book_type" property="bookType" />
 		<result column="file_url" property="fileUpload" />
-		<result column="image_url" property="ImageUpload" />
+		<result column="image_url" property="imageUpload" />
+		<result column="is_available" property="is_available" />
 	</resultMap>
 	
 	<select id="findAll" resultType="com.jp.library.entity.BookEntity" resultMap="library">
@@ -26,12 +27,28 @@
 	</select>
 	
 	<select id="findByCategory" parameterType="com.jp.library.entity.BookEntity" resultType="com.jp.library.entity.BookEntity" resultMap="library">
-	    SELECT * FROM book WHERE category = #{bookCategory}
+	    SELECT * FROM book WHERE category_id = #{bookCategoryId}
 	</select>
 	
 	<select id="filter" parameterType="com.jp.library.entity.BookEntity" resultType="com.jp.library.entity.BookEntity" resultMap="library">
-	    SELECT * FROM book WHERE category = #{bookCategory} OR book_author = #{bookAuthor} OR book_id = #{bookId} OR book_name = #{bookName}
-	</select>
+    SELECT * FROM book 
+    <where>
+        <!-- Each condition should be wrapped in <if> tags -->
+        <if test="bookCategoryId != ''">
+            AND category_id = #{bookCategoryId}
+        </if>
+        <if test="bookAuthor != ''">
+            AND book_author = #{bookAuthor}
+        </if>
+        <if test="bookId != ''">
+            AND book_id = #{bookId}
+        </if>
+        <if test="bookName != ''">
+            AND book_name = #{bookName}
+        </if>
+    </where>
+</select>
+
 	
 	<select id="findById"
 		resultType="com.jp.library.entity.BookEntity" resultMap="library">
@@ -41,8 +58,8 @@
 	
 	<insert id="bookAdd"
 		parameterType="com.jp.library.entity.BookEntity" >
-		INSERT INTO book(book_id,book_name,category,book_author,produce_year,book_type,content)
-		VALUES(#{bookId},#{bookName},#{bookCategory},#{bookAuthor},#{produceYear},#{bookType},#{content})
+		INSERT INTO book(book_id,book_name,category_id,book_author,produce_year,book_type,content,file_url,image_url,is_available)
+		VALUES(#{bookId},#{bookName},#{bookCategoryId},#{bookAuthor},#{produceYear},#{bookType},#{content},#{fileUpload},#{imageUpload},#{is_available})
 	</insert>
 	
 	<update id="update"
@@ -50,11 +67,14 @@
 		UPDATE book
 		SET 
 		book_name = #{bookName},
-		category
-		= #{bookCategory},
+		category_id
+		= #{bookCategoryId},
 		book_author = #{bookAuthor},
 		produce_year = #{produceYear},
-		book_type = #{bookType}
+		book_type = #{bookType},
+		file_url = #{fileUpload},
+		image_url = #{imageUpload},
+		is_available = #{is_available}
 		where book_id = #{bookId}
 	</update>
 </mapper>

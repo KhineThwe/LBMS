@@ -3,20 +3,24 @@ package com.jp.library.repository;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import com.jp.library.entity.Role;
 
 @Mapper
 public interface RoleRepository {
-	Role getRoleById(Long id);
+	  // Insert a new role
+    void insertRole(Role role);
 
-	Role getRoleByName(String name);
+    // Retrieve a role by its ID
+    Role getRoleById(Long id);
 
-	List<Role> getAllRoles();
+    // Retrieve all roles
+    List<Role> getAllRoles();
 
-	Role insertRole(Role role);
+    // Update an existing role
+    void updateRole(Role role);
 
-	void updateRole(Role role);
-
-	void deleteRole(Long id);
+    // Delete a role by its ID
+    void deleteRole(Long id);
 }

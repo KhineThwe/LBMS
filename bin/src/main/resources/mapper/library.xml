@@ -33,10 +33,28 @@
 	    SELECT * FROM book WHERE category = #{bookCategory} OR book_author = #{bookAuthor} OR book_id = #{bookId} OR book_name = #{bookName}
 	</select>
 	
+	<select id="findById"
+		resultType="com.jp.library.entity.BookEntity" resultMap="library">
+		SELECT * FROM
+		book where book_id = #{bookId}
+	</select>
 	
 	<insert id="bookAdd"
-		parameterType="com.jp.library.entity.BookEntity">
-		INSERT INTO book(book_id,book_name,category,book_author,produce_year,book_type)
-		VALUES(#{bookId},#{bookName},#{bookCategory},#{bookAuthor},#{produceYear},#{bookType})
+		parameterType="com.jp.library.entity.BookEntity" >
+		INSERT INTO book(book_id,book_name,category,book_author,produce_year,book_type,content)
+		VALUES(#{bookId},#{bookName},#{bookCategory},#{bookAuthor},#{produceYear},#{bookType},#{content})
 	</insert>
+	
+	<update id="update"
+		parameterType="com.jp.library.entity.BookEntity">
+		UPDATE book
+		SET 
+		book_name = #{bookName},
+		category
+		= #{bookCategory},
+		book_author = #{bookAuthor},
+		produce_year = #{produceYear},
+		book_type = #{bookType}
+		where book_id = #{bookId}
+	</update>
 </mapper>

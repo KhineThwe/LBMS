@@ -14,12 +14,12 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2"></div>
-			<div class="d-flex col-md-4 justify-content-center">
+			<div class="d-flex col-md-4 justify-content-center mt-5">
 				<img th:src="@{/img/library.png}" alt="library" class="img-custom mt-5" />
 			</div>
 			<div class="col-md-4">
-				<p class="px-5 ml-md-5 m-3 fw-bold">Add Book</p>
-				<form th:action="@{/addBook}" method="post" th:object="${book}">
+				<p class="px-5 ml-md-5 m-3 fw-bold title-custom mt-4">Add Book</p>
+				<form th:action="@{/addBook}" method="post" th:object="${book}" enctype="multipart/form-data">
 					<table>
 						<tbody>
 							<tr>
@@ -99,6 +99,20 @@
 										</select>
 									</div>
 								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-control-custom m-3 text-center">
+										Book Type
+									</div>
+								</td>
+								<td>
+									<div class="upload-btn-wrapper mt-2">
+										<button class="btn">Upload File...</button>
+										<input type="file" name="document" id="fileUpload" accept="image/png,image/jpeg,application/pdf"/>
+									</div>
+								</td>
+								<!--Here-->
 							</tr>
 						</tbody>
 					</table>

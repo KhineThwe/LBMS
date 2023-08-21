@@ -7,13 +7,14 @@ import lombok.Data;
 public class BookEntity {
 	private String bookId;
 	private String bookName;
-	private Category bookCategoryId;
+	private String bookCategoryId;
 	private String bookAuthor;
 	private String produceYear;
 	private String bookType;
 	private String fileUpload;
 	private String imageUpload;
 	private byte[] content;
+	private Boolean is_available;
 
 	public String getBookId() {
 		return bookId;
@@ -31,11 +32,11 @@ public class BookEntity {
 		this.bookName = bookName;
 	}
 
-	public Category getBookCategoryId() {
+	public String getBookCategoryId() {
 		return bookCategoryId;
 	}
 
-	public void setBookCategoryId(Category bookCategoryId) {
+	public void setBookCategoryId(String bookCategoryId) {
 		this.bookCategoryId = bookCategoryId;
 	}
 
@@ -86,13 +87,29 @@ public class BookEntity {
 	public void setContent(byte[] content) {
 		this.content = content;
 	}
-	
+
+	public Boolean getIs_available() {
+		return is_available;
+	}
+
+	public void setIs_available(Boolean is_available) {
+		this.is_available = is_available;
+	}
 
 	@Transient
-	public String getLogoImagePath() {
-		if(bookName == null || bookId == null) return null;
-		return "/book-storage/" + bookId + "/" + bookName;
-		
+	public String getImagePath() {
+		if (bookName == null || bookId == null)
+			return null;
+		return "/book-storage/" + bookId + "/" + imageUpload;
+
 	}
-	
+
+	@Transient
+	public String getPDFPath() {
+		if (bookName == null || bookId == null)
+			return null;
+		return "/book-pdf/" + bookId + "/" + fileUpload;
+
+	}
+
 }

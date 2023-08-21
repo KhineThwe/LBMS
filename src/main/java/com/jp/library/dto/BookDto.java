@@ -9,7 +9,7 @@ public class BookDto {
 	private String bookId;
 	@NotBlank(message = "Book Name cannot be blank!")
 	private String bookName;
-	private CategoryDto bookCategoryId;
+	private String bookCategoryId;
 	@NotBlank(message = "Book Author cannot be blank!")
 	private String bookAuthor;
 	@NotBlank(message = "Produce Year cannot be blank!")
@@ -18,6 +18,7 @@ public class BookDto {
 	private String fileUpload;
 	private String imageUpload;
 	private byte[] content;
+	private Boolean is_available;
 
 	public String getBookId() {
 		return bookId;
@@ -35,11 +36,11 @@ public class BookDto {
 		this.bookName = bookName;
 	}
 
-	public CategoryDto getBookCategoryId() {
+	public String getBookCategoryId() {
 		return bookCategoryId;
 	}
 
-	public void setBookCategoryId(CategoryDto bookCategoryId) {
+	public void setBookCategoryId(String bookCategoryId) {
 		this.bookCategoryId = bookCategoryId;
 	}
 
@@ -89,6 +90,13 @@ public class BookDto {
 
 	public void setContent(byte[] content) {
 		this.content = content;
+	}
+	public Boolean getIs_available() {
+		return is_available;
+	}
+
+	public void setIs_available(Boolean is_available) {
+		this.is_available = is_available;
 	}
 
 }
