@@ -8,7 +8,7 @@ import com.jp.library.dto.BookDto;
 
 @Mapper
 public interface MyBookRepository {
-	void addToMyBookList(String bookId, Long userId);
-
-    List<BookDto> getBooksForUser(Long userId);
+//	void addToMyBookList(String bookId, Long userId);
+//
+//    List<BookDto> getBooksForUser(Long userId);
 }

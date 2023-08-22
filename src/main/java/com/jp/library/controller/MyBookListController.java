@@ -14,17 +14,17 @@ import com.jp.library.service.MyBookService;
 @Controller
 public class MyBookListController {
 
-    @Autowired
-    MyBookService myBookService;
-
-    @PostMapping("/add")
-    public void addToMyBookList(@RequestParam String bookId, @RequestParam Long userId) {
-    	myBookService.addToMyBookList(bookId, userId);
-    }
-
-    @GetMapping("/getbooks")
-    public List<BookDto> getBooksForUser(@RequestParam Long userId) {
-        return myBookService.getBooksForUser(userId);
-    }
+//    @Autowired
+//    MyBookService myBookService;
+//
+//    @PostMapping("/add")
+//    public void addToMyBookList(@RequestParam String bookId, @RequestParam Long userId) {
+//    	myBookService.addToMyBookList(bookId, userId);
+//    }
+//
+//    @GetMapping("/getbooks")
+//    public List<BookDto> getBooksForUser(@RequestParam Long userId) {
+//        return myBookService.getBooksForUser(userId);
+//    }
 
 }
