@@ -12,15 +12,17 @@
 </head>
 
 <body>
+	<!--Book Header Section!-->
 	<nav th:replace="fragments/nav :: header">
 	</nav>
-
+	<!--Message Section!-->
 	<div class="text-success">
 		<h2>[[${message}]]</h2>
 	</div>
 	<div class="text-danger">
 		<h2>[[${error}]]</h2>
 	</div>
+	<!--Book Catalog Section!-->
 	<main>
 		<div class="mx-5 mt-3 catalog text-center">
 			<div class="catalog-text">
@@ -29,6 +31,7 @@
 			</div>
 		</div>
 	</main>
+	<!--Book Search Section!-->
 	<main>
 		<section>
 			<div class="row mx-4">
@@ -72,6 +75,12 @@
 					<div class="row">
 						<div class="col-12 col-sm-6 col-md-4 col-lg-4 p-3" th:each="book : ${bookList}">
 							<div class="card-custom" th:onmousemove="show(this)" th:onmouseout="hide(this)">
+								<!--Here For MyBookList! <input type="hidden" name="userId" placeholder="User ID">-->
+								<form th:action="@{/addToMyBookList}" method="post">
+									<input type="hidden" name="bookId" placeholder="Book ID" value="${book.bookId}">
+									
+									<input type="submit" value="Add to My Book List">
+								</form>
 								<div class="d-flex justify-content-center pt-5">
 									<img th:if="${book.imageUpload!=''}" th:src="@{${book.getImagePath}}" alt="book"
 										width="100px" />
@@ -91,11 +100,12 @@
 								<div class="text-center p-2">
 									<a class="text-danger text-decoration-none" sec:authorize="!isAuthenticated()"
 										th:href="@{/login}">Login First</a>
-
 									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
-										th:if="${book.bookType=='book' and book.is_available==true}" th:href="@{/available/{id}(id=${book.bookId})}">Available</a>
+										th:if="${book.bookType=='book' and book.is_available==true}"
+										th:href="@{/available/{id}(id=${book.bookId})}">Available</a>
 									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
-										th:if="${book.bookType=='book' and book.is_available==false}" th:href="@{/lent/{id}(id=${book.bookId})}">Already Lent</a>
+										th:if="${book.bookType=='book' and book.is_available==false}"
+										th:href="@{/lent/{id}(id=${book.bookId})}">Already Lent</a>
 									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
 										th:unless="${book.bookType=='book'}"
 										th:href="@{/download(id=${book.bookId})}">Download</a>
@@ -119,8 +129,9 @@
 			</div>
 		</section>
 	</main>
-	<footer th:replace="fragments/footer :: footer">
 
+	<!--Book Footer Section!-->
+	<footer th:replace="fragments/footer :: footer">
 	</footer>
 	<script th:src="@{js/bootstrap.bundle.min.js}"></script>
 	<script th:src="@{js/popper.min.js}"></script>

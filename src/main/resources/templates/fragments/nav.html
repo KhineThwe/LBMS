@@ -11,35 +11,41 @@
 </head>
 
 <body>
-		<nav th:fragment="header">
+	<nav th:fragment="header">
 		<div class="row justify-content-between align-items-center nav-bg">
+			<!--Logo Section!-->
 			<div class="col-md-4">
 				<div class="logo">
-					<div>
+					<a th:href="@{/}">
 						<p>Library</p>
 						<p>Management</p>
 						<p>System</p>
-					</div>
+					</a>
 				</div>
 			</div>
+			<!--Add Section!-->
 			<div class="col-md-4 d-flex text-center text-md-left mb-3 mb-md-0 align-items-center">
 				<div class="justify-content-md-start">
 					<a th:href="@{/books}" class="btn btn-width mr-md-3 mb-2 mb-md-0">Books</a>
 					<a th:href="@{/ebooks}" class="btn btn-width mr-md-3 mb-2 mb-md-0">EBooks</a>
 					<a th:href="@{/addBook}" class="btn btn-width mb-2 mb-md-0">Add Book</a>
+					<a th:href="@{/myBookList}" class="btn btn-width mb-2 mb-md-0">MyBooks</a>
 				</div>
 			</div>
+			<!--Register Section!-->
 			<div class="col-md-4">
-				<div class="row bg-danger">
+				<div class="row">
 					<div class="col-1"></div>
-					<div class="col-4 bg-black"> <a th:href="@{/addCategory}"
+					<div class="col-4">
+						<a th:href="@{/addCategory}"
 							class="col-4 btn btn-width btn-width-category mx-2 mb-2 mb-md-0">Add
-							Category</a>
+							Category
+						</a>
+					</div>
+					<div class="col-3 reg">
+						<a th:href="@{/register}" class="btn btn-width ">Register</a>
 					</div>
 					<div class="col-3">
-						<a th:href="@{/register}"  class="btn btn-width ">Register</a>
-					</div>
-					<div class="col-3 bg-black">
 						<a sec:authorize="!isAuthenticated()" th:href="@{/login}"
 							class="col-4 btn btn-width mx-2 mb-2 mb-md-0">Login</a>
 						<form style="display: inline;" class="col-4 mx-2 mb-2 mb-md-0" sec:authorize="isAuthenticated()"

@@ -12,23 +12,19 @@ import com.jp.library.repository.CategoryRepository;
 
 @Service
 public class CategoryService {
-	
+
 	@Autowired
 	CategoryRepository categoryRepository;
-	
-	
-	
+
 	public Category categoryAdd(CategoryDto dto) {
 		Category c = new Category();
-	    c.setId(dto.getId());
+		c.setId(dto.getId());
 		c.setCategoryName(dto.getCategoryName());
 		categoryRepository.categoryAdd(c);
 		return c;
 	}
-	
-	
 
-	public List<Category> findAll(){
+	public List<Category> findAll() {
 		return categoryRepository.findAll();
 	}
 

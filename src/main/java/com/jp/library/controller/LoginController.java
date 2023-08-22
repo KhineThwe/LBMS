@@ -18,18 +18,19 @@ import jakarta.validation.Valid;
 public class LoginController {
 	@Autowired
 	private UserService userService;
+
 	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
-	
+
 	@GetMapping("/register")
 	public String register(Model model) {
 		UserDto user = new UserDto();
 		model.addAttribute("user", user);
 		return "register";
 	}
-	
+
 	@PostMapping("/register")
 	public String registration(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model) {
 		User existingUser = userService.findUserByEmail(userDto.getEmail());
@@ -44,13 +45,15 @@ public class LoginController {
 
 		userService.saveUser(userDto);
 		return "redirect:/register?success";
-		//tochuuu
-		//1.only register works but in db,user_roles table datas are not saved.
-		//2.need to implment login page with spring security
-		//3.need to image upload and pdf upload,download 
-		//4.left available,login first and already lent option
-		//5.category create and need to update book table and add category table to db.	
-		//6.retrieve categories data from db and set on view
-		//7/search by two,three and both by query sample
+		// tochuuu
+		// 1.only register works but in db,user_roles table datas are not saved.
+		// 2.need to implment login page with spring security
+		// 3.need to pdf upload,download fix
+		// 4.left available,login first and already lent option with login user
+		// 5.need to check update book
+		// 6.when validation error happen
+		// 7.need to add mybooks list and relation table
+		// 8.ui responsive
+		// 9.ui fix before submit
 	}
 }

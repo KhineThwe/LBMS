@@ -12,9 +12,6 @@ import com.jp.library.repository.RoleRepository;
 public class RoleService {
 	@Autowired
 	RoleRepository roleRepository;
-	
-
-	
 
 	public void insertRole(Role role) {
 		roleRepository.insertRole(role);

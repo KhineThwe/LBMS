@@ -19,17 +19,15 @@ public class SecurityConfig {
 	public static PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((requests) -> requests.anyRequest().permitAll())	
-		.formLogin((form) -> form.loginPage("/login").defaultSuccessUrl("/"))
-		.logout((logout) -> logout.permitAll());	
-		
-	return http.build();
-	}
-	
+		http.authorizeHttpRequests((requests) -> requests.anyRequest().permitAll())
+				.formLogin((form) -> form.loginPage("/login").defaultSuccessUrl("/"))
+				.logout((logout) -> logout.permitAll());
 
+		return http.build();
+	}
 
 	@Bean
 	public UserDetailsService userDetailsService() {

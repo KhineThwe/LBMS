@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Update Book</title>
-	<link rel="stylesheet" th:href="@{css/bootstrap.min.css}"  />
+	<link rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
 	<link rel="stylesheet" th:href="@{css/index.css}" />
 	<link rel="stylesheet" th:href="@{css/update.css}">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
@@ -14,7 +14,7 @@
 <body>
 	<nav th:replace="fragments/nav :: header">
 	</nav>
-	
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2"></div>
@@ -60,7 +60,8 @@
 											<option th:value="default" selected></option>
 											<option th:each="category : ${categories}" th:value="${category.id}"
 												th:text="${category.categoryName}">Text</option>
-										</select></div>
+										</select>
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -100,7 +101,7 @@
 									</div>
 								</td>
 							</tr>
-							
+
 							<tr>
 								<td>
 									<div class="form-control-custom m-3 text-center">
@@ -117,7 +118,8 @@
 							</tr>
 							<tr>
 								<td>
-									<div  id="pdflable" style="display: none;" class="form-control-custom m-3 text-center">
+									<div id="pdflable" style="display: none;"
+										class="form-control-custom m-3 text-center">
 										Pdf
 									</div>
 								</td>
@@ -139,7 +141,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<footer th:replace="fragments/footer :: footer">
 	</footer>
 	<script th:src="@{js/bootstrap.bundle.min.js}"></script>
@@ -148,16 +150,16 @@
 	<script>
 		var type = document.getElementById("type");
 		type.addEventListener("change", function () {
-			
+
 			var selectedValue = type.value;
-			if(selectedValue=="ebook"){
+			if (selectedValue == "ebook") {
 				document.getElementById("pdflable").style.display = "block";
 				document.getElementById("pdfinput").style.display = "block";
-			}else{
+			} else {
 				document.getElementById("pdflable").style.display = "none";
 				document.getElementById("pdfinput").style.display = "none";
 			}
-			
+
 		});
 	</script>
 </body>

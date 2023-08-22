@@ -11,24 +11,19 @@ import com.jp.library.util.TbConstants;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
-	
-	
-
-	
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	public void saveUser(UserDto userDto) {
-		User user = new User(userDto.getName(), userDto.getEmail(),passwordEncoder.encode(userDto.getPassword()), userDto.getPhoneNo(),
-				userDto.getRole());
+		User user = new User(userDto.getName(), userDto.getEmail(), passwordEncoder.encode(userDto.getPassword()),
+				userDto.getPhoneNo(), userDto.getRole());
 		userRepository.insertUser(user);
 	}
-	
+
 	public User findUserByEmail(String email) {
 		return userRepository.getUserByEmail(email);
 	}

@@ -12,37 +12,34 @@ import com.jp.library.repository.BookRepository;
 
 @Service
 public class BookService {
-	
+
 	@Autowired
 	BookRepository bookRepository;
-	
-	
-	
-	
-	public List<BookEntity> findAll(){
+
+	public List<BookEntity> findAll() {
 		return bookRepository.findAll();
 	}
-	
-	public List<BookEntity> findBooks(){
+
+	public List<BookEntity> findBooks() {
 		return bookRepository.findBooks();
 	}
-	
-	public List<BookEntity> findEbooks(){
+
+	public List<BookEntity> findEbooks() {
 		return bookRepository.findEBooks();
 	}
-	
-	public List<BookEntity> findByCategory(BookEntity e){
+
+	public List<BookEntity> findByCategory(BookEntity e) {
 		return bookRepository.findByCategory(e);
 	}
-	
-	public Optional<BookEntity> findById(String id){
+
+	public Optional<BookEntity> findById(String id) {
 		return bookRepository.findById(id);
 	}
-	
-	public List<BookEntity> filter(BookEntity e){
+
+	public List<BookEntity> filter(BookEntity e) {
 		return bookRepository.filter(e);
 	}
-	
+
 	public BookEntity save(BookDto dto) {
 		BookEntity entity = new BookEntity();
 		entity.setBookId(dto.getBookId());
@@ -58,7 +55,7 @@ public class BookService {
 		bookRepository.bookAdd(entity);
 		return entity;
 	}
-	
+
 	public BookDto getBookInfo(String id) {
 		Optional<BookEntity> p = bookRepository.findById(id);
 		BookEntity e = p.get();
@@ -75,7 +72,7 @@ public class BookService {
 		dto.setIs_available(e.getIs_available());
 		return dto;
 	}
-	
+
 	public BookEntity updateBook(BookDto dto) {
 		BookEntity entity = new BookEntity();
 		entity.setBookId(dto.getBookId());
@@ -91,8 +88,8 @@ public class BookService {
 		bookRepository.update(entity);
 		return entity;
 	}
-	
+
 	public void updateAvailable(BookEntity b) {
-		bookRepository.updateAvailable(b);	
+		bookRepository.updateAvailable(b);
 	}
 }

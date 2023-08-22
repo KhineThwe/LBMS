@@ -9,18 +9,18 @@ import com.jp.library.entity.Role;
 
 @Mapper
 public interface RoleRepository {
-	  // Insert a new role
-    void insertRole(Role role);
+	// Insert a new role
+	void insertRole(Role role);
 
-    // Retrieve a role by its ID
-    Role getRoleById(Long id);
+	// Retrieve a role by its ID
+	Role getRoleById(Long id);
 
-    // Retrieve all roles
-    List<Role> getAllRoles();
+	// Retrieve all roles
+	List<Role> getAllRoles();
 
-    // Update an existing role
-    void updateRole(Role role);
+	// Update an existing role
+	void updateRole(Role role);
 
-    // Delete a role by its ID
-    void deleteRole(Long id);
+	// Delete a role by its ID
+	void deleteRole(Long id);
 }

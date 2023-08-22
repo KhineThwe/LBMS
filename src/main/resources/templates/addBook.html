@@ -14,7 +14,7 @@
 <body>
 	<nav th:replace="fragments/nav :: header">
 	</nav>
-	
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2"></div>
@@ -46,6 +46,8 @@
 								<td>
 									<div><input type="text" class="input-custom px-4" th:field="*{bookName}" /></div>
 								</td>
+								<p class="alert alert-warning" th:if="${#fields.hasErrors('bookName')}"
+									th:errors="*{bookName}"></p>
 							</tr>
 							<tr>
 								<td>
@@ -73,6 +75,8 @@
 								<td>
 									<div><input type="text" class="input-custom px-4" th:field="*{bookAuthor}" /></div>
 								</td>
+								<p class="alert alert-warning" th:if="${#fields.hasErrors('bookAuthor')}"
+									th:errors="*{bookAuthor}"></p>
 							</tr>
 							<tr>
 								<td>
@@ -83,6 +87,8 @@
 								<td>
 									<div><input type="text" class="input-custom px-4" th:field="*{produceYear}" /></div>
 								</td>
+								<p class="alert alert-warning" th:if="${#fields.hasErrors('produceYear')}"
+									th:errors="*{produceYear}"></p>
 							</tr>
 							<tr>
 								<td>
@@ -109,7 +115,7 @@
 								</td>
 								<td>
 									<div class="upload-btn-wrapper mt-2">
-										<button class="btn">Upload File...</button>
+										<button class="btn-u">Upload File...</button>
 										<input type="file" name="document" id="fileUpload" accept="image/*" />
 									</div>
 								</td>
@@ -117,13 +123,14 @@
 							</tr>
 							<tr>
 								<td>
-									<div  id="pdflable" style="display: none;" class="form-control-custom m-3 text-center">
+									<div id="pdflable" style="display: none;"
+										class="form-control-custom m-3 text-center">
 										Pdf
 									</div>
 								</td>
 								<td>
 									<div id="pdfinput" style="display: none;" class="upload-btn-wrapper mt-2">
-										<button class="btn">Upload File...</button>
+										<button class="btn-u">Upload File...</button>
 										<input type="file" name="pdf" id="fileUpload" accept="application/pdf" />
 									</div>
 								</td>
@@ -138,25 +145,24 @@
 			</div>
 		</div>
 	</div>
-	
-	<footer th:replace="fragments/footer :: footer">
-	</footer>
+
+
 	<script th:src="@{js/bootstrap.bundle.min.js}"></script>
 	<script th:src="@{js/popper.min.js}"></script>
 	<script th:src="@{js/bootstrap.min.js}"></script>
 	<script>
 		var type = document.getElementById("type");
 		type.addEventListener("change", function () {
-			
+
 			var selectedValue = type.value;
-			if(selectedValue=="ebook"){
+			if (selectedValue == "ebook") {
 				document.getElementById("pdflable").style.display = "block";
 				document.getElementById("pdfinput").style.display = "block";
-			}else{
+			} else {
 				document.getElementById("pdflable").style.display = "none";
 				document.getElementById("pdfinput").style.display = "none";
 			}
-			
+
 		});
 	</script>
 </body>

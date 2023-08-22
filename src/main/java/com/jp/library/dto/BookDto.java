@@ -1,18 +1,16 @@
 package com.jp.library.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 public class BookDto {
 	private String bookId;
-	@NotBlank(message = "Book Name cannot be blank!")
+	@NotBlank(message = "BookName can not be blank!")
 	private String bookName;
 	private String bookCategoryId;
 	@NotBlank(message = "Book Author cannot be blank!")
 	private String bookAuthor;
-	@NotBlank(message = "Produce Year cannot be blank!")
 	private String produceYear;
 	private String bookType;
 	private String fileUpload;

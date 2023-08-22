@@ -50,7 +50,7 @@ select {
   display: inline-block;
 }
 
-.btn {
+.btn-u{
   border: 0;
   border-radius: 0px;
   background-color: rgba(19, 130, 19, 0.3);

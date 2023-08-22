@@ -15,31 +15,31 @@ import com.jp.library.service.CategoryService;
 public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
-	
+
 	@GetMapping("/addCategory")
 	public String addCategory(Model model) {
 		int length = categoryService.findAll().size();
 		String categoryId = String.format("CA%05d", length + 1);
 		CategoryDto dto = new CategoryDto();
 		dto.setId(categoryId);
-		model.addAttribute("category",dto );
+		model.addAttribute("category", dto);
 		return "addBookCategory";
 	}
-	
+
 	@PostMapping("/addCategory")
-	public String addCategoryConfirm(@ModelAttribute("category")CategoryDto dto, BindingResult result,Model model) {
-		
+	public String addCategoryConfirm(@ModelAttribute("category") CategoryDto dto, BindingResult result, Model model) {
+
 		if (result.hasErrors()) {
 			model.addAttribute("category", dto);
-			model.addAttribute("error","validate!");
+			model.addAttribute("error", "validate!");
 			return "addBookCategory";
 		}
 		try {
 			categoryService.categoryAdd(dto);
-			
+
 		} catch (Exception e) {
 			model.addAttribute("category", dto);
-			model.addAttribute("error","Name is already Exited!");
+			model.addAttribute("error", "Name is already Exited!");
 			return "addBookCategory";
 		}
 		return "redirect:/addCategory";

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,6 +31,7 @@ import com.jp.library.service.CategoryService;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 @Controller
 public class BookController {
@@ -94,17 +96,22 @@ public class BookController {
 	}
 
 	@PostMapping("/addBook")
-	public String addBookToDb(@ModelAttribute("book") BookDto dto,
+	public String addBookToDb(@Valid @ModelAttribute("book") BookDto book,
 			@RequestParam("document") MultipartFile mulitpartFile, @RequestParam("pdf") MultipartFile pdf,
-			RedirectAttributes ra) throws IOException {
+			RedirectAttributes ra, BindingResult result, Model model) throws IOException {
+		if (result.hasErrors()) {
+			model.addAttribute("book", book);
+			return "addBook";
+		}
+
 		String fileName = StringUtils.cleanPath(mulitpartFile.getOriginalFilename());
 		String pdfName = StringUtils.cleanPath(pdf.getOriginalFilename());
 
 		// configuration for file upload
-		dto.setContent(mulitpartFile.getBytes());
-		dto.setImageUpload(fileName);
-		dto.setFileUpload(pdfName);
-		BookEntity b = bookService.save(dto);
+		book.setContent(mulitpartFile.getBytes());
+		book.setImageUpload(fileName);
+		book.setFileUpload(pdfName);
+		BookEntity b = bookService.save(book);
 		String uploadDir = "./book-storage/" + b.getBookId();
 		String pdfDir = "./book-pdf/" + b.getBookId();
 		Path uploadPath = Paths.get(uploadDir);
@@ -205,22 +212,22 @@ public class BookController {
 
 		return "redirect:/";
 	}
-	
+
 	@GetMapping("/available/{id}")
 	public String available(@PathVariable("id") String id) {
 		Optional<BookEntity> result = bookService.findById(id);
 		BookEntity b = result.get();
 		b.setIs_available(false);
 		bookService.updateAvailable(b);
-		return "redirect:/";	
+		return "redirect:/";
 	}
-	
+
 	@GetMapping("/lent/{id}")
 	public String lent(@PathVariable("id") String id) {
 		Optional<BookEntity> result = bookService.findById(id);
 		BookEntity b = result.get();
 		b.setIs_available(true);
 		bookService.updateAvailable(b);
-		return "redirect:/";	
+		return "redirect:/";
 	}
 }

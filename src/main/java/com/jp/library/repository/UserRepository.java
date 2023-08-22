@@ -10,9 +10,14 @@ import com.jp.library.entity.User;
 @Mapper
 public interface UserRepository {
 	User getUserById(Long id);
-    User getUserByEmail(String email);
-    List<User> getAllUsers();
-    void insertUser(User user);
-    void updateUser(User user);
-    void deleteUser(Long id);
+
+	User getUserByEmail(String email);
+
+	List<User> getAllUsers();
+
+	void insertUser(User user);
+
+	void updateUser(User user);
+
+	void deleteUser(Long id);
 }

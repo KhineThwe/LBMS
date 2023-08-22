@@ -4,6 +4,9 @@ body {
 	font-family: Inter, Helvetica, sans-serif;
 }
 
+.re{
+	margin-left: 12px;
+}
 .nav-bg {
 	background-color: #92d050;
 }
@@ -21,6 +24,10 @@ body {
 	justify-content: center;
 	color: #fff;
 	font-weight: 500;
+}
+
+.logo a{
+	text-decoration: none;
 }
 
 .logo p {
@@ -156,6 +163,8 @@ body {
 	text-decoration: none;
 	color: #fff;
 }
+
+
 
 .card-custom {
 	background: rgba(155, 248, 153, 0.63);

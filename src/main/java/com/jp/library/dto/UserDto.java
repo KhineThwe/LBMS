@@ -5,22 +5,24 @@ import java.util.Set;
 import com.jp.library.entity.Role;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
 public class UserDto {
 	private Long id;
-	@NotEmpty(message = "Please enter valid name.")
+	@NotBlank(message = "Name cannot be blank!.")
 	private String name;
 
-	@NotEmpty(message = "Please enter valid email.")
-	@Email
+	@NotBlank(message = "Mail can not be blank!")
+	@Email(message = "Invalid email address format")
 	private String email;
 
-	@NotEmpty(message = "Please enter valid password.")
+	@NotBlank(message = "Password  cannot be blank!")
 	private String password;
 
+	@Pattern(regexp = "^09[0-9]{7,15}$", message = "Invalid phone number format")
 	private String phoneNo;
 	private Set<Role> roles;
 
