@@ -21,6 +21,7 @@ public class UserService {
 	public void saveUser(UserDto userDto) {
 		User user = new User(userDto.getName(), userDto.getEmail(), passwordEncoder.encode(userDto.getPassword()),
 				userDto.getPhoneNo(), userDto.getRole());
+		user.setRoles("ROLE_ADMIN");
 		userRepository.insertUser(user);
 	}
 

@@ -6,25 +6,22 @@
 <mapper namespace="com.jp.library.repository.MyBookRepository">
 	<resultMap type="com.jp.library.entity.MyBookList"
 		id="mybook">
-		<result column="bookid" property="bookId"></result>
-		<result column="userid" property="userId" />
+		<result column="book_id" property="bookId"></result>
+		<result column="user_id" property="userId" />
 	</resultMap>
-	<!-- Insert a new record into mybookList
-	INSERT INTO mybookList (bookId, userId)
-		VALUES (#{bookId}, #{userId}) -->
-	<insert id="addToMyBookList" parameterType="java.util.Map">
-		INSERT INTO mybookList (bookId)
-		VALUES (#{bookId})
+		
+	<insert id="addToMyBookList">
+		INSERT INTO mybookList (book_id,user_id)
+		VALUES (#{bookId},#{userId})
 	</insert>
 
-	<!-- Retrieve a list of books for a specific user -->
-	<select id="getBooksForUser" parameterType="java.lang.Long"
-		resultType="java.util.Map">
-		SELECT book_id as bookId, book_name as bookName, book_author as bookAuthor
-		FROM book
-		WHERE book_id IN (SELECT bookId FROM mybookList WHERE userId = #{userId})
-	</select>
 
-	<!-- Other SQL queries and mappings can be defined here -->
+	<select id="getBooksForUser" resultMap="mybook" parameterType="java.lang.Long">
+		SELECT * FROM mybookList WHERE user_id = #{userId}
+	</select>
+	
+	<delete id="deleteBook" parameterType="java.lang.String">
+        DELETE FROM mybookList WHERE book_id = #{bookId}
+    </delete>
 
 </mapper>

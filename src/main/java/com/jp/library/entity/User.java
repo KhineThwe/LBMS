@@ -1,7 +1,5 @@
 package com.jp.library.entity;
 
-import java.util.Set;
-
 import lombok.Data;
 
 @Data
@@ -11,9 +9,9 @@ public class User {
 	private String email;
 	private String password;
 	private String phoneNumber;
-	private Set<Role> roles;
+	private String roles;
 
-	public User(String username, String email, String password, String phoneNumber, Set<Role> roles) {
+	public User(String username, String email, String password, String phoneNumber,String roles) {
 		super();
 		this.username = username;
 		this.email = email;
@@ -62,11 +60,11 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Set<Role> getRoles() {
+	public String getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(String roles) {
 		this.roles = roles;
 	}
 

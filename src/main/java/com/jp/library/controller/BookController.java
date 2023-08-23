@@ -10,6 +10,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -28,6 +30,7 @@ import com.jp.library.dto.BookDto;
 import com.jp.library.entity.BookEntity;
 import com.jp.library.service.BookService;
 import com.jp.library.service.CategoryService;
+import com.jp.library.service.MyBookService;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
@@ -43,6 +46,9 @@ public class BookController {
 
 	@Autowired
 	CategoryService categoryService;
+	
+	@Autowired
+	MyBookService myBookService;
 
 	@GetMapping("/")
 	public String index(Model model) {
@@ -217,6 +223,11 @@ public class BookController {
 	public String available(@PathVariable("id") String id) {
 		Optional<BookEntity> result = bookService.findById(id);
 		BookEntity b = result.get();
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		Long userId = Long.parseLong(authentication.getName());
+		myBookService.addToMyBookList(id, userId);
 		b.setIs_available(false);
 		bookService.updateAvailable(b);
 		return "redirect:/";
@@ -226,6 +237,7 @@ public class BookController {
 	public String lent(@PathVariable("id") String id) {
 		Optional<BookEntity> result = bookService.findById(id);
 		BookEntity b = result.get();
+		myBookService.deleteBook(id);
 		b.setIs_available(true);
 		bookService.updateAvailable(b);
 		return "redirect:/";

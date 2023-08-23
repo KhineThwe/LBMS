@@ -11,6 +11,7 @@
         <result property="email" column="email"/>
         <result property="password" column="password"/>
         <result property="phoneNumber" column="phone_no"/>
+        <result property="roles" column="roles"/>
     </resultMap>
 
     <select id="getUserById" resultMap="userResultMap" parameterType="java.lang.Long">
@@ -26,8 +27,8 @@
     </select>
 
     <insert id="insertUser" parameterType="com.jp.library.entity.User">
-        INSERT INTO users (username, email, password, phone_no)
-        VALUES (#{username}, #{email}, #{password}, #{phoneNumber})
+        INSERT INTO users (username, email, password, phone_no,roles)
+        VALUES (#{username}, #{email}, #{password}, #{phoneNumber},#{roles})
     </insert>
 
     <update id="updateUser" parameterType="com.jp.library.entity.User">
@@ -35,7 +36,7 @@
         username = #{username},
         email = #{email},
         password = #{password},
-        phone_no = #{phoneNumber}
+        phone_no = #{phoneNumber},
         WHERE id = #{id}
     </update>
 

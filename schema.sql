@@ -23,31 +23,31 @@ CREATE TABLE users (
     username VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-	phone_no  VARCHAR(60) NOT NULL
+	phone_no  VARCHAR(60) NOT NULL,
+	roles VARCHAR(30) NOT NULL
 );
 
-INSERT INTO role VALUES (1,'ROLE_ADMIN'),(2,'ROLE_USER');
 
-CREATE TABLE role (
-    id serial PRIMARY KEY,
-    name varchar(255)
-);
+-- CREATE TABLE role (
+--     id serial PRIMARY KEY,
+--     name varchar(255)
+-- );
 
-INSERT INTO users_roles VALUES (1,1);
+-- INSERT INTO users_roles VALUES (1,1);
 
-CREATE TABLE users_roles (
-    user_id BIGINT,
-    role_id BIGINT,
-    PRIMARY KEY (user_id, role_id),
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (role_id) REFERENCES role(id)
-);
+-- CREATE TABLE users_roles (
+--     user_id BIGINT,
+--     role_id BIGINT,
+--     PRIMARY KEY (user_id, role_id),
+--     FOREIGN KEY (user_id) REFERENCES users(id),
+--     FOREIGN KEY (role_id) REFERENCES role(id)
+-- );
 
 CREATE TABLE mybookList (
-    bookId VARCHAR(16),
-    userId BIGINT,
-    FOREIGN KEY (bookId) REFERENCES book(book_id),
-    FOREIGN KEY (userId) REFERENCES users(id)
+    book_id VARCHAR(16),
+    user_id BIGINT,
+    FOREIGN KEY (book_id) REFERENCES book(book_id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 

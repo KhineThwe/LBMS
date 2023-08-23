@@ -1,9 +1,5 @@
 package com.jp.library.dto;
 
-import java.util.Set;
-
-import com.jp.library.entity.Role;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -24,13 +20,13 @@ public class UserDto {
 
 	@Pattern(regexp = "^09[0-9]{7,15}$", message = "Invalid phone number format")
 	private String phoneNo;
-	private Set<Role> roles;
+	private String roles;
 
 	public UserDto() {
 		super();
 	}
 
-	public UserDto(String name, String email, String password, String phoneNo, Set<Role> roles) {
+	public UserDto(String name, String email, String password, String phoneNo, String roles) {
 		this.name = name;
 		this.email = email;
 		this.password = password;
@@ -78,11 +74,11 @@ public class UserDto {
 		this.phoneNo = phoneNo;
 	}
 
-	public Set<Role> getRole() {
+	public String getRole() {
 		return roles;
 	}
 
-	public void setRole(Set<Role> roles) {
+	public void setRole(String roles) {
 		this.roles = roles;
 	}
 

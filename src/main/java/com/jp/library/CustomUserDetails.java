@@ -1,63 +1,62 @@
-//package com.jp.library;
-//
-//import java.util.Collection;
-//
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.userdetails.UserDetails;
-//
-//import com.jp.library.entity.User;
-//
-//public class CustomUserDetails implements UserDetails {
-//	private User user;
-//
-//	public CustomUserDetails(User user) {
-//		this.user = user;
-//	}
-//
-//	@Override
-//	public Collection<? extends GrantedAuthority> getAuthorities() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public String getPassword() {
-//		// TODO Auto-generated method stub
-//		return user.getPassword();
-//	}
-//
-//	@Override
-//	public String getUsername() {
-//		// TODO Auto-generated method stub
-//		return user.getEmail();
-//	}
-//
-//	@Override
-//	public boolean isAccountNonExpired() {
-//		// TODO Auto-generated method stub
-//		return true;
-//	}
-//
-//	@Override
-//	public boolean isAccountNonLocked() {
-//		// TODO Auto-generated method stub
-//		return true;
-//	}
-//
-//	@Override
-//	public boolean isCredentialsNonExpired() {
-//		// TODO Auto-generated method stub
-//		return true;
-//	}
-//
-//	@Override
-//	public boolean isEnabled() {
-//		// TODO Auto-generated method stub
-//		return true;
-//	}
-//
-////	  public String getFullName() {
-////	        return user.getFirstName() + " " + user.getLastName();
-////	    }
-//
-//}
+package com.jp.library;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.jp.library.entity.User;
+
+public class CustomUserDetails implements UserDetails {
+	private String name;
+	private String password;
+	private List<GrantedAuthority> authorities;
+
+	public CustomUserDetails(User user) {
+		super();
+		name = Long.toString(user.getId());
+		password = user.getPassword();
+		authorities = Arrays.stream(user.getRoles().split(",")).map(SimpleGrantedAuthority::new)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return authorities;
+	}
+
+	@Override
+	public String getPassword() {
+		return password;
+	}
+
+	@Override
+	public String getUsername() {
+		return name;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+
+}

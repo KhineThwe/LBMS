@@ -75,12 +75,6 @@
 					<div class="row">
 						<div class="col-12 col-sm-6 col-md-4 col-lg-4 p-3" th:each="book : ${bookList}">
 							<div class="card-custom" th:onmousemove="show(this)" th:onmouseout="hide(this)">
-								<!--Here For MyBookList! <input type="hidden" name="userId" placeholder="User ID">-->
-								<form th:action="@{/addToMyBookList}" method="post">
-									<input type="hidden" name="bookId" placeholder="Book ID" value="${book.bookId}">
-									
-									<input type="submit" value="Add to My Book List">
-								</form>
 								<div class="d-flex justify-content-center pt-5">
 									<img th:if="${book.imageUpload!=''}" th:src="@{${book.getImagePath}}" alt="book"
 										width="100px" />
@@ -103,15 +97,18 @@
 									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
 										th:if="${book.bookType=='book' and book.is_available==true}"
 										th:href="@{/available/{id}(id=${book.bookId})}">Available</a>
-									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
+									<a class="text-decoration-none" sec:authorize="hasRole('ROLE_ADMIN')"
 										th:if="${book.bookType=='book' and book.is_available==false}"
-										th:href="@{/lent/{id}(id=${book.bookId})}">Already Lent</a>
+										th:href="@{/lent/{id}(id=${book.bookId})}" >Already Lent</a>
+									<a class="text-decoration-none" sec:authorize="hasRole('ROLE_USER')"
+										th:if="${book.bookType=='book' and book.is_available==false}"
+										 >Already Lent</a>
 									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
 										th:unless="${book.bookType=='book'}"
 										th:href="@{/download(id=${book.bookId})}">Download</a>
 								</div>
 								<div class="text-center card-status p-2">
-									<a sec:authorize="isAuthenticated()" th:href="@{/update/{id}(id=${book.bookId})}"
+									<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/update/{id}(id=${book.bookId})}"
 										class="btn mr-2 mb-2 mb-md-0">Update</a>
 									<span sec:authorize="!isAuthenticated()" th:text="${book.bookName}"></span>
 								</div>
