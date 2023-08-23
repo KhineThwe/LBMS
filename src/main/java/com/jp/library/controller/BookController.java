@@ -167,8 +167,8 @@ public class BookController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/update/{id}")
-	public String updateBook(Model model, @PathVariable("id") String id) {
+	@GetMapping("/update")
+	public String updateBook(Model model, @RequestParam("id") String id) {
 		model.addAttribute("categories", categoryService.findAll());
 		model.addAttribute("bookInfo", bookService.getBookInfo(id));
 		return "updateBook";

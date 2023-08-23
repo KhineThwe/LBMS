@@ -46,13 +46,9 @@ public class LoginController {
 		userService.saveUser(userDto);
 		return "redirect:/register?success";
 		// tochuuu
-		// 1.only register works but in db,user_roles table datas are not saved.
-		// 2.need to implment login page with spring security
 		// 3.need to pdf upload,download fix
-		// 4.left available,login first and already lent option with login user
-		// 5.need to check update book
+		// 5.need to check update book image
 		// 6.when validation error happen
-		// 7.need to add mybooks list and relation table
 		// 8.ui responsive
 		// 9.ui fix before submit
 	}

@@ -108,7 +108,7 @@
 										th:href="@{/download(id=${book.bookId})}">Download</a>
 								</div>
 								<div class="text-center card-status p-2">
-									<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/update/{id}(id=${book.bookId})}"
+									<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/update(id=${book.bookId})}"
 										class="btn mr-2 mb-2 mb-md-0">Update</a>
 									<span sec:authorize="!isAuthenticated()" th:text="${book.bookName}"></span>
 								</div>
