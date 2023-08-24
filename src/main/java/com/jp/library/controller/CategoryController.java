@@ -1,5 +1,7 @@
 package com.jp.library.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.jp.library.dto.CategoryDto;
+import com.jp.library.entity.BookEntity;
+import com.jp.library.entity.Category;
 import com.jp.library.service.CategoryService;
 
 @Controller
@@ -18,8 +22,11 @@ public class CategoryController {
 
 	@GetMapping("/addCategory")
 	public String addCategory(Model model) {
-		int length = categoryService.findAll().size();
-		String categoryId = String.format("CA%05d", length + 1);
+		List<Category> length = categoryService.findAll();
+		Category c = length.get(length.size() - 1);
+		String id = c.getId().substring(1);
+		int real_id = Integer.parseInt(id) + 1;
+		String categoryId = String.format("CA%05d", real_id);
 		CategoryDto dto = new CategoryDto();
 		dto.setId(categoryId);
 		model.addAttribute("category", dto);

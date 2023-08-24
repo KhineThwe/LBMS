@@ -1,9 +1,11 @@
 package com.jp.library.dto;
 
+import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
+@Entity
 public class BookDto {
 	private String bookId;
 	@NotBlank(message = "BookName can not be blank!")

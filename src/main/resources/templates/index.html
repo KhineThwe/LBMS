@@ -92,17 +92,20 @@
 									<p>Produce Year: <span th:text="${book.produceYear}"></span></p>
 								</div>
 								<div class="text-center p-2">
-									<a class="text-danger text-decoration-none" sec:authorize="!isAuthenticated()"
-										th:href="@{/login}">Login First</a>
+									<a class="text-decoration-none" sec:authorize="!isAuthenticated()"
+										th:if="${book.bookType=='book' and book.is_available==true}"
+										th:href="@{/login}">Available</a>
+									<a class="text-decoration-none" sec:authorize="!isAuthenticated()"
+										th:if="${book.bookType=='book' and book.is_available==false}"
+										th:href="@{/login}">Already Lent</a>
 									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
 										th:if="${book.bookType=='book' and book.is_available==true}"
 										th:href="@{/available/{id}(id=${book.bookId})}">Available</a>
 									<a class="text-decoration-none" sec:authorize="hasRole('ROLE_ADMIN')"
 										th:if="${book.bookType=='book' and book.is_available==false}"
-										th:href="@{/lent/{id}(id=${book.bookId})}" >Already Lent</a>
+										th:href="@{/lent/{id}(id=${book.bookId})}">Already Lent</a>
 									<a class="text-decoration-none" sec:authorize="hasRole('ROLE_USER')"
-										th:if="${book.bookType=='book' and book.is_available==false}"
-										 >Already Lent</a>
+										th:if="${book.bookType=='book' and book.is_available==false}">Already Lent</a>
 									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
 										th:unless="${book.bookType=='book'}"
 										th:href="@{/download(id=${book.bookId})}">Download</a>

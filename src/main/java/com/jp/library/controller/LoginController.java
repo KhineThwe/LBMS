@@ -1,5 +1,7 @@
 package com.jp.library.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,12 +44,18 @@ public class LoginController {
 			model.addAttribute("user", userDto);
 			return "/register";
 		}
-
+		List<User> users = userService.getAllUsers();
+		if(users.size() == 0) {
+			userDto.setRole("ROLE_ADMIN");
+		}else {
+			userDto.setRole("ROLE_USER");
+		}
 		userService.saveUser(userDto);
 		return "redirect:/register?success";
 		// tochuuu
-		// 3.need to pdf upload,download fix
+		// 3download fix
 		// 5.need to check update book image
+		
 		// 6.when validation error happen
 		// 8.ui responsive
 		// 9.ui fix before submit

@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class BookController {
 
 	@Autowired
 	CategoryService categoryService;
-	
+
 	@Autowired
 	MyBookService myBookService;
 
@@ -92,8 +93,11 @@ public class BookController {
 
 	@GetMapping("/addBook")
 	public String addBook(Model model) {
-		int length = bookService.findAll().size();
-		String bookId = String.format("C%06d", length + 1);
+		List<BookEntity> length = bookService.findAll();
+		BookEntity b = length.get(length.size()-1);
+		String id = b.getBookId().substring(1);
+		int real_id = Integer.parseInt(id) + 1;
+		String bookId = String.format("C%06d", real_id);
 		BookDto dto = new BookDto();
 		dto.setBookId(bookId);
 		model.addAttribute("book", dto);
@@ -102,9 +106,9 @@ public class BookController {
 	}
 
 	@PostMapping("/addBook")
-	public String addBookToDb(@Valid @ModelAttribute("book") BookDto book,
+	public String addBookToDb(@Valid @ModelAttribute("book") BookDto book, BindingResult result,
 			@RequestParam("document") MultipartFile mulitpartFile, @RequestParam("pdf") MultipartFile pdf,
-			RedirectAttributes ra, BindingResult result, Model model) throws IOException {
+			RedirectAttributes ra, Model model) throws IOException {
 		if (result.hasErrors()) {
 			model.addAttribute("book", book);
 			return "addBook";
@@ -127,14 +131,18 @@ public class BookController {
 			Files.createDirectories(uploadPath);
 		}
 		if (!Files.exists(updfPath)) {
-			Files.createDirectories(updfPath);
+			try {
+				Files.createDirectories(updfPath);
+				Path pdfPath = updfPath.resolve(pdfName);
+				Files.copy(pdf.getInputStream(), pdfPath, StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
 		}
 
 		try (InputStream inputStream = mulitpartFile.getInputStream()) {
 			Path filePath = uploadPath.resolve(fileName);
-			Path pdfPath = updfPath.resolve(pdfName);
 			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-			Files.copy(inputStream, pdfPath, StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			throw new IOException("Could not save uploaded File: " + fileName + "" + pdfName);
 		}
