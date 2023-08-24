@@ -4,9 +4,25 @@ body {
 	font-family: Inter, Helvetica, sans-serif;
 }
 
-.re{
+.no-book {
+	color: rgba(0, 0, 0, 0.48);
+	text-align: center;
+	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	font-family: Inter;
+	font-size: 22px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+	background: #E6EFDF;
+	width: 1276px;
+	height: 119px;
+	padding-top: 40px;
+}
+
+.re {
 	margin-left: 12px;
 }
+
 .nav-bg {
 	background-color: #92d050;
 }
@@ -26,7 +42,7 @@ body {
 	font-weight: 500;
 }
 
-.logo a{
+.logo a {
 	text-decoration: none;
 }
 
@@ -52,7 +68,8 @@ body {
 	font-weight: 500;
 	line-height: normal;
 }
-.btn-width-category{
+
+.btn-width-category {
 	width: 150px;
 }
 
@@ -154,7 +171,7 @@ body {
 	text-align: center;
 }
 
-.categories a{
+.categories a {
 	text-decoration: none;
 	color: #fff;
 }
@@ -171,10 +188,10 @@ body {
 	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.card-custom img{
+.card-custom img {
 	width: 100px;
 	height: 120px;
-	
+
 }
 
 .card-custom:hover {

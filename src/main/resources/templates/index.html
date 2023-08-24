@@ -73,6 +73,9 @@
 						</div>
 					</form>
 					<div class="row">
+						<div class="text-center no-book mt-4">
+							<p>[[${nobook}]]</p>
+						</div>
 						<div class="col-12 col-sm-6 col-md-4 col-lg-4 p-3" th:each="book : ${bookList}">
 							<div class="card-custom" th:onmousemove="show(this)" th:onmouseout="hide(this)">
 								<div class="d-flex justify-content-center pt-5">

@@ -23,8 +23,18 @@ public class CategoryController {
 	@GetMapping("/addCategory")
 	public String addCategory(Model model) {
 		List<Category> length = categoryService.findAll();
-		Category c = length.get(length.size() - 1);
-		String id = c.getId().substring(1);
+
+		Category c;
+		if (length.isEmpty()) {
+			c = new Category();
+		} else {
+			c = length.get(length.size() - 1);
+
+		}
+		String id = "0";
+		if (c.getId() != null && c.getId().matches("CA\\d{5}")) {
+		    id = c.getId().substring(2);
+		}
 		int real_id = Integer.parseInt(id) + 1;
 		String categoryId = String.format("CA%05d", real_id);
 		CategoryDto dto = new CategoryDto();

@@ -53,7 +53,11 @@ public class BookController {
 
 	@GetMapping("/")
 	public String index(Model model) {
-		model.addAttribute("bookList", bookService.findAll());
+		List<BookEntity> b = bookService.findAll();
+		if (b.isEmpty()) {
+			model.addAttribute("nobook", "Currently, there is no book data");
+		}
+		model.addAttribute("bookList", b);
 		model.addAttribute("filter", new BookEntity());
 		model.addAttribute("categories", categoryService.findAll());
 		return "index";
@@ -94,8 +98,17 @@ public class BookController {
 	@GetMapping("/addBook")
 	public String addBook(Model model) {
 		List<BookEntity> length = bookService.findAll();
-		BookEntity b = length.get(length.size()-1);
-		String id = b.getBookId().substring(1);
+		BookEntity b;
+		if (length.isEmpty()) {
+			b = new BookEntity();
+		} else {
+			b = length.get(length.size() - 1);
+
+		}
+		String id = "0";
+		if (b.getBookId() != null && b.getBookId().matches("C\\d{6}")) {
+		    id = b.getBookId().substring(1);
+		}
 		int real_id = Integer.parseInt(id) + 1;
 		String bookId = String.format("C%06d", real_id);
 		BookDto dto = new BookDto();
