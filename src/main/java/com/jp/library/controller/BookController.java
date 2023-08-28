@@ -55,7 +55,7 @@ public class BookController {
 	public String index(Model model) {
 		List<BookEntity> b = bookService.findAll();
 		if (b.isEmpty()) {
-			model.addAttribute("nobook", "Currently, there is no book data");
+			model.addAttribute("nobook", "Book Not Found");
 		}
 		model.addAttribute("bookList", b);
 		model.addAttribute("filter", new BookEntity());
@@ -65,14 +65,24 @@ public class BookController {
 
 	@GetMapping("/books")
 	public String books(Model model) {
-		model.addAttribute("bookList", bookService.findBooks());
+		List<BookEntity> b = bookService.findBooks();
+		if (b.isEmpty()) {
+			model.addAttribute("nobook", "Book Not Found");
+		}
+		model.addAttribute("bookList", b);
+		model.addAttribute("categories", categoryService.findAll());
 		model.addAttribute("filter", new BookEntity());
 		return "index";
 	}
 
 	@GetMapping("/ebooks")
 	public String ebooks(Model model) {
-		model.addAttribute("bookList", bookService.findEbooks());
+		List<BookEntity> b = bookService.findEbooks();
+		if (b.isEmpty()) {
+			model.addAttribute("nobook", "EBook Not Found");
+		}
+		model.addAttribute("bookList", b);
+		model.addAttribute("categories", categoryService.findAll());
 		model.addAttribute("filter", new BookEntity());
 		return "index";
 	}
@@ -81,15 +91,24 @@ public class BookController {
 	public String category(Model model, @RequestParam("name") String name) {
 		BookEntity e = new BookEntity();
 		e.setBookCategoryId(name);
-		model.addAttribute("bookList", bookService.findByCategory(e));
+		List<BookEntity> b = bookService.findByCategory(e);
+		model.addAttribute("bookList", b);
 		model.addAttribute("filter", new BookEntity());
+		
+		if (b.isEmpty()) {
+			model.addAttribute("nobook", "Book Not Found");
+		}
 		model.addAttribute("categories", categoryService.findAll());
 		return "index";
 	}
 
 	@PostMapping("/filter")
 	public String filter(@ModelAttribute("filter") BookEntity e, Model model) {
-		model.addAttribute("bookList", bookService.filter(e));
+		List<BookEntity> b = bookService.filter(e);
+		if (b.isEmpty()) {
+			model.addAttribute("nobook", "Book Not Found");
+		}
+		model.addAttribute("bookList", b);
 		model.addAttribute("categories", categoryService.findAll());
 		model.addAttribute("filter", new BookEntity());
 		return "index";
@@ -121,9 +140,10 @@ public class BookController {
 	@PostMapping("/addBook")
 	public String addBookToDb(@Valid @ModelAttribute("book") BookDto book, BindingResult result,
 			@RequestParam("document") MultipartFile mulitpartFile, @RequestParam("pdf") MultipartFile pdf,
-			RedirectAttributes ra, Model model) throws IOException {
+			 RedirectAttributes ra,Model model) throws IOException {
 		if (result.hasErrors()) {
 			model.addAttribute("book", book);
+			model.addAttribute("categories", categoryService.findAll());
 			return "addBook";
 		}
 
@@ -156,10 +176,11 @@ public class BookController {
 		try (InputStream inputStream = mulitpartFile.getInputStream()) {
 			Path filePath = uploadPath.resolve(fileName);
 			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+
 		} catch (IOException e) {
 			throw new IOException("Could not save uploaded File: " + fileName + "" + pdfName);
 		}
-//		ra.addFlashAttribute("message", "The file has been uploaded successfully");
+		ra.addFlashAttribute("message", "Book saved successfully!!");
 		return "redirect:/";
 	}
 

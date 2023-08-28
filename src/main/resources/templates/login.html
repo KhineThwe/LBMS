@@ -22,18 +22,18 @@
 			<form th:action="@{/login}" method="post">
 				<div class="form__input-group">
 					<input type="text" name="username" class="form__input" autofocus placeholder="Enter username"
-						id="usernameInput" />
+						id="usernameInput" required/>
 					<div class="padding"></div>
 				</div>
 				<div class="form__input-group">
 					<input type="password" name="password" class="form__input" autofocus placeholder="Enter password"
-						id="passwordInput" />
+						id="passwordInput" required/>
 					<div class="padding"></div>
 					<div class="padding"></div>
 					<input class="form__button mt-5" type="submit" value="Login" id="loginButton" />
 					<div class="padding"></div>
 					<div class="padding"></div>
-					<a th:href="@{/}"><button class="form__button" id="loginButton">Go Home</button></a>
+					<a class="form__button" th:href="@{/}">Go Home</a>
 				</div>
 			</form>
 		</div>

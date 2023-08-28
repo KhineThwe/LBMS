@@ -16,7 +16,7 @@
 	<nav th:replace="fragments/nav :: header">
 	</nav>
 	<!--Message Section!-->
-	<div class="text-success">
+	<div class="text-success" th:if="${message}">
 		<h2>[[${message}]]</h2>
 	</div>
 	<div class="text-danger">
@@ -73,8 +73,8 @@
 						</div>
 					</form>
 					<div class="row">
-						<div class="text-center no-book mt-4">
-							<p>[[${nobook}]]</p>
+						<div class="text-center no-book mt-4" th:if="${nobook}">
+							<p th:text="${nobook}"></p>
 						</div>
 						<div class="col-12 col-sm-6 col-md-4 col-lg-4 p-3" th:each="book : ${bookList}">
 							<div class="card-custom" th:onmousemove="show(this)" th:onmouseout="hide(this)">

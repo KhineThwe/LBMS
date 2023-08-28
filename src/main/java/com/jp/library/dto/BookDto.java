@@ -2,17 +2,24 @@ package com.jp.library.dto;
 
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 @Entity
 public class BookDto {
 	private String bookId;
-	@NotBlank(message = "BookName can not be blank!")
+	@NotNull(message = "Book Name can not be null!!")
+	@NotBlank(message = "Book Name cannot be blank!")
 	private String bookName;
+	@NotEmpty(message = "Please select an option")
 	private String bookCategoryId;
+	@NotNull(message = "Book Author can not be null!!")
 	@NotBlank(message = "Book Author cannot be blank!")
 	private String bookAuthor;
+	@NotNull(message = "Produce Year can not be null!!")
+	@NotBlank(message = "Produce Year cannot be blank!")
 	private String produceYear;
 	private String bookType;
 	private String fileUpload;

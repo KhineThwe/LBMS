@@ -44,8 +44,11 @@
 								<td>
 									<div><input type="text" class="input-custom px-4" th:field="*{bookName}" /></div>
 								</td>
-								<p class="alert alert-warning" th:if="${#fields.hasErrors('bookName')}"
-									th:errors="*{bookName}"></p>
+
+								<td class="alert alert-warning" th:if="${#fields.hasErrors('bookName')}"
+									th:errors="*{bookName}">
+								</td>
+
 							</tr>
 							<tr>
 								<td>
@@ -62,6 +65,9 @@
 												th:text="${category.categoryName}">Text</option>
 										</select>
 									</div>
+									<div th:if="${#fields.hasErrors('bookCategoryId')}" class="alert alert-danger">
+										<p th:errors="*{bookCategoryId}">Please select an option</p>
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -73,8 +79,9 @@
 								<td>
 									<div><input type="text" class="input-custom px-4" th:field="*{bookAuthor}" /></div>
 								</td>
-								<p class="alert alert-warning" th:if="${#fields.hasErrors('bookAuthor')}"
-									th:errors="*{bookAuthor}"></p>
+								<td class="alert alert-warning" th:if="${#fields.hasErrors('bookAuthor')}"
+									th:errors="*{bookAuthor}">
+								</td>
 							</tr>
 							<tr>
 								<td>
@@ -85,8 +92,10 @@
 								<td>
 									<div><input type="text" class="input-custom px-4" th:field="*{produceYear}" /></div>
 								</td>
-								<p class="alert alert-warning" th:if="${#fields.hasErrors('produceYear')}"
-									th:errors="*{produceYear}"></p>
+								<td class="alert alert-warning" th:if="${#fields.hasErrors('produceYear')}"
+									th:errors="*{produceYear}">
+								</td>
+
 							</tr>
 							<tr>
 								<td>
@@ -136,8 +145,10 @@
 							</tr>
 						</tbody>
 					</table>
+
 					<div class="d-flex justify-content-center">
-						<input class="add-button mt-5" type="submit" value="Add Book" />
+						<input class="add-button mt-3 mx-4" type="submit" value="Add Book" />
+						<a class="add-button mt-3 pt-2" th:href="@{/}">Cancel</a>
 					</div>
 				</form>
 			</div>

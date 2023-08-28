@@ -1,5 +1,6 @@
 package com.jp.library.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
@@ -7,7 +8,7 @@ import lombok.Data;
 public class CategoryDto {
 	private String id;
 
-	@NotEmpty(message = "Please enter valid name.")
+	@NotBlank(message = "CategoryName can not be blank!")
 	private String categoryName;
 
 	public String getId() {

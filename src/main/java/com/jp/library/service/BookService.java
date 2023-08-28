@@ -35,6 +35,10 @@ public class BookService {
 	public Optional<BookEntity> findById(String id) {
 		return bookRepository.findById(id);
 	}
+	
+	public Optional<BookEntity> findByIdForMyBookList(String id,Boolean status){
+		return bookRepository.findByIdForMyBookList(id, status);	
+	}
 
 	public List<BookEntity> filter(BookEntity e) {
 		return bookRepository.filter(e);

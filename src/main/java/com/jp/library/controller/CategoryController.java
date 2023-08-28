@@ -15,6 +15,8 @@ import com.jp.library.entity.BookEntity;
 import com.jp.library.entity.Category;
 import com.jp.library.service.CategoryService;
 
+import jakarta.validation.Valid;
+
 @Controller
 public class CategoryController {
 	@Autowired
@@ -44,22 +46,23 @@ public class CategoryController {
 	}
 
 	@PostMapping("/addCategory")
-	public String addCategoryConfirm(@ModelAttribute("category") CategoryDto dto, BindingResult result, Model model) {
+	public String addCategoryConfirm(@Valid @ModelAttribute("category") CategoryDto dto, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
 			model.addAttribute("category", dto);
-			model.addAttribute("error", "validate!");
 			return "addBookCategory";
 		}
 		try {
 			categoryService.categoryAdd(dto);
+			
 
 		} catch (Exception e) {
 			model.addAttribute("category", dto);
 			model.addAttribute("error", "Name is already Exited!");
 			return "addBookCategory";
 		}
-		return "redirect:/addCategory";
+		model.addAttribute("message", "Category saved successfully!");
+		return "addBookCategory";
 	}
 
 }

@@ -118,6 +118,7 @@ body {
 	width: 100%;
 	flex-shrink: 0;
 	padding: 1rem 2rem;
+	text-decoration: none;
 	color: #000;
 	border: none;
 	border-radius: var(--border-radius);

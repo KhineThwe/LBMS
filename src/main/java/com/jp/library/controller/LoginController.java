@@ -54,10 +54,20 @@ public class LoginController {
 		return "redirect:/register?success";
 		// tochuuu
 		// 3download fix
-		// 5.need to check update book image
+		//*** public user error when no data
+		//when book saved successfully,book not found error message still show and empty div still show
+		//validation in login page 
+		//role classification to public and when login,if user is already lent which user lends
+		//show login user in nav bar
+		//when update database saving format is wrong,need to sort
+		//when user login,my books category is wrong.
 		
-		// 6.when validation error happen
-		// 8.ui responsive
+		
+		// 8.ui responsive *******
 		// 9.ui fix before submit
+		
+		//register.html and login.html ka Go Home button ui
+		//addBook.html ka error message location
+		//index.html ka nav location arrangement
 	}
 }
