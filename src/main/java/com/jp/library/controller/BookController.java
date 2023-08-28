@@ -131,7 +131,7 @@ public class BookController {
 		String pdfName = StringUtils.cleanPath(pdf.getOriginalFilename());
 
 		// configuration for file upload
-		book.setContent(mulitpartFile.getBytes());
+		book.setContent(pdf.getBytes());
 		book.setImageUpload(fileName);
 		book.setFileUpload(pdfName);
 		BookEntity b = bookService.save(book);
@@ -199,43 +199,73 @@ public class BookController {
 	public String updateConfirm(Model model, @ModelAttribute("bookInfo") BookDto h,
 			@RequestParam("document") MultipartFile mulitpartFile, @RequestParam("pdf") MultipartFile pdf)
 			throws IOException {
+		Optional<BookEntity> be= bookService.findById(h.getBookId());
+		String fileName = StringUtils.cleanPath(mulitpartFile.getOriginalFilename());
+		String pdfName = StringUtils.cleanPath(pdf.getOriginalFilename());
 		if (mulitpartFile != null && !mulitpartFile.isEmpty()) {
-			String fileName = StringUtils.cleanPath(mulitpartFile.getOriginalFilename());
-			h.setContent(mulitpartFile.getBytes());
+			String uploadDir = "./book-storage/" + h.getBookId();
+			Path uploadPath = Paths.get(uploadDir);
+			if (!Files.exists(uploadPath)) {
+				Files.createDirectories(uploadPath);
+				try (InputStream inputStream = mulitpartFile.getInputStream()) {
+					Path filePath = uploadPath.resolve(fileName);
+					Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+				} catch (IOException e) {
+					throw new IOException("Could not save uploaded File: " + fileName + "" + pdfName);
+				}
+			}else {
+				
+				String delDir ="./"+ be.get().getImagePath()+"/"+be.get().getImageUpload();
+				Path delPath = Paths.get(delDir);
+				Files.deleteIfExists(delPath);
+				Files.createDirectories(uploadPath);
+				try (InputStream inputStream = mulitpartFile.getInputStream()) {
+					Path filePath = uploadPath.resolve(fileName);
+					Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+				} catch (IOException e) {
+					throw new IOException("Could not save uploaded File: " + fileName + "" + pdfName);
+				}
+			}
+			
 			h.setImageUpload(fileName);
+		}else {
+			h.setImageUpload(be.get().getImageUpload());
 		}
 
 		if (pdf != null && !pdf.isEmpty()) {
-			String pdfName = StringUtils.cleanPath(pdf.getOriginalFilename());
+			String pdfDir = "./book-pdf/" + h.getBookId();
+			Path updfPath = Paths.get(pdfDir);
+			h.setContent(pdf.getBytes());
 			h.setFileUpload(pdfName);
+			if (!Files.exists(updfPath)) {
+				try {
+					Files.createDirectories(updfPath);
+					Path pdfPath = updfPath.resolve(pdfName);
+					Files.copy(pdf.getInputStream(), pdfPath, StandardCopyOption.REPLACE_EXISTING);
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			}else {
+				String delDir ="./"+ be.get().getPDFPath()+"/"+be.get().getFileUpload();
+				Path delPath = Paths.get(delDir);
+				Files.deleteIfExists(delPath);
+				try {
+					Files.createDirectories(updfPath);
+					Path pdfPath = updfPath.resolve(pdfName);
+					Files.copy(pdf.getInputStream(), pdfPath, StandardCopyOption.REPLACE_EXISTING);
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			}
+			h.setFileUpload(pdfName);
+		}else {
+			h.setFileUpload(be.get().getFileUpload());
 		}
 
 		model.addAttribute("categories", categoryService.findAll());
-		BookEntity updateBook = bookService.updateBook(h);
+		bookService.updateBook(h);
 
-		if (mulitpartFile != null && !mulitpartFile.isEmpty() && pdf != null && !pdf.isEmpty()) {
-			String uploadDir = "./book-storage/" + updateBook.getBookId();
-			String pdfDir = "./book-pdf/" + updateBook.getBookId();
-			Path uploadPath = Paths.get(uploadDir);
-			Path pdfPath = Paths.get(pdfDir);
 
-			if (!Files.exists(uploadPath)) {
-				Files.createDirectories(uploadPath);
-			}
-			if (!Files.exists(pdfPath)) {
-				Files.createDirectories(pdfPath);
-			}
-
-			try (InputStream imageInputStream = mulitpartFile.getInputStream();
-					InputStream pdfInputStream = pdf.getInputStream()) {
-				Path imageFilePath = uploadPath.resolve(updateBook.getImageUpload());
-				Path pdfFilePath = pdfPath.resolve(updateBook.getFileUpload());
-				Files.copy(imageInputStream, imageFilePath, StandardCopyOption.REPLACE_EXISTING);
-				Files.copy(pdfInputStream, pdfFilePath, StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				throw new IOException("Could not save uploaded files for book ID: " + updateBook.getBookId());
-			}
-		}
 
 		return "redirect:/";
 	}

@@ -95,12 +95,14 @@
 									<p>Produce Year: <span th:text="${book.produceYear}"></span></p>
 								</div>
 								<div class="text-center p-2">
-									<a class="text-decoration-none" sec:authorize="!isAuthenticated()"
+									<div th:onclick="down(this)" sec:authorize="!isAuthenticated()">
+										<a class="text-decoration-none" 
 										th:if="${book.bookType=='book' and book.is_available==true}"
-										th:href="@{/login}">Available</a>
-									<a class="text-decoration-none" sec:authorize="!isAuthenticated()"
+										>Available</a>
+									<a class="text-decoration-none" 
 										th:if="${book.bookType=='book' and book.is_available==false}"
-										th:href="@{/login}">Already Lent</a>
+										>Already Lent</a>
+									</div>
 									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
 										th:if="${book.bookType=='book' and book.is_available==true}"
 										th:href="@{/available/{id}(id=${book.bookId})}">Available</a>
@@ -112,6 +114,11 @@
 									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
 										th:unless="${book.bookType=='book'}"
 										th:href="@{/download(id=${book.bookId})}">Download</a>
+									<div th:onclick="down(this)" sec:authorize="!isAuthenticated()"
+										th:unless="${book.bookType=='book'}">
+										<a class="text-decoration-none" 
+										>Download</a>
+									</div>
 								</div>
 								<div class="text-center card-status p-2">
 									<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/update(id=${book.bookId})}"
@@ -141,15 +148,16 @@
 	<script th:src="@{js/bootstrap.min.js}"></script>
 	<script>
 		function hide(element) {
-
 			var description = element.querySelector('.book-description');
 			description.style.display = 'none';
 
 		}
 		function show(element) {
-
 			var description = element.querySelector('.book-description');
 			description.style.display = 'block';
+		}
+		function down(element) {
+			element.innerHTML="<a class='text-decoration-none text-danger' href='/login'>Login First</a>";
 		}
 	</script>
 </body>

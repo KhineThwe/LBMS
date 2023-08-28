@@ -4,6 +4,10 @@ body {
   background: #92d050;
   position: relative;
 }
+
+.parent{
+	min-height: 800px;
+}
 .title-custom {
   justify-content: center;
   flex-shrink: 0;
