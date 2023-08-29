@@ -55,13 +55,7 @@
 		SELECT * FROM
 		book where book_id = #{bookId}
 	</select>
-	<!-- testing purpose -->
-	<select id="findByIdForMyBookList"
-		resultType="com.jp.library.entity.BookEntity" resultMap="library">
-		SELECT * FROM
-		book where book_id = #{bookId} and is_available = #{is_available}
-	</select>
-	
+
 	<insert id="bookAdd"
 		parameterType="com.jp.library.entity.BookEntity" >
 		INSERT INTO book(book_id,book_name,category_id,book_author,produce_year,book_type,content,file_url,image_url,is_available)

@@ -29,26 +29,38 @@
 					<a th:href="@{/books}" class="btn btn-width mr-md-3 mb-2 mb-md-0">Books</a>
 					<a th:href="@{/ebooks}" class="btn btn-width mr-md-3 mb-2 mb-md-0">EBooks</a>
 					<a th:href="@{/addBook}" class="btn btn-width mb-2 mb-md-0">Add Book</a>
-					<a th:href="@{/myBookList}" class="btn btn-width mb-2 mb-md-0">MyBooks</a>
+					<a th:href="@{/myBookList}" sec:authorize="isAuthenticated()" class="btn btn-width mb-2 mb-md-0">MyBooks</a>
 				</div>
 			</div>
-			<!--Register Section!-->
+			<!--Register Section!
+			<div class="col-md-4 d-flex text-center text-md-left mb-3 mb-md-0 align-items-center">
+				<div class="justify-content-md-start">
+					<a th:href="@{/addCategory}" class="btn btn-width mr-md-3 mb-2 mb-md-0">Add
+							Category</a>
+					<a th:href="@{/register}" class="btn btn-width mr-md-3 mb-2 mb-md-0">Register</a>
+					<a sec:authorize="!isAuthenticated()" th:href="@{/login}"
+							class="btn btn-width mx-2 mb-2 mb-md-0">Login</a>
+						<form style="display: inline;" class="mx-2 mb-2 mb-md-0" sec:authorize="isAuthenticated()"
+							th:action="@{/logout}" method="post">
+							<input th:href="@{/login}" type="submit" value="Logout" class="btn btn-width" />
+						</form>
+				</div>
+			</div>-->
 			<div class="col-md-4">
 				<div class="row">
-					<div class="col-1"></div>
-					<div class="col-4">
+					<div class="col-4 ">
 						<a th:href="@{/addCategory}"
-							class="col-4 btn btn-width btn-width-category mx-2 mb-2 mb-md-0">Add
+							class="col-4 btn btn-width btn-width-category ">Add
 							Category
 						</a>
 					</div>
-					<div class="col-3 reg">
+					<div class="col-3">
 						<a th:href="@{/register}" class="btn btn-width ">Register</a>
 					</div>
 					<div class="col-3">
 						<a sec:authorize="!isAuthenticated()" th:href="@{/login}"
-							class="col-4 btn btn-width mx-2 mb-2 mb-md-0">Login</a>
-						<form style="display: inline;" class="col-4 mx-2 mb-2 mb-md-0" sec:authorize="isAuthenticated()"
+							class="btn btn-width mx-2 mb-2 mb-md-0">Login</a>
+						<form style="display: inline;" class="mx-2 mb-2 mb-md-0" sec:authorize="isAuthenticated()"
 							th:action="@{/logout}" method="post">
 							<input th:href="@{/login}" type="submit" value="Logout" class="btn btn-width" />
 						</form>

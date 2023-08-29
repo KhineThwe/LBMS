@@ -44,11 +44,13 @@
 								<td>
 									<div><input type="text" class="input-custom px-4" th:field="*{bookName}" /></div>
 								</td>
-
-								<td class="alert alert-warning" th:if="${#fields.hasErrors('bookName')}"
-									th:errors="*{bookName}">
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<small class="text-danger text-small" th:if="${#fields.hasErrors('bookName')}"
+										th:errors="*{bookName}"></small>
 								</td>
-
 							</tr>
 							<tr>
 								<td>
@@ -60,14 +62,17 @@
 									<div>
 										<select class="input-custom px-4" aria-label="Default select example"
 											th:field="*{bookCategoryId}">
-											<option th:value="default" selected></option>
+											<option th:value="0" selected></option>
 											<option th:each="category : ${categories}" th:value="${category.id}"
 												th:text="${category.categoryName}">Text</option>
 										</select>
 									</div>
-									<div th:if="${#fields.hasErrors('bookCategoryId')}" class="alert alert-danger">
-										<p th:errors="*{bookCategoryId}">Please select an option</p>
-									</div>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<small class="text-danger text-small">[[${blank_category}]]</small>
 								</td>
 							</tr>
 							<tr>
@@ -79,8 +84,12 @@
 								<td>
 									<div><input type="text" class="input-custom px-4" th:field="*{bookAuthor}" /></div>
 								</td>
-								<td class="alert alert-warning" th:if="${#fields.hasErrors('bookAuthor')}"
-									th:errors="*{bookAuthor}">
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<small class="text-danger text-small" th:if="${#fields.hasErrors('bookAuthor')}"
+										th:errors="*{bookAuthor}"></small>
 								</td>
 							</tr>
 							<tr>
@@ -92,10 +101,13 @@
 								<td>
 									<div><input type="text" class="input-custom px-4" th:field="*{produceYear}" /></div>
 								</td>
-								<td class="alert alert-warning" th:if="${#fields.hasErrors('produceYear')}"
-									th:errors="*{produceYear}">
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<small class="text-danger text-small" th:if="${#fields.hasErrors('produceYear')}"
+										th:errors="*{produceYear}"></small>
 								</td>
-
 							</tr>
 							<tr>
 								<td>
@@ -107,11 +119,17 @@
 									<div>
 										<select id="type" class="input-custom px-4" aria-label="Default select example"
 											th:field="*{bookType}">
-											<option th:value="default" selected></option>
+											<option th:value="0" selected></option>
 											<option th:value="ebook">EBook</option>
 											<option th:value="book">Book</option>
 										</select>
 									</div>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<small class="text-danger text-small">[[${blank_type}]]</small>
 								</td>
 							</tr>
 							<tr>

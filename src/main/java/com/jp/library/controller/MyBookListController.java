@@ -38,7 +38,6 @@ public class MyBookListController {
 		Long userId = Long.parseLong(authentication.getName());
 		for(MyBookList m : myBookService.getBooksForUser(userId)) {
 			b.add(bookService.findById(m.getBookId()).get());
-//			b.add(bookService.findById(m.getBookId()).get());
 		}
 		model.addAttribute("bookList", b);
 		return "index";

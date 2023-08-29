@@ -141,12 +141,17 @@ public class BookController {
 	public String addBookToDb(@Valid @ModelAttribute("book") BookDto book, BindingResult result,
 			@RequestParam("document") MultipartFile mulitpartFile, @RequestParam("pdf") MultipartFile pdf,
 			 RedirectAttributes ra,Model model) throws IOException {
+		if(book.getBookCategoryId().equals("0")) {
+			model.addAttribute("blank_category", "Please select category option!");	
+		}
+		if(book.getBookType().equals("0")) {
+			model.addAttribute("blank_type", "Please select book type option!");
+		}
 		if (result.hasErrors()) {
 			model.addAttribute("book", book);
 			model.addAttribute("categories", categoryService.findAll());
 			return "addBook";
 		}
-
 		String fileName = StringUtils.cleanPath(mulitpartFile.getOriginalFilename());
 		String pdfName = StringUtils.cleanPath(pdf.getOriginalFilename());
 

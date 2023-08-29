@@ -13,7 +13,8 @@ public class BookDto {
 	@NotNull(message = "Book Name can not be null!!")
 	@NotBlank(message = "Book Name cannot be blank!")
 	private String bookName;
-	@NotEmpty(message = "Please select an option")
+	@NotNull(message = "Please select an option")
+	@NotBlank(message = "Please select an option")
 	private String bookCategoryId;
 	@NotNull(message = "Book Author can not be null!!")
 	@NotBlank(message = "Book Author cannot be blank!")
@@ -21,6 +22,8 @@ public class BookDto {
 	@NotNull(message = "Produce Year can not be null!!")
 	@NotBlank(message = "Produce Year cannot be blank!")
 	private String produceYear;
+	@NotNull(message = "Please select an option")
+	@NotBlank(message = "Please select an option")
 	private String bookType;
 	private String fileUpload;
 	private String imageUpload;
