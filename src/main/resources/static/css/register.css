@@ -136,6 +136,28 @@ body {
 	line-height: normal;
 }
 
+.go_home{
+	border: none;
+	border-radius: var(--border-radius);
+	outline: none;
+	cursor: pointer;
+	background: var(--color-primary);
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	line-height: 50px;
+}
+.go_home a{
+	color: #000;
+	text-decoration: none;
+	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	font-family: Inter;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: bold;
+	line-height: normal;
+}
+
 .a {
 	margin-top: 20px;
 }

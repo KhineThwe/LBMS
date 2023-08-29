@@ -13,10 +13,10 @@
 
 <body>
 	<div class="text-success">
-		<h2>[[${message}]]</h2>
+		<h4>[[${message}]]</h4>
 	</div>
 	<div class="text-danger">
-		<h2>[[${error}]]</h2>
+		<h4>[[${error}]]</h4>
 	</div>
 	<div class="container">
 		<div class="row">
@@ -56,8 +56,13 @@
 									<div><input type="text" class="input-custom px-4" th:field="*{categoryName}" />
 									</div>
 								</td>
-								<p class="alert alert-warning" th:if="${#fields.hasErrors('categoryName')}"
-										th:errors="*{categoryName}"></p>
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<small class="text-danger text-small" th:if="${#fields.hasErrors('categoryName')}"
+										th:errors="*{categoryName}"></small>
+								</td>
 							</tr>
 						</tbody>
 					</table>

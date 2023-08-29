@@ -8,7 +8,7 @@ import lombok.Data;
 public class CategoryDto {
 	private String id;
 
-	@NotBlank(message = "CategoryName can not be blank!")
+	@NotBlank(message = "CategoryName cannot be blank!")
 	private String categoryName;
 
 	public String getId() {

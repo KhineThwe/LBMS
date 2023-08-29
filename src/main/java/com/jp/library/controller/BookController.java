@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,6 +61,10 @@ public class BookController {
 		}
 		model.addAttribute("bookList", b);
 		model.addAttribute("filter", new BookEntity());
+
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		Long userId = Long.parseLong(authentication.getName());
+//		System.out.println(userId);
 		model.addAttribute("categories", categoryService.findAll());
 		return "index";
 	}
@@ -94,7 +100,7 @@ public class BookController {
 		List<BookEntity> b = bookService.findByCategory(e);
 		model.addAttribute("bookList", b);
 		model.addAttribute("filter", new BookEntity());
-		
+
 		if (b.isEmpty()) {
 			model.addAttribute("nobook", "Book Not Found");
 		}
@@ -126,7 +132,7 @@ public class BookController {
 		}
 		String id = "0";
 		if (b.getBookId() != null && b.getBookId().matches("C\\d{6}")) {
-		    id = b.getBookId().substring(1);
+			id = b.getBookId().substring(1);
 		}
 		int real_id = Integer.parseInt(id) + 1;
 		String bookId = String.format("C%06d", real_id);
@@ -140,11 +146,11 @@ public class BookController {
 	@PostMapping("/addBook")
 	public String addBookToDb(@Valid @ModelAttribute("book") BookDto book, BindingResult result,
 			@RequestParam("document") MultipartFile mulitpartFile, @RequestParam("pdf") MultipartFile pdf,
-			 RedirectAttributes ra,Model model) throws IOException {
-		if(book.getBookCategoryId().equals("0")) {
-			model.addAttribute("blank_category", "Please select category option!");	
+			RedirectAttributes ra, Model model) throws IOException {
+		if (book.getBookCategoryId().equals("0")) {
+			model.addAttribute("blank_category", "Please select category option!");
 		}
-		if(book.getBookType().equals("0")) {
+		if (book.getBookType().equals("0")) {
 			model.addAttribute("blank_type", "Please select book type option!");
 		}
 		if (result.hasErrors()) {
@@ -223,9 +229,9 @@ public class BookController {
 
 	@PostMapping("/update")
 	public String updateConfirm(Model model, @ModelAttribute("bookInfo") BookDto h,
-			@RequestParam("document") MultipartFile mulitpartFile, @RequestParam("pdf") MultipartFile pdf)
+			@RequestParam("document") MultipartFile mulitpartFile, @RequestParam("pdf") MultipartFile pdf,RedirectAttributes ra)
 			throws IOException {
-		Optional<BookEntity> be= bookService.findById(h.getBookId());
+		Optional<BookEntity> be = bookService.findById(h.getBookId());
 		String fileName = StringUtils.cleanPath(mulitpartFile.getOriginalFilename());
 		String pdfName = StringUtils.cleanPath(pdf.getOriginalFilename());
 		if (mulitpartFile != null && !mulitpartFile.isEmpty()) {
@@ -239,9 +245,9 @@ public class BookController {
 				} catch (IOException e) {
 					throw new IOException("Could not save uploaded File: " + fileName + "" + pdfName);
 				}
-			}else {
-				
-				String delDir ="./"+ be.get().getImagePath()+"/"+be.get().getImageUpload();
+			} else {
+
+				String delDir = "./" + be.get().getImagePath() + "/" + be.get().getImageUpload();
 				Path delPath = Paths.get(delDir);
 				Files.deleteIfExists(delPath);
 				Files.createDirectories(uploadPath);
@@ -252,9 +258,9 @@ public class BookController {
 					throw new IOException("Could not save uploaded File: " + fileName + "" + pdfName);
 				}
 			}
-			
+
 			h.setImageUpload(fileName);
-		}else {
+		} else {
 			h.setImageUpload(be.get().getImageUpload());
 		}
 
@@ -271,8 +277,8 @@ public class BookController {
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
-			}else {
-				String delDir ="./"+ be.get().getPDFPath()+"/"+be.get().getFileUpload();
+			} else {
+				String delDir = "./" + be.get().getPDFPath() + "/" + be.get().getFileUpload();
 				Path delPath = Paths.get(delDir);
 				Files.deleteIfExists(delPath);
 				try {
@@ -284,15 +290,13 @@ public class BookController {
 				}
 			}
 			h.setFileUpload(pdfName);
-		}else {
+		} else {
 			h.setFileUpload(be.get().getFileUpload());
 		}
 
 		model.addAttribute("categories", categoryService.findAll());
 		bookService.updateBook(h);
-
-
-
+		ra.addFlashAttribute("message", "Book updated successfully!");
 		return "redirect:/";
 	}
 

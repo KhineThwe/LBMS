@@ -55,11 +55,17 @@ public class LoginController {
 		// tochuuu
 		//show login user in nav bar
 		//when update database saving format is wrong,need to sort
+		//when login,can we show register nav to that user? and add book and add category option
+		//when pdf filed is null,data saves auto but no pdf,need to fix
+		//need to fix select option for book type 
+		//still download error when pdf data is saved null and update later
+		//when deleting image and pdf in image and pdf file directory,auto generating id number is completely ruin and also download
+		//normal user can't click back to already lent to avaiable
+		//addBook.html --> error validation message can't show
 		
+		// 8.ui responsive ******* wa
+		// 9.ui fix before submit wa
 		
-		// 8.ui responsive *******
-		// 9.ui fix before submit
-		
-		//index.html ka nav location arrangement
+		//index.html ka nav location arrangement wa
 	}
 }

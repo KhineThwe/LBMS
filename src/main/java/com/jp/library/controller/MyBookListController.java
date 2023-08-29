@@ -39,6 +39,9 @@ public class MyBookListController {
 		for(MyBookList m : myBookService.getBooksForUser(userId)) {
 			b.add(bookService.findById(m.getBookId()).get());
 		}
+		if (b.isEmpty()) {
+			model.addAttribute("nobook", "Book Not Found");
+		}
 		model.addAttribute("bookList", b);
 		return "index";
 	}
