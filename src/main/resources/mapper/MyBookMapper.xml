@@ -26,7 +26,7 @@
 		book where book_id = #{bookId} and is_available = #{is_available}
 	</select>
 	
-	<delete id="deleteBook" parameterType="java.lang.String">
+	<delete id="deleteBook" parameterType="java.lang.Long">
         DELETE FROM mybookList WHERE book_id = #{bookId}
     </delete>
 

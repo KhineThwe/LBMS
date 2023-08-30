@@ -26,6 +26,7 @@ public class MyBookListController {
 
 	@Autowired
 	MyBookService myBookService;
+	Long ids=(long) 0;
 
 	@GetMapping("/myBookList")
 	public String myBookList(Model model) {
@@ -37,7 +38,7 @@ public class MyBookListController {
 		List<BookEntity> b = new ArrayList<BookEntity>();
 		Long userId = Long.parseLong(authentication.getName());
 		for(MyBookList m : myBookService.getBooksForUser(userId)) {
-			b.add(bookService.findById(m.getBookId()).get());
+			b.add(bookService.findForBookList( Long.parseLong(m.getBookId())));
 		}
 		if (b.isEmpty()) {
 			model.addAttribute("nobook", "Book Not Found");

@@ -8,9 +8,9 @@ import com.jp.library.entity.MyBookList;
 
 @Mapper
 public interface MyBookRepository {
-	void addToMyBookList(String bookId, Long userId);
+	void addToMyBookList(Long bookId, Long userId);
 	
-	void deleteBook(String bookId);
+	void deleteBook(Long bookId);
 
     List<MyBookList> getBooksForUser(Long userId);
 }

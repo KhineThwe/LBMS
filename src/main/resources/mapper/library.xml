@@ -15,7 +15,7 @@
 	</resultMap>
 	
 	<select id="findAll" resultType="com.jp.library.entity.BookEntity" resultMap="library">
-	    SELECT * FROM book
+	    SELECT * FROM book order by id
 	</select>
 	
 	<select id="findBooks" resultType="com.jp.library.entity.BookEntity" resultMap="library">
@@ -54,6 +54,12 @@
 		resultType="com.jp.library.entity.BookEntity" resultMap="library">
 		SELECT * FROM
 		book where book_id = #{bookId}
+	</select>
+	
+	<select id="findForBookList"
+		resultType="com.jp.library.entity.BookEntity" resultMap="library">
+		SELECT * FROM
+		book where id = #{bookId}
 	</select>
 
 	<insert id="bookAdd"

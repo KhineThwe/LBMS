@@ -6,7 +6,8 @@ CREATE TABLE category (
 );
 
 CREATE TABLE book(
-   book_id VARCHAR(16) PRIMARY KEY  NOT NULL,
+   id BIGSERIAL PRIMARY KEY, 
+   book_id VARCHAR(16)   NOT NULL,
    book_name  VARCHAR(255)  NOT NULL,
    book_author VARCHAR(50) NOT NULL,
    produce_year VARCHAR(50) NOT NULL,
@@ -44,9 +45,9 @@ CREATE TABLE users (
 -- );
 
 CREATE TABLE mybookList (
-    book_id VARCHAR(16),
+    book_id BIGINT,
     user_id BIGINT,
-    FOREIGN KEY (book_id) REFERENCES book(book_id),
+    FOREIGN KEY (book_id) REFERENCES book(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 

@@ -13,11 +13,11 @@ public class MyBookService {
 	@Autowired
 	MyBookRepository myBookRepository;
 
-	public void addToMyBookList(String bookId, Long userId) {
+	public void addToMyBookList(Long bookId, Long userId) {
 		myBookRepository.addToMyBookList(bookId, userId);
 	}
 
-	public void deleteBook(String bookId) {
+	public void deleteBook(Long bookId) {
 		myBookRepository.deleteBook(bookId);
 	}
 

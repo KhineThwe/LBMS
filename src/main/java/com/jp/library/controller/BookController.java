@@ -6,8 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.security.Principal;
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -224,6 +224,7 @@ public class BookController {
 	public String updateBook(Model model, @RequestParam("id") String id) {
 		model.addAttribute("categories", categoryService.findAll());
 		model.addAttribute("bookInfo", bookService.getBookInfo(id));
+		System.out.println(bookService.getBookInfo(id).getBookId());
 		return "updateBook";
 	}
 
@@ -308,7 +309,7 @@ public class BookController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 		Long userId = Long.parseLong(authentication.getName());
-		myBookService.addToMyBookList(id, userId);
+		myBookService.addToMyBookList(Long.parseLong(id.substring(1)), userId);
 		b.setIs_available(false);
 		bookService.updateAvailable(b);
 		return "redirect:/";
@@ -318,7 +319,7 @@ public class BookController {
 	public String lent(@PathVariable("id") String id) {
 		Optional<BookEntity> result = bookService.findById(id);
 		BookEntity b = result.get();
-		myBookService.deleteBook(id);
+		myBookService.deleteBook(Long.parseLong(id.substring(1)));
 		b.setIs_available(true);
 		bookService.updateAvailable(b);
 		return "redirect:/";
