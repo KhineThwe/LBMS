@@ -1,8 +1,9 @@
 package com.jp.library.dto;
 
+import com.jp.library.validator.ValidPhone;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
@@ -11,14 +12,14 @@ public class UserDto {
 	@NotBlank(message = "Name cannot be blank!.")
 	private String name;
 
-	@NotBlank(message = "Mail can not be blank!")
-	@Email(message = "Invalid email address format")
+	@NotBlank(message = "Mail cannot be blank!")
+//	@Email(message = "Invalid email address format!")
 	private String email;
 
 	@NotBlank(message = "Password  cannot be blank!")
 	private String password;
 
-	@Pattern(regexp = "^09[0-9]{7,15}$", message = "Invalid phone number format")
+	@ValidPhone
 	private String phoneNo;
 	private String roles;
 

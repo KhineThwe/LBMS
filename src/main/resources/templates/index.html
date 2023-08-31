@@ -16,7 +16,8 @@
 	<nav th:replace="fragments/nav :: header">
 	</nav>
 	<!--Message Section!-->
-	<h4>Welcome, <span th:text="${#authentication.principal.email}"></span>!</h5>
+	  <h4>Welcome, <span th:text="${userEmail}">Guest</span>!</h4>
+		<!--<h4 sec:authorize="isAuthenticated()">Welcome, <span th:text="${#authentication.principal.email}"></span>!</h5>-->
         
    
 	<div class="text-success" th:if="${message}">

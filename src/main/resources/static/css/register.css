@@ -16,8 +16,8 @@ body {
 }
 
 .container {
-	width: 599px;
-	height: 550px;
+	width: 709px;
+	height: 625px;
 	max-width: 400px;
 	margin: 1rem;
 	padding: 2rem;
@@ -136,7 +136,7 @@ body {
 	line-height: normal;
 }
 
-.go_home{
+.go_home {
 	border: none;
 	border-radius: var(--border-radius);
 	outline: none;
@@ -147,7 +147,8 @@ body {
 	text-align: center;
 	line-height: 50px;
 }
-.go_home a{
+
+.go_home a {
 	color: #000;
 	text-decoration: none;
 	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -167,8 +168,18 @@ body {
 }
 
 .padding {
-	padding-bottom: 20px;
-	/* Padding */
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.text-danger {
+	color: red;
+	text-align: center;
+}
+
+.reg {
+	color:#035114;
+	font-weight: bold;
 }
 
 @media only screen and (min-width: 280px) {

@@ -163,7 +163,14 @@ body {
 	padding-bottom: 20px;
 	/* Padding */
 }
-
+.danger{
+	font-weight: bold;
+	color:red;
+}
+.success{
+	font-weight: bold;
+	color:green;
+}
 @media only screen and (min-width: 280px) {
 	.cont {
 		width: 90%;

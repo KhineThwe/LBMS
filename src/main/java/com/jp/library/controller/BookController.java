@@ -6,8 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,11 +59,13 @@ public class BookController {
 		}
 		model.addAttribute("bookList", b);
 		model.addAttribute("filter", new BookEntity());
-
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		Long userId = Long.parseLong(authentication.getName());
-//		System.out.println(userId);
 		model.addAttribute("categories", categoryService.findAll());
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null && authentication.isAuthenticated()) {
+            String userEmail = authentication.getName(); 
+            model.addAttribute("userEmail", userEmail);
+        }
 		return "index";
 	}
 
@@ -153,14 +153,14 @@ public class BookController {
 		if (book.getBookType().equals("0")) {
 			model.addAttribute("blank_type", "Please select book type option!");
 		}
-		
+
 		if (result.hasErrors()) {
 			model.addAttribute("book", book);
 			model.addAttribute("categories", categoryService.findAll());
 			return "addBook";
 		}
-		if(book.getBookType().equals("ebook")) {
-			if(StringUtils.cleanPath(pdf.getOriginalFilename()).isBlank()){
+		if (book.getBookType().equals("ebook")) {
+			if (StringUtils.cleanPath(pdf.getOriginalFilename()).isBlank()) {
 				model.addAttribute("blank_pdf", "Please add ebook!");
 				model.addAttribute("book", book);
 				model.addAttribute("categories", categoryService.findAll());
@@ -239,8 +239,8 @@ public class BookController {
 
 	@PostMapping("/update")
 	public String updateConfirm(Model model, @ModelAttribute("bookInfo") BookDto h,
-			@RequestParam("document") MultipartFile mulitpartFile, @RequestParam("pdf") MultipartFile pdf,RedirectAttributes ra)
-			throws IOException {
+			@RequestParam("document") MultipartFile mulitpartFile, @RequestParam("pdf") MultipartFile pdf,
+			RedirectAttributes ra) throws IOException {
 		Optional<BookEntity> be = bookService.findById(h.getBookId());
 		String fileName = StringUtils.cleanPath(mulitpartFile.getOriginalFilename());
 		String pdfName = StringUtils.cleanPath(pdf.getOriginalFilename());
