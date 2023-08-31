@@ -161,6 +161,12 @@
 								</td>
 								<!--Here-->
 							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<small class="text-danger text-small">[[${blank_pdf}]]</small>
+								</td>
+							</tr>
 						</tbody>
 					</table>
 
@@ -179,6 +185,13 @@
 	<script th:src="@{js/bootstrap.min.js}"></script>
 	<script>
 		var type = document.getElementById("type");
+		if (type.value == "ebook") {
+				document.getElementById("pdflable").style.display = "block";
+				document.getElementById("pdfinput").style.display = "block";
+			} else {
+				document.getElementById("pdflable").style.display = "none";
+				document.getElementById("pdfinput").style.display = "none";
+			}
 		type.addEventListener("change", function () {
 
 			var selectedValue = type.value;

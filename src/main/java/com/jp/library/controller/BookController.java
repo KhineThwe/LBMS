@@ -153,10 +153,19 @@ public class BookController {
 		if (book.getBookType().equals("0")) {
 			model.addAttribute("blank_type", "Please select book type option!");
 		}
+		
 		if (result.hasErrors()) {
 			model.addAttribute("book", book);
 			model.addAttribute("categories", categoryService.findAll());
 			return "addBook";
+		}
+		if(book.getBookType().equals("ebook")) {
+			if(StringUtils.cleanPath(pdf.getOriginalFilename()).isBlank()){
+				model.addAttribute("blank_pdf", "Please add ebook!");
+				model.addAttribute("book", book);
+				model.addAttribute("categories", categoryService.findAll());
+				return "addBook";
+			}
 		}
 		String fileName = StringUtils.cleanPath(mulitpartFile.getOriginalFilename());
 		String pdfName = StringUtils.cleanPath(pdf.getOriginalFilename());

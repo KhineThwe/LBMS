@@ -29,8 +29,8 @@
 				<div class="justify-content-md-start">
 					<a th:href="@{/books}" class="btn btn-width mr-md-3 mb-2 mb-md-0">Books</a>
 					<a th:href="@{/ebooks}" class="btn btn-width mr-md-3 mb-2 mb-md-0">EBooks</a>
-					<a th:href="@{/addBook}" class="btn btn-width mb-2 mb-md-0">Add Book</a>
-					<a th:href="@{/myBookList}" sec:authorize="isAuthenticated()" class="btn btn-width mb-2 mb-md-0">MyBooks</a>
+					<a th:href="@{/addBook}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-width mb-2 mb-md-0">Add Book</a>
+					<a th:href="@{/myBookList}" sec:authorize="hasRole('ROLE_USER')" class="btn btn-width mb-2 mb-md-0">MyBooks</a>
 				</div>
 			</div>
 			<!--Register Section!
@@ -50,7 +50,7 @@
 			<div class="col-md-4">
 				<div class="row">
 					<div class="col-4 ">
-						<a th:href="@{/addCategory}"
+						<a th:href="@{/addCategory}" sec:authorize="hasRole('ROLE_ADMIN')"
 							class="col-4 btn btn-width btn-width-category ">Add
 							Category
 						</a>
