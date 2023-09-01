@@ -21,7 +21,7 @@ import jakarta.validation.Valid;
 public class LoginController {
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -29,21 +29,6 @@ public class LoginController {
 	public String login() {
 		return "login";
 	}
-	
-//	@PostMapping("/login")
-//	public String login(@RequestParam String username, @RequestParam String password, Model model) {
-//	    User user = userService.findUserByEmail(username);
-//
-//	    if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-//	        // Authentication succeeded, redirect to a success page
-//	        return "redirect:/login";
-//	    } else {
-//	        // Authentication failed, display an error message
-//	        model.addAttribute("error", "Invalid username or password");
-//	        return "login"; // Return to the login page with an error message
-//	    }
-//	}
-
 
 	@GetMapping("/register")
 	public String register(Model model) {
@@ -75,6 +60,3 @@ public class LoginController {
 	}
 }
 //ui responsive only on index.html,add update pages
-//register.html mhar error message pay yin ui
-//when user 1 and 2 is deleted,user 3 is saved as admin
-//default admin problem and name in nav bar

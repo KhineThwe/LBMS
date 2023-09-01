@@ -18,7 +18,6 @@ public class CustomUserDetails implements UserDetails {
     private List<GrantedAuthority> authorities;
 
     public CustomUserDetails(User user) {
-        super();
         this.username = Long.toString(user.getId());
         this.password = user.getPassword();
         this.email = user.getUsername(); // Set the email from the User entity
