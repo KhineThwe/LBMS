@@ -156,7 +156,7 @@
 								<td>
 									<div id="pdfinput" style="display: none;" class="upload-btn-wrapper mt-2">
 										<button class="btn-u">Upload File...</button>
-										<input type="file" name="pdf" id="fileUpload" accept="application/pdf"/>
+										<input type="file" name="pdf" id="fileUpload" accept="application/pdf" />
 									</div>
 								</td>
 								<!--Here-->
@@ -186,12 +186,12 @@
 	<script>
 		var type = document.getElementById("type");
 		if (type.value == "ebook") {
-				document.getElementById("pdflable").style.display = "block";
-				document.getElementById("pdfinput").style.display = "block";
-			} else {
-				document.getElementById("pdflable").style.display = "none";
-				document.getElementById("pdfinput").style.display = "none";
-			}
+			document.getElementById("pdflable").style.display = "block";
+			document.getElementById("pdfinput").style.display = "block";
+		} else {
+			document.getElementById("pdflable").style.display = "none";
+			document.getElementById("pdfinput").style.display = "none";
+		}
 		type.addEventListener("change", function () {
 
 			var selectedValue = type.value;

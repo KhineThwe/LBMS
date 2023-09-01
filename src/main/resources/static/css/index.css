@@ -3,9 +3,10 @@
 body {
 	font-family: Inter, Helvetica, sans-serif;
 }
-body::-webkit-scrollbar{
-    display: none;
-  }
+
+body::-webkit-scrollbar {
+	display: none;
+}
 
 .no-book {
 	color: rgba(0, 0, 0, 0.48);

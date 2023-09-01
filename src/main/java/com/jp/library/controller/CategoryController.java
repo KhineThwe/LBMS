@@ -35,7 +35,7 @@ public class CategoryController {
 		}
 		String id = "0";
 		if (c.getId() != null && c.getId().matches("CA\\d{5}")) {
-		    id = c.getId().substring(2);
+			id = c.getId().substring(2);
 		}
 		int real_id = Integer.parseInt(id) + 1;
 		String categoryId = String.format("CA%05d", real_id);
@@ -46,7 +46,8 @@ public class CategoryController {
 	}
 
 	@PostMapping("/addCategory")
-	public String addCategoryConfirm(@Valid @ModelAttribute("category") CategoryDto dto, BindingResult result, Model model) {
+	public String addCategoryConfirm(@Valid @ModelAttribute("category") CategoryDto dto, BindingResult result,
+			Model model) {
 
 		if (result.hasErrors()) {
 			model.addAttribute("category", dto);
@@ -54,7 +55,6 @@ public class CategoryController {
 		}
 		try {
 			categoryService.categoryAdd(dto);
-			
 
 		} catch (Exception e) {
 			model.addAttribute("category", dto);

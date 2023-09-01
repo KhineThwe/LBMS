@@ -20,14 +20,13 @@ public class AdminUserInitializer implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// Check if an admin user already exists
-		User adminUser = userService.findUserByEmail("admin@example.com");
+		User adminUser = userService.findUserByEmail("admin@gmail.com");
 		UserDto dto = new UserDto();
 		if (adminUser == null) {
-			// Create the admin user
-			dto.setEmail("admin@example.com");
+			dto.setEmail("admin@gmail.com");
 			dto.setName("ADMIN");
 			dto.setPhoneNo("09952588975");
-			dto.setPassword("admin"); // Encode the password
+			dto.setPassword("admin");
 			dto.setRole("ROLE_ADMIN");
 			userService.saveUser(dto);
 		}

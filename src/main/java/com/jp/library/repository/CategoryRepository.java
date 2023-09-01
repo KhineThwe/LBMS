@@ -10,6 +10,6 @@ import com.jp.library.entity.Category;
 @Mapper
 public interface CategoryRepository {
 	List<Category> findAll();
-	
+
 	public void categoryAdd(Category category);
 }

@@ -16,10 +16,9 @@
 	<nav th:replace="fragments/nav :: header">
 	</nav>
 	<!--Message Section!-->
-	  <h4>Welcome, <span th:text="${username}">Guest</span>!</h4>
-		<!--<h4 sec:authorize="isAuthenticated()">Welcome, <span th:text="${#authentication.principal.email}"></span>!</h5>-->
-        
-   
+	<h4>Welcome, <span th:text="${username}">Guest</span>!</h4>
+
+
 	<div class="text-success" th:if="${message}">
 		<h4>[[${message}]]</h4>
 	</div>
@@ -69,9 +68,8 @@
 							</div>
 
 							<div class="col-12 col-md-6 col-lg-2 d-flex justify-content-end align-items-end mb-2">
-								<button class="search-button p-1 align-items-center">
-									Search
-								</button>
+								<input type="submit" class="search-button p-1 align-items-center" value="Search">
+								</input>
 							</div>
 
 						</div>
@@ -100,39 +98,36 @@
 								</div>
 								<div class="text-center p-2">
 									<div th:onclick="down(this)" sec:authorize="!isAuthenticated()">
-										<a class="text-decoration-none" 
-										th:if="${book.bookType=='book' and book.is_available==true}"
-										>Available</a>
-									<a class="text-decoration-none" 
-										th:if="${book.bookType=='book' and book.is_available==false}"
-										>Already Lent</a>
+										<a class="text-decoration-none"
+											th:if="${book.bookType=='book' and book.is_available==true}">Available</a>
+										<a class="text-decoration-none"
+											th:if="${book.bookType=='book' and book.is_available==false}">Already
+											Lent</a>
 									</div>
 									<a class="text-decoration-none" sec:authorize="hasRole('ROLE_USER')"
 										th:if="${book.bookType=='book' and book.is_available==true}"
 										th:href="@{/available/{id}(id=${book.bookId})}">Available</a>
 									<a class="text-decoration-none" sec:authorize="hasRole('ROLE_ADMIN')"
-										th:if="${book.bookType=='book' and book.is_available==true}"
-										>Available</a>
+										th:if="${book.bookType=='book' and book.is_available==true}">Available</a>
 									<a class="text-decoration-none" sec:authorize="hasRole('ROLE_ADMIN')"
 										th:if="${book.bookType=='book' and book.is_available==false}"
 										th:href="@{/lent/{id}(id=${book.bookId})}">Already Lent</a>
 									<a class="text-decoration-none" sec:authorize="hasRole('ROLE_USER')"
 										th:if="${book.bookType=='book' and book.is_available==false}">Already Lent</a>
-										
+
 									<a class="text-decoration-none" sec:authorize="isAuthenticated()"
 										th:unless="${book.bookType=='book'}"
 										th:href="@{/download(id=${book.bookId})}">Download</a>
 									<div th:onclick="down(this)" sec:authorize="!isAuthenticated()"
 										th:unless="${book.bookType=='book'}">
-										<a class="text-decoration-none" 
-										>Download</a>
+										<a class="text-decoration-none">Download</a>
 									</div>
 								</div>
 								<div class="text-center card-status p-2">
 									<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/update(id=${book.bookId})}"
 										class="btn mr-2 mb-2 mb-md-0">Update</a>
-									<a sec:authorize="hasRole('ROLE_USER')" 
-										class="btn mr-2 mb-2 mb-md-0" th:text="${book.bookName}">Update</a>
+									<a sec:authorize="hasRole('ROLE_USER')" class="btn mr-2 mb-2 mb-md-0"
+										th:text="${book.bookName}">Update</a>
 									<span sec:authorize="!isAuthenticated()" th:text="${book.bookName}"></span>
 								</div>
 							</div>
@@ -167,7 +162,7 @@
 			description.style.display = 'block';
 		}
 		function down(element) {
-			element.innerHTML="<a class='text-decoration-none text-danger' href='/login'>Login First</a>";
+			element.innerHTML = "<a class='text-decoration-none text-danger' href='/login'>Login First</a>";
 		}
 	</script>
 </body>

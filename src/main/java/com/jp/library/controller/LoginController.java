@@ -8,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jp.library.dto.UserDto;
 import com.jp.library.entity.User;
@@ -48,15 +47,12 @@ public class LoginController {
 			model.addAttribute("user", userDto);
 			return "/register";
 		}
-//		List<User> users = userService.getAllUsers();
-//		if (users.size() == 0) {
-//			userDto.setRole("ROLE_ADMIN");
-//		} else {
-//			userDto.setRole("ROLE_USER");
-//		}
 		userDto.setRole("ROLE_USER");
 		userService.saveUser(userDto);
 		return "redirect:/register?success";
 	}
 }
 //ui responsive only on index.html,add update pages
+//to do clean code in bookcontroller ****
+//search with only author,name and registration number doesn't work maybe query
+//and can't find with two,three except categoryId'

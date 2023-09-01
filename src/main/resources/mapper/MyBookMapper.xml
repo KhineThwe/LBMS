@@ -9,25 +9,27 @@
 		<result column="book_id" property="bookId"></result>
 		<result column="user_id" property="userId" />
 	</resultMap>
-		
+
 	<insert id="addToMyBookList">
 		INSERT INTO mybookList (book_id,user_id)
-		VALUES (#{bookId},#{userId})
+		VALUES
+		(#{bookId},#{userId})
 	</insert>
 
 
-	<select id="getBooksForUser" resultMap="mybook" parameterType="java.lang.Long">
+	<select id="getBooksForUser" resultMap="mybook"
+		parameterType="java.lang.Long">
 		SELECT * FROM mybookList WHERE user_id = #{userId}
 	</select>
-	
+
 	<select id="findByIdForMyBookList"
 		resultType="com.jp.library.entity.MyBookList" resultMap="mybook">
 		SELECT * FROM
 		book where book_id = #{bookId} and is_available = #{is_available}
 	</select>
-	
+
 	<delete id="deleteBook" parameterType="java.lang.Long">
-        DELETE FROM mybookList WHERE book_id = #{bookId}
-    </delete>
+		DELETE FROM mybookList WHERE book_id = #{bookId}
+	</delete>
 
 </mapper>

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jp.library.dto.CategoryDto;
-import com.jp.library.entity.BookEntity;
 import com.jp.library.entity.Category;
 import com.jp.library.repository.CategoryRepository;
 

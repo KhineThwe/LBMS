@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<meta charset="UTF-8" />
@@ -10,9 +11,9 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
 </head>
 
+
 <body>
 	<nav th:fragment="header">
-		<!--<div th:text="${#authentication.principal.username}"></div>!-->
 		<div class="row justify-content-between align-items-center nav-bg">
 			<!--Logo Section!-->
 			<div class="col-md-4">
@@ -29,8 +30,10 @@
 				<div class="justify-content-md-start">
 					<a th:href="@{/books}" class="btn btn-width mr-md-3 mb-2 mb-md-0">Books</a>
 					<a th:href="@{/ebooks}" class="btn btn-width mr-md-3 mb-2 mb-md-0">EBooks</a>
-					<a th:href="@{/addBook}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-width mb-2 mb-md-0">Add Book</a>
-					<a th:href="@{/myBookList}" sec:authorize="hasRole('ROLE_USER')" class="btn btn-width mb-2 mb-md-0">MyBooks</a>
+					<a th:href="@{/addBook}" sec:authorize="hasRole('ROLE_ADMIN')"
+						class="btn btn-width mb-2 mb-md-0">Add Book</a>
+					<a th:href="@{/myBookList}" sec:authorize="hasRole('ROLE_USER')"
+						class="btn btn-width mb-2 mb-md-0">MyBooks</a>
 				</div>
 			</div>
 			<div class="col-md-4">

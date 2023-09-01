@@ -13,49 +13,55 @@
 		<result column="image_url" property="imageUpload" />
 		<result column="is_available" property="is_available" />
 	</resultMap>
-	
-	<select id="findAll" resultType="com.jp.library.entity.BookEntity" resultMap="library">
-	    SELECT * FROM book order by id
-	</select>
-	
-	<select id="findBooks" resultType="com.jp.library.entity.BookEntity" resultMap="library">
-	    SELECT * FROM book WHERE book_type = 'book'
-	</select>
-	
-	<select id="findEBooks" resultType="com.jp.library.entity.BookEntity" resultMap="library">
-	    SELECT * FROM book WHERE book_type = 'ebook'
-	</select>
-	
-	<select id="findByCategory" parameterType="com.jp.library.entity.BookEntity" resultType="com.jp.library.entity.BookEntity" resultMap="library">
-	    SELECT * FROM book WHERE category_id = #{bookCategoryId}
-	</select>
-	
-	<select id="filter" parameterType="com.jp.library.entity.BookEntity" resultType="com.jp.library.entity.BookEntity" resultMap="library">
-    SELECT * FROM book 
-    <where>
-        <!-- Each condition should be wrapped in <if> tags -->
-        <if test="bookCategoryId != ''">
-            AND category_id = #{bookCategoryId}
-        </if>
-        <if test="bookAuthor != ''">
-            AND book_author = #{bookAuthor}
-        </if>
-        <if test="bookId != ''">
-            AND book_id = #{bookId}
-        </if>
-        <if test="bookName != ''">
-            AND book_name = #{bookName}
-        </if>
-    </where>
-</select>
 
-	
+	<select id="findAll"
+		resultType="com.jp.library.entity.BookEntity" resultMap="library">
+		SELECT * FROM book order by id
+	</select>
+
+	<select id="findBooks"
+		resultType="com.jp.library.entity.BookEntity" resultMap="library">
+		SELECT * FROM book WHERE book_type = 'book'
+	</select>
+
+	<select id="findEBooks"
+		resultType="com.jp.library.entity.BookEntity" resultMap="library">
+		SELECT * FROM book WHERE book_type = 'ebook'
+	</select>
+
+	<select id="findByCategory"
+		parameterType="com.jp.library.entity.BookEntity"
+		resultType="com.jp.library.entity.BookEntity" resultMap="library">
+		SELECT * FROM book WHERE category_id = #{bookCategoryId}
+	</select>
+
+	<select id="filter"
+		parameterType="com.jp.library.entity.BookEntity"
+		resultType="com.jp.library.entity.BookEntity" resultMap="library">
+		SELECT * FROM book
+		  <where>
+            <if test="bookCategoryId != null and bookCategoryId != ''">
+                AND category_id = #{bookCategoryId}
+            </if>
+            <if test="bookAuthor != null and bookAuthor != ''">
+                AND book_author = #{bookAuthor}
+            </if>
+            <if test="bookId != null and bookId != ''">
+                AND book_id = #{bookId}
+            </if>
+            <if test="bookName != null and bookName != ''">
+                AND book_name = #{bookName}
+            </if>
+        </where>
+	</select>
+
+
 	<select id="findById"
 		resultType="com.jp.library.entity.BookEntity" resultMap="library">
 		SELECT * FROM
 		book where book_id = #{bookId}
 	</select>
-	
+
 	<select id="findForBookList"
 		resultType="com.jp.library.entity.BookEntity" resultMap="library">
 		SELECT * FROM
@@ -63,31 +69,34 @@
 	</select>
 
 	<insert id="bookAdd"
-		parameterType="com.jp.library.entity.BookEntity" >
-		INSERT INTO book(book_id,book_name,category_id,book_author,produce_year,book_type,content,file_url,image_url,is_available)
+		parameterType="com.jp.library.entity.BookEntity">
+		INSERT INTO
+		book(book_id,book_name,category_id,book_author,produce_year,book_type,content,file_url,image_url,is_available)
 		VALUES(#{bookId},#{bookName},#{bookCategoryId},#{bookAuthor},#{produceYear},#{bookType},#{content},#{fileUpload},#{imageUpload},#{is_available})
 	</insert>
-	
+
 	<update id="update"
 		parameterType="com.jp.library.entity.BookEntity">
 		UPDATE book
-		SET 
+		SET
 		book_name = #{bookName},
 		category_id
 		= #{bookCategoryId},
-		book_author = #{bookAuthor},
+		book_author =
+		#{bookAuthor},
 		produce_year = #{produceYear},
 		book_type = #{bookType},
 		file_url = #{fileUpload},
 		image_url = #{imageUpload},
-		is_available = #{is_available}
+		is_available =
+		#{is_available}
 		where book_id = #{bookId}
 	</update>
-	
+
 	<update id="updateAvailable">
-	UPDATE book 
-	SET 
-	is_available = #{is_available}
-	where book_id = #{bookId}
+		UPDATE book
+		SET
+		is_available = #{is_available}
+		where book_id = #{bookId}
 	</update>
 </mapper>

@@ -19,10 +19,10 @@ public interface BookRepository {
 	List<BookEntity> findByCategory(BookEntity e);
 
 	public Optional<BookEntity> findById(String id);
-	
+
 	public BookEntity findForBookList(Long id);
-	
-	public Optional<BookEntity> findByIdForMyBookList(String id,Boolean status);
+
+	public Optional<BookEntity> findByIdForMyBookList(String id, Boolean status);
 
 	List<BookEntity> filter(BookEntity e);
 

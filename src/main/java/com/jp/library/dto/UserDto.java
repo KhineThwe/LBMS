@@ -13,7 +13,6 @@ public class UserDto {
 	private String name;
 
 	@NotBlank(message = "Mail cannot be blank!")
-//	@Email(message = "Invalid email address format!")
 	private String email;
 
 	@NotBlank(message = "Password  cannot be blank!")

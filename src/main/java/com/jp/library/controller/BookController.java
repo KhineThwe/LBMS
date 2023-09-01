@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -62,15 +61,15 @@ public class BookController {
 		model.addAttribute("bookList", b);
 		model.addAttribute("filter", new BookEntity());
 		model.addAttribute("categories", categoryService.findAll());
-		
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!authentication.getPrincipal().equals("anonymousUser")) {
 			CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 			String username = userDetails.getEmail();
-            model.addAttribute("username", username);
-        }else {
-        	 model.addAttribute("username", "Anonymous User");
-        }
+			model.addAttribute("username", username);
+		} else {
+			model.addAttribute("username", "Anonymous User");
+		}
 		return "index";
 	}
 
@@ -83,6 +82,14 @@ public class BookController {
 		model.addAttribute("bookList", b);
 		model.addAttribute("categories", categoryService.findAll());
 		model.addAttribute("filter", new BookEntity());
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!authentication.getPrincipal().equals("anonymousUser")) {
+			CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+			String username = userDetails.getEmail();
+			model.addAttribute("username", username);
+		} else {
+			model.addAttribute("username", "Anonymous User");
+		}
 		return "index";
 	}
 
@@ -95,6 +102,14 @@ public class BookController {
 		model.addAttribute("bookList", b);
 		model.addAttribute("categories", categoryService.findAll());
 		model.addAttribute("filter", new BookEntity());
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!authentication.getPrincipal().equals("anonymousUser")) {
+			CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+			String username = userDetails.getEmail();
+			model.addAttribute("username", username);
+		} else {
+			model.addAttribute("username", "Anonymous User");
+		}
 		return "index";
 	}
 
@@ -110,6 +125,14 @@ public class BookController {
 			model.addAttribute("nobook", "Book Not Found");
 		}
 		model.addAttribute("categories", categoryService.findAll());
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!authentication.getPrincipal().equals("anonymousUser")) {
+			CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+			String username = userDetails.getEmail();
+			model.addAttribute("username", username);
+		} else {
+			model.addAttribute("username", "Anonymous User");
+		}
 		return "index";
 	}
 
@@ -121,7 +144,14 @@ public class BookController {
 		}
 		model.addAttribute("bookList", b);
 		model.addAttribute("categories", categoryService.findAll());
-		model.addAttribute("filter", new BookEntity());
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!authentication.getPrincipal().equals("anonymousUser")) {
+			CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+			String username = userDetails.getEmail();
+			model.addAttribute("username", username);
+		} else {
+			model.addAttribute("username", "Anonymous User");
+		}
 		return "index";
 	}
 
@@ -238,7 +268,6 @@ public class BookController {
 	public String updateBook(Model model, @RequestParam("id") String id) {
 		model.addAttribute("categories", categoryService.findAll());
 		model.addAttribute("bookInfo", bookService.getBookInfo(id));
-		System.out.println(bookService.getBookInfo(id).getBookId());
 		return "updateBook";
 	}
 
@@ -307,6 +336,14 @@ public class BookController {
 			h.setFileUpload(pdfName);
 		} else {
 			h.setFileUpload(be.get().getFileUpload());
+		}
+		if (h.getBookType().equals("ebook")) {
+			if (StringUtils.cleanPath(pdf.getOriginalFilename()).isBlank()) {
+				model.addAttribute("blank_pdf", "Please add ebook!");
+				model.addAttribute("book", h);
+				model.addAttribute("categories", categoryService.findAll());
+				return "updateBook";
+			}
 		}
 
 		model.addAttribute("categories", categoryService.findAll());

@@ -35,12 +35,13 @@ public class BookService {
 	public Optional<BookEntity> findById(String id) {
 		return bookRepository.findById(id);
 	}
-	
-	public BookEntity findForBookList(Long id){
+
+	public BookEntity findForBookList(Long id) {
 		return bookRepository.findForBookList(id);
 	}
-	public Optional<BookEntity> findByIdForMyBookList(String id,Boolean status){
-		return bookRepository.findByIdForMyBookList(id, status);	
+
+	public Optional<BookEntity> findByIdForMyBookList(String id, Boolean status) {
+		return bookRepository.findByIdForMyBookList(id, status);
 	}
 
 	public List<BookEntity> filter(BookEntity e) {

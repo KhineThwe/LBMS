@@ -1,14 +1,23 @@
-1.First user will save as admin and others will save as user
+1.First user will save as admin and others will save as user.
+First user admin will save when program starts.
+admin@gmail.com
+password -> admin
+---------------------------------------------------------------------------
 2.And if you want to login,you can login by typing user's email in username input box and 
 password.
+---------------------------------------------------------------------------
 3.In this system,I classifies role as admin and user.
+---------------------------------------------------------------------------
 4.Admin can view all nav bar except mybooklist nav bar.
 5.Only admin has an authority to update books,add books,add category and already lent to available.
 And login user has an authority to click available to already lent
+---------------------------------------------------------------------------
 6.I gave category name is unique field in database.
+---------------------------------------------------------------------------
 7.If you want to add book,you need to add image.If image is null,book will save with default image.
 8.If you want to add ebook,you need to add both image and pdf.If image is null,book will save with default pdf image.
 But you must to add ebook pdf coz if it is null,can't download back.
+---------------------------------------------------------------------------
 9.I validate phone number format for both Myanmar and Japan.Myanmar and Japan have different phone number formats.
 Myanmar Phone Numbers: Myanmar phone numbers generally start with '09' followed by 7 to 15 digits. 
 

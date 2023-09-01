@@ -26,19 +26,18 @@ public class MyBookListController {
 
 	@Autowired
 	MyBookService myBookService;
-	Long ids=(long) 0;
 
 	@GetMapping("/myBookList")
 	public String myBookList(Model model) {
 		model.addAttribute("filter", new BookEntity());
 		model.addAttribute("categories", categoryService.findAll());
-		
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        
+
 		List<BookEntity> b = new ArrayList<BookEntity>();
 		Long userId = Long.parseLong(authentication.getName());
-		for(MyBookList m : myBookService.getBooksForUser(userId)) {
-			b.add(bookService.findForBookList( Long.parseLong(m.getBookId())));
+		for (MyBookList m : myBookService.getBooksForUser(userId)) {
+			b.add(bookService.findForBookList(Long.parseLong(m.getBookId())));
 		}
 		if (b.isEmpty()) {
 			model.addAttribute("nobook", "Book Not Found");

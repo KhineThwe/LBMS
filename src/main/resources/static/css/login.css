@@ -134,7 +134,8 @@ body {
 	font-weight: bold;
 	line-height: normal;
 }
-.go_home{
+
+.go_home {
 	border: none;
 	border-radius: var(--border-radius);
 	outline: none;
@@ -145,7 +146,8 @@ body {
 	text-align: center;
 	line-height: 50px;
 }
-.go_home a{
+
+.go_home a {
 	color: #000;
 	text-decoration: none;
 	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -155,6 +157,7 @@ body {
 	font-weight: bold;
 	line-height: normal;
 }
+
 .form__button:active {
 	transform: scale(0.98);
 }
@@ -163,14 +166,17 @@ body {
 	padding-bottom: 20px;
 	/* Padding */
 }
-.danger{
+
+.danger {
 	font-weight: bold;
-	color:red;
+	color: red;
 }
-.success{
+
+.success {
 	font-weight: bold;
-	color:green;
+	color: green;
 }
+
 @media only screen and (min-width: 280px) {
 	.cont {
 		width: 90%;

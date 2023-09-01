@@ -116,13 +116,12 @@
 							</tr>
 							<tr th:if="*{bookType}==ebook">
 								<td>
-									<div id="pdflable" 
-										class="form-control-custom m-3 text-center">
+									<div id="pdflable" class="form-control-custom m-3 text-center">
 										Pdf
 									</div>
 								</td>
 								<td>
-									<div id="pdfinput"  class="upload-btn-wrapper mt-2">
+									<div id="pdfinput" class="upload-btn-wrapper mt-2">
 										<button class="btn">Upload File...</button>
 										<input type="file" name="pdf" id="fileUpload" accept="application/pdf" />
 									</div>
@@ -137,12 +136,18 @@
 									</div>
 								</td>
 								<td>
-									<div id="pdfinput" style="display: none;"  class="upload-btn-wrapper mt-2">
+									<div id="pdfinput" style="display: none;" class="upload-btn-wrapper mt-2">
 										<button class="btn">Upload File...</button>
 										<input type="file" name="pdf" id="fileUpload" accept="application/pdf" />
 									</div>
 								</td>
 								<!--Here-->
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<small class="text-danger text-small">[[${blank_pdf}]]</small>
+								</td>
 							</tr>
 						</tbody>
 					</table>
