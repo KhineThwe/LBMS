@@ -19,7 +19,6 @@ public class AdminUserInitializer implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// Check if an admin user already exists
 		User adminUser = userService.findUserByEmail("admin@gmail.com");
 		UserDto dto = new UserDto();
 		if (adminUser == null) {

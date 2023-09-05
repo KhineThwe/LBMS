@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.jp.library.dto.CategoryDto;
-import com.jp.library.entity.BookEntity;
 import com.jp.library.entity.Category;
 import com.jp.library.service.CategoryService;
 

@@ -30,20 +30,24 @@
 				<div class="d-flex justify-content-center">
 					<a th:href="@{/books}" class="btn btn-width" style="margin-left: 10px;">Books</a>
 					<a th:href="@{/ebooks}" class="btn btn-width" style="margin-left: 10px;">EBooks</a>
-					<a th:href="@{/addBook}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-width " style="margin-left: 10px;">AddBook</a>
-					<a th:href="@{/myBookList}" sec:authorize="hasRole('ROLE_USER')" class="btn btn-width " style="margin-left: 10px;">MyBooks</a>
+					<a th:href="@{/addBook}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-width "
+						style="margin-left: 10px;">AddBook</a>
+					<a th:href="@{/myBookList}" sec:authorize="hasRole('ROLE_USER')" class="btn btn-width "
+						style="margin-left: 10px;">MyBooks</a>
 				</div>
 			</div>
-			<form th:action="@{/logout}" method="post"
-				class="col-md-4   my-3">
+			<form th:action="@{/logout}" method="post" class="col-md-4   my-3">
 				<div class="d-flex justify-content-center">
-					<a th:href="@{/addCategory}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-width" style="margin-left: 10px;">
+					<a th:href="@{/addCategory}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-width"
+						style="margin-left: 10px;">
 						Category
 					</a>
 					<a th:href="@{/register}" class="btn btn-width" style="margin-left: 10px;">Register</a>
-					<a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-width" style="margin-left: 10px;">Login</a>
+					<a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-width"
+						style="margin-left: 10px;">Login</a>
 
-					<input sec:authorize="isAuthenticated()" type="submit" value="Logout" class="btn btn-width" style="margin-left: 10px;" />
+					<input sec:authorize="isAuthenticated()" type="submit" value="Logout" class="btn btn-width"
+						style="margin-left: 10px;" />
 
 				</div>
 			</form>

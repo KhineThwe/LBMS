@@ -28,7 +28,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jp.library.Common;
-import com.jp.library.CustomUserDetails;
 import com.jp.library.dto.BookDto;
 import com.jp.library.entity.BookEntity;
 import com.jp.library.service.BookService;
@@ -43,7 +42,7 @@ import jakarta.validation.Valid;
 public class BookController {
 	@Value("${spring.servlet.multipart.max-file-size}")
 	private String maxFileSize;
-	
+
 	@Autowired
 	Common common;
 
@@ -324,6 +323,7 @@ public class BookController {
 	public String available(@PathVariable("id") String id) {
 		Optional<BookEntity> result = bookService.findById(id);
 		BookEntity b = result.get();
+		System.out.println(b.getBookId());
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

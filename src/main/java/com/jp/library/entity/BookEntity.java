@@ -121,6 +121,5 @@ public class BookEntity {
 				+ ", fileUpload=" + fileUpload + ", imageUpload=" + imageUpload + ", content="
 				+ Arrays.toString(content) + ", is_available=" + is_available + "]";
 	}
-	
 
 }

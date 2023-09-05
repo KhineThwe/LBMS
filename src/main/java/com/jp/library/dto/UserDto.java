@@ -2,7 +2,6 @@ package com.jp.library.dto;
 
 import com.jp.library.validator.ValidPhone;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
