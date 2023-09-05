@@ -40,7 +40,7 @@
 		resultType="com.jp.library.entity.BookEntity" resultMap="library">
 		SELECT * FROM book
 		  <where>
-            <if test="bookCategoryId != null and bookCategoryId != ''">
+            <if test="bookCategoryId != null and bookCategoryId != 'default'">
                 AND category_id = #{bookCategoryId}
             </if>
             <if test="bookAuthor != null and bookAuthor != ''">

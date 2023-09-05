@@ -1,5 +1,7 @@
 package com.jp.library.entity;
 
+import java.util.Arrays;
+
 import jakarta.persistence.Transient;
 import lombok.Data;
 
@@ -111,5 +113,14 @@ public class BookEntity {
 		return "/book-pdf/" + bookId + "/" + fileUpload;
 
 	}
+
+	@Override
+	public String toString() {
+		return "BookEntity [bookId=" + bookId + ", bookName=" + bookName + ", bookCategoryId=" + bookCategoryId
+				+ ", bookAuthor=" + bookAuthor + ", produceYear=" + produceYear + ", bookType=" + bookType
+				+ ", fileUpload=" + fileUpload + ", imageUpload=" + imageUpload + ", content="
+				+ Arrays.toString(content) + ", is_available=" + is_available + "]";
+	}
+	
 
 }

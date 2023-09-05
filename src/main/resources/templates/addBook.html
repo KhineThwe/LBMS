@@ -15,12 +15,13 @@
 
 	<div class="container parent">
 		<div class="row">
-			<div class="col-md-2"></div>
-			<div class="d-flex col-md-4 justify-content-center mt-5">
+			<div class="col-md-1 col-0"></div>
+			<div class="d-flex col-md-3 justify-content-center mt-5">
 				<img th:src="@{/img/library.png}" alt="library" class="img-custom mt-5" />
 			</div>
-			<div class="col-md-4">
-				<p class="px-5 ml-md-5 m-3 fw-bold title-custom mt-4">Add Book</p>
+			<div class="col-md-1 col-0"></div>
+			<div class="col-md-7">
+				<div class="d-flex justify-content-start px-5 ml-md-5 m-3 fw-bold title-custom mt-4">Add Book</div>
 				<form th:action="@{/addBook}" method="post" th:object="${book}" enctype="multipart/form-data">
 					<table>
 						<tbody>
@@ -170,9 +171,9 @@
 						</tbody>
 					</table>
 
-					<div class="d-flex justify-content-center">
-						<input class="add-button mt-3 mx-4" type="submit" value="Add Book" />
-						<a class="add-button mt-3 pt-2" th:href="@{/}">Cancel</a>
+					<div class="d-flex justify-content-start" style="margin-left: -20px;">
+						<input class="add-button" type="submit" value="Add Book" />
+						<a class="add-button cancle" th:href="@{/}">Cancel</a>
 					</div>
 				</form>
 			</div>

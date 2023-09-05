@@ -109,6 +109,11 @@ input:focus {
 	left: 35px;
 	top: 10px;
 }
+.cancle{
+	margin-left: 40px;
+	align-items: center;
+	line-height: 40px;
+}
 
 .img-custom {
 	width: 350px;

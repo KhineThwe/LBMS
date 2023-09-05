@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jp.library.Common;
 import com.jp.library.CustomUserDetails;
 import com.jp.library.dto.BookDto;
 import com.jp.library.entity.BookEntity;
@@ -42,6 +43,9 @@ import jakarta.validation.Valid;
 public class BookController {
 	@Value("${spring.servlet.multipart.max-file-size}")
 	private String maxFileSize;
+	
+	@Autowired
+	Common common;
 
 	@Autowired
 	BookService bookService;
@@ -61,15 +65,7 @@ public class BookController {
 		model.addAttribute("bookList", b);
 		model.addAttribute("filter", new BookEntity());
 		model.addAttribute("categories", categoryService.findAll());
-
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (!authentication.getPrincipal().equals("anonymousUser")) {
-			CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-			String username = userDetails.getEmail();
-			model.addAttribute("username", username);
-		} else {
-			model.addAttribute("username", "Anonymous User");
-		}
+		common.setUser(model);
 		return "index";
 	}
 
@@ -82,14 +78,7 @@ public class BookController {
 		model.addAttribute("bookList", b);
 		model.addAttribute("categories", categoryService.findAll());
 		model.addAttribute("filter", new BookEntity());
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (!authentication.getPrincipal().equals("anonymousUser")) {
-			CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-			String username = userDetails.getEmail();
-			model.addAttribute("username", username);
-		} else {
-			model.addAttribute("username", "Anonymous User");
-		}
+		common.setUser(model);
 		return "index";
 	}
 
@@ -102,14 +91,7 @@ public class BookController {
 		model.addAttribute("bookList", b);
 		model.addAttribute("categories", categoryService.findAll());
 		model.addAttribute("filter", new BookEntity());
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (!authentication.getPrincipal().equals("anonymousUser")) {
-			CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-			String username = userDetails.getEmail();
-			model.addAttribute("username", username);
-		} else {
-			model.addAttribute("username", "Anonymous User");
-		}
+		common.setUser(model);
 		return "index";
 	}
 
@@ -125,33 +107,20 @@ public class BookController {
 			model.addAttribute("nobook", "Book Not Found");
 		}
 		model.addAttribute("categories", categoryService.findAll());
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (!authentication.getPrincipal().equals("anonymousUser")) {
-			CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-			String username = userDetails.getEmail();
-			model.addAttribute("username", username);
-		} else {
-			model.addAttribute("username", "Anonymous User");
-		}
+		common.setUser(model);
 		return "index";
 	}
 
 	@PostMapping("/filter")
 	public String filter(@ModelAttribute("filter") BookEntity e, Model model) {
 		List<BookEntity> b = bookService.filter(e);
+		System.out.println(e.getBookCategoryId());
 		if (b.isEmpty()) {
 			model.addAttribute("nobook", "Book Not Found");
 		}
 		model.addAttribute("bookList", b);
 		model.addAttribute("categories", categoryService.findAll());
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (!authentication.getPrincipal().equals("anonymousUser")) {
-			CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-			String username = userDetails.getEmail();
-			model.addAttribute("username", username);
-		} else {
-			model.addAttribute("username", "Anonymous User");
-		}
+		common.setUser(model);
 		return "index";
 	}
 
@@ -302,7 +271,6 @@ public class BookController {
 					throw new IOException("Could not save uploaded File: " + fileName + "" + pdfName);
 				}
 			}
-
 			h.setImageUpload(fileName);
 		} else {
 			h.setImageUpload(be.get().getImageUpload());

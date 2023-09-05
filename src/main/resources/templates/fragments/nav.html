@@ -26,37 +26,27 @@
 				</div>
 			</div>
 			<!--Add Section!-->
-			<div class="col-md-4 d-flex text-center text-md-left mb-3 mb-md-0 align-items-center">
-				<div class="justify-content-md-start">
-					<a th:href="@{/books}" class="btn btn-width mr-md-3 mb-2 mb-md-0">Books</a>
-					<a th:href="@{/ebooks}" class="btn btn-width mr-md-3 mb-2 mb-md-0">EBooks</a>
-					<a th:href="@{/addBook}" sec:authorize="hasRole('ROLE_ADMIN')"
-						class="btn btn-width mb-2 mb-md-0">Add Book</a>
-					<a th:href="@{/myBookList}" sec:authorize="hasRole('ROLE_USER')"
-						class="btn btn-width mb-2 mb-md-0">MyBooks</a>
-				</div>
-			</div>
 			<div class="col-md-4">
-				<div class="row">
-					<div class="col-4 ">
-						<a th:href="@{/addCategory}" sec:authorize="hasRole('ROLE_ADMIN')"
-							class="col-4 btn btn-width btn-width-category ">Add
-							Category
-						</a>
-					</div>
-					<div class="col-3">
-						<a th:href="@{/register}" class="btn btn-width ">Register</a>
-					</div>
-					<div class="col-3">
-						<a sec:authorize="!isAuthenticated()" th:href="@{/login}"
-							class="btn btn-width mx-2 mb-2 mb-md-0">Login</a>
-						<form style="display: inline;" class="mx-2 mb-2 mb-md-0" sec:authorize="isAuthenticated()"
-							th:action="@{/logout}" method="post">
-							<input th:href="@{/login}" type="submit" value="Logout" class="btn btn-width" />
-						</form>
-					</div>
+				<div class="d-flex justify-content-center">
+					<a th:href="@{/books}" class="btn btn-width" style="margin-left: 10px;">Books</a>
+					<a th:href="@{/ebooks}" class="btn btn-width" style="margin-left: 10px;">EBooks</a>
+					<a th:href="@{/addBook}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-width " style="margin-left: 10px;">AddBook</a>
+					<a th:href="@{/myBookList}" sec:authorize="hasRole('ROLE_USER')" class="btn btn-width " style="margin-left: 10px;">MyBooks</a>
 				</div>
 			</div>
+			<form th:action="@{/logout}" method="post"
+				class="col-md-4   my-3">
+				<div class="d-flex justify-content-center">
+					<a th:href="@{/addCategory}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-width" style="margin-left: 10px;">
+						Category
+					</a>
+					<a th:href="@{/register}" class="btn btn-width" style="margin-left: 10px;">Register</a>
+					<a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-width" style="margin-left: 10px;">Login</a>
+
+					<input sec:authorize="isAuthenticated()" type="submit" value="Logout" class="btn btn-width" style="margin-left: 10px;" />
+
+				</div>
+			</form>
 		</div>
 	</nav>
 	<script th:src="@{js/bootstrap.bundle.min.js}"></script>

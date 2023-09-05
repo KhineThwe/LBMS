@@ -21,9 +21,6 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
 	@GetMapping("/login")
 	public String login() {
 		return "login";
@@ -52,7 +49,4 @@ public class LoginController {
 		return "redirect:/register?success";
 	}
 }
-//ui responsive only on index.html,add update pages
-//to do clean code in bookcontroller ****
-//search with only author,name and registration number doesn't work maybe query
-//and can't find with two,three except categoryId'
+//ui responsive only on index.html,add,update pages
