@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.jp.library.Common;
 import com.jp.library.entity.BookEntity;
 import com.jp.library.entity.MyBookList;
 import com.jp.library.service.BookService;
@@ -23,6 +24,9 @@ public class MyBookListController {
 
 	@Autowired
 	CategoryService categoryService;
+	
+	@Autowired
+	Common common;
 
 	@Autowired
 	MyBookService myBookService;
@@ -42,6 +46,7 @@ public class MyBookListController {
 		if (b.isEmpty()) {
 			model.addAttribute("nobook", "Book Not Found");
 		}
+		common.setUser(model);
 		model.addAttribute("bookList", b);
 		return "index";
 	}

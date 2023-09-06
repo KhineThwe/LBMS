@@ -323,7 +323,6 @@ public class BookController {
 	public String available(@PathVariable("id") String id) {
 		Optional<BookEntity> result = bookService.findById(id);
 		BookEntity b = result.get();
-		System.out.println(b.getBookId());
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
